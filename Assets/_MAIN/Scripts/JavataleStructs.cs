@@ -11,7 +11,7 @@ namespace Javatale.Prototype
 	{
 		//
 	}
-	public class ProjectileComponent : ComponentDataWrapper<Projectile> {}
+	// public class ProjectileComponent : ComponentDataWrapper<Projectile> {}
 
 	// BEE
 	public struct Bee : IComponentData
@@ -99,11 +99,9 @@ namespace Javatale.Prototype
 	public struct PlayerAttackSpawnData : IComponentData
 	{
 		public Position pos;
-		public Rotation rot;
 		public MoveDirection moveDir;
 		public FaceDirection faceDir;
-        public Parent parent;
-        public Projectile projectile;
+        public MoveSpeed moveSpeed;
         public int attackIndex;
 	}
 
@@ -123,6 +121,7 @@ namespace Javatale.Prototype
 	#region ========== ANIMATOR ==========
 
 	public struct AnimatorPlayerDirection : IComponentData {}
+	public struct AnimatorPlayerAttack : IComponentData {}
 	
 	#endregion
 }

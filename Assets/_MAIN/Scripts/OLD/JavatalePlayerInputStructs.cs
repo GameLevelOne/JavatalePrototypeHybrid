@@ -14,10 +14,10 @@ namespace Javatale.Prototype
 	// }
 	// public class PlayerInputDirectionComponent : ComponentDataWrapper<PlayerInputDirection> {}
     
-	//ATTACK
-	public struct PlayerInputAttack : IComponentData
-	{
-		public int Value;
-	}
-	public class PlayerInputAttackComponent : ComponentDataWrapper<PlayerInputAttack> {}
+	// //ATTACK
+	// public struct PlayerInputAttack : IComponentData
+	// {
+	// 	public int Value;
+	// }
+	// public class PlayerInputAttackComponent : ComponentDataWrapper<PlayerInputAttack> {}
 }

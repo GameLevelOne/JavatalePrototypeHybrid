@@ -15,7 +15,6 @@ namespace Javatale.Prototype
 			public readonly int Length;
 			[ReadOnlyAttribute] public EntityArray Entity;
 			public ComponentDataArray<Player> Player;
-			[ReadOnlyAttribute] public ComponentDataArray<FaceDirection> FaceDirection;
 			[ReadOnlyAttribute] public ComponentDataArray<AnimationPlayerIdleStand> AnimationPlayerIdle;
 			public ComponentArray<PlayerAnimatorComponent> PlayerAnimatorComponent;
 		}
@@ -28,7 +27,6 @@ namespace Javatale.Prototype
 			for (int i=0; i<data.Length; i++) {
 				Entity entity = data.Entity[i];
 				Player player = data.Player[i];
-				FaceDirection faceDir = data.FaceDirection[i];
 				PlayerAnimatorComponent playerAnimatorComponent = data.PlayerAnimatorComponent[i];
 
 				commandBuffer.RemoveComponent<AnimationPlayerIdleStand>(entity);

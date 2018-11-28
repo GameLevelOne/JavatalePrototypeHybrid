@@ -33,12 +33,12 @@ namespace Javatale.Prototype
 			public float dirZ;
 
 			public void Execute (
-				Entity entity,
-				int index,
+				[ReadOnlyAttribute] Entity entity,
+				[ReadOnlyAttribute] int index,
 				ref PlayerInputDirection playerInputDir,
 				ref MoveDirection moveDir,
 				ref FaceDirection faceDir,
-				ref Player player)
+				[ReadOnlyAttribute] ref Player player)
 			{
 				float3 currentDir = playerInputDir.Value;
 				float currentDirX = currentDir.x;

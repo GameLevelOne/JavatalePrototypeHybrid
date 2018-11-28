@@ -36,7 +36,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4681159023590028}
   - component: {fileID: 114539466256010724}
-  - component: {fileID: 114414686523999252}
   - component: {fileID: 114393901422425958}
   - component: {fileID: 95181263093997710}
   - component: {fileID: 114549278068720368}
@@ -105,20 +104,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationEvent: {fileID: 114549278068720368}
   entityGO: {fileID: 114539466256010724}
---- !u!114 &114414686523999252
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1340365128160268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 467e7512a58e7ec44a56e7b2c7cbaa11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PosIndex: 0
-  AnimIndex: 0
-  AnimStateIndex: 0
 --- !u!114 &114539466256010724
 MonoBehaviour:
   m_ObjectHideFlags: 1
