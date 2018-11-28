@@ -99,10 +99,10 @@ namespace Javatale.Prototype
 			BeeDirectionJob enemyAIDirJob = new BeeDirectionJob
 			{
                 deltaTime = Time.deltaTime,
-                minPatrolCooldown = GameManager.settings.enemyMinPatrolCooldown,
-                maxPatrolCooldown = GameManager.settings.enemyMaxPatrolCooldown,
-                minIdleCooldown = GameManager.settings.enemyMinIdleCooldown,
-                maxIdleCooldown = GameManager.settings.enemyMaxIdleCooldown,
+                // minPatrolCooldown = GameManager.settings.enemyMinPatrolCooldown,
+                // maxPatrolCooldown = GameManager.settings.enemyMaxPatrolCooldown,
+                // minIdleCooldown = GameManager.settings.enemyMinIdleCooldown,
+                // maxIdleCooldown = GameManager.settings.enemyMaxIdleCooldown,
                 vector3Zero = Vector3.zero
 			};
 

@@ -26,7 +26,7 @@ namespace Javatale.Prototype
 		protected override void OnUpdate () 
 		{
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
-			List<EntryAnimation> listAnim = GameManager.entitiesAnimation;
+			// List<EntryAnimation> listAnim = GameManager.entitiesAnimation;
 
 			for (int i=0; i<data.Length; i++)
 			{
@@ -37,7 +37,7 @@ namespace Javatale.Prototype
 				Parent parent = data.Parent[i];
 
 				int animIndex = parent.AnimIndex;
-				EntryAnimation entryAnim = listAnim[animIndex];
+				// EntryAnimation entryAnim = listAnim[animIndex];
 				
 				int beeStartAnimToggle = bee.StartAnimationToggle;
 				// int beeEndAnimToggle = bee.EndAnimationToggle;
@@ -58,10 +58,10 @@ namespace Javatale.Prototype
 					int dirIndex = faceDir.dirIndex;
 					float3 faceDirValue = faceDir.Value;
 					
-					entryAnim.DirIndex = dirIndex;
-					entryAnim.FaceDirValue = faceDirValue;
+					// entryAnim.DirIndex = dirIndex;
+					// entryAnim.FaceDirValue = faceDirValue;
 					
-					listAnim[animIndex] = entryAnim;
+					// listAnim[animIndex] = entryAnim;
 
 					bee.StartAnimationToggle = 0;
 					data.Bee[i] = bee;

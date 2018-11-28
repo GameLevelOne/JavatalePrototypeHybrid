@@ -7,6 +7,8 @@ namespace Javatale.Prototype
 {
     public class PlayerAttackSlashBarrier : BarrierSystem {}
 
+    public class PlayerAnimationSetBarrier : BarrierSystem {}
+
     public class JavataleSettings : MonoBehaviour
     {
         [HeaderAttribute("Attributes")]

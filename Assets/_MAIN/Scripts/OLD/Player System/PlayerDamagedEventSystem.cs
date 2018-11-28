@@ -24,7 +24,7 @@ namespace Javatale.Prototype
 		protected override void OnUpdate () 
 		{
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
-			List<Entity> entitiesInGame = GameManager.entitiesInGame;
+			// List<Entity> entitiesInGame = GameManager.entitiesInGame;
 
 			for (int i=0; i<data.Length; i++) 
 			{
@@ -42,7 +42,7 @@ namespace Javatale.Prototype
 				GameObject.Destroy(damagedEventComponent);
                 UpdateInjectedComponentGroups();
 
-				commandBuffer.AddComponent(entitiesInGame[childEntityIndex], new DamagedData { Value = damageValue, Type = damageType });
+				// commandBuffer.AddComponent(entitiesInGame[childEntityIndex], new DamagedData { Value = damageValue, Type = damageType });
 
 				playerColliderComponent.isCheckOnDamaged = false;
 			}

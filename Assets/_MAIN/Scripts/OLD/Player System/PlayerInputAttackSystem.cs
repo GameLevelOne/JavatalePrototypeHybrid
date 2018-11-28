@@ -62,9 +62,9 @@ namespace Javatale.Prototype
             PlayerInputAttackJob playerInputAttackJob = new PlayerInputAttackJob
             {
                 isAttackPressed = GameInput.IsAttackPressed,
-                worldToCameraRotation = GameManager.settings.worldToCameraRotation,
+                // worldToCameraRotation = GameManager.settings.worldToCameraRotation,
                 commandBuffer = playerAttackSlashBarrier.CreateCommandBuffer(),
-                playerAttackArchetype = GameManager.playerAttackArchetype 
+                // playerAttackArchetype = GameManager.playerAttackArchetype 
             };
 
             JobHandle playerInputAttackHandle = playerInputAttackJob.Schedule(this, inputDeps);

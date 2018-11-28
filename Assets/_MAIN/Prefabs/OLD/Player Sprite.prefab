@@ -164,8 +164,8 @@ MonoBehaviour:
   isFinishAttackAnimation: 1
   isCheckOnStartAnimation: 0
   isCheckOnSpawnSomethingOnAnimation: 0
-  isCheckOnEndSpecificAnimation: 0
-  isCheckOnEndAnimation: 0
+  isCheckOnEndAttackAnimation: 0
+  isCheckOnEndAllAnimation: 0
 --- !u!114 &114464707782508466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colliderEvent: {fileID: 114588310170708896}
   entityGO: {fileID: 114560925217324048}
-  isInitDamaged: 0
+  isCheckOnDamaged: 0
 --- !u!114 &114703247230076632
 MonoBehaviour:
   m_ObjectHideFlags: 1

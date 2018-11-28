@@ -26,7 +26,7 @@ namespace Javatale.Prototype
 		{
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
             
-			int maxPlayerAttackIndex = GameManager.settings.maxPlayerAttackIndex;
+			// int maxPlayerAttackIndex = GameManager.settings.maxPlayerAttackIndex;
 
 			for (int i=0; i<data.Length; i++)
 			{
@@ -45,8 +45,8 @@ namespace Javatale.Prototype
                         commandBuffer.AddComponent(entity, new PlayerInputDirection{});
                         commandBuffer.AddComponent(entity, new PlayerInputAttack{});
 
-                        int attackIndex = player.AttackIndex >= maxPlayerAttackIndex ? 0 : player.AttackIndex+1;
-                        player.AttackIndex = attackIndex;
+                        // int attackIndex = player.AttackIndex >= maxPlayerAttackIndex ? 0 : player.AttackIndex+1;
+                        // player.AttackIndex = attackIndex;
                         player.AnimationToggleValue = 0;
                         data.Player[i] = player;
                         

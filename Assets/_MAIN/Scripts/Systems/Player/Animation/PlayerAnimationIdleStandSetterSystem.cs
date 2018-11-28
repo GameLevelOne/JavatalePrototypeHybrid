@@ -1,12 +1,13 @@
-using Unity.Collections;
+﻿using Unity.Collections;
 using Unity.Entities;
 // using UnityEngine;
 using Unity.Burst;
 // using Unity.Mathematics;
+// using System.Collections.Generic;
 
 namespace Javatale.Prototype 
 {
-	public class PlayerAnimationMoveRunSetterSystem : ComponentSystem 
+	public class PlayerAnimationIdleStandSetterSystem : ComponentSystem 
 	{
         [BurstCompileAttribute]
 		public struct Data
@@ -15,7 +16,7 @@ namespace Javatale.Prototype
 			[ReadOnlyAttribute] public EntityArray Entity;
 			public ComponentDataArray<Player> Player;
 			[ReadOnlyAttribute] public ComponentDataArray<FaceDirection> FaceDirection;
-			[ReadOnlyAttribute] public ComponentDataArray<AnimationPlayerMoveRun> AnimationPlayerRun;
+			[ReadOnlyAttribute] public ComponentDataArray<AnimationPlayerIdleStand> AnimationPlayerIdle;
 			public ComponentArray<PlayerAnimatorComponent> PlayerAnimatorComponent;
 		}
 		[InjectAttribute] private Data data;
@@ -30,15 +31,15 @@ namespace Javatale.Prototype
 				FaceDirection faceDir = data.FaceDirection[i];
 				PlayerAnimatorComponent playerAnimatorComponent = data.PlayerAnimatorComponent[i];
 
-				commandBuffer.RemoveComponent<AnimationPlayerMoveRun>(entity);
+				commandBuffer.RemoveComponent<AnimationPlayerIdleStand>(entity);
                 
-				PlayerAnimationState state = PlayerAnimationState.MOVE_RUN;
+				PlayerAnimationState state = PlayerAnimationState.IDLE_STAND;
 
 				playerAnimatorComponent.currentState = state;
 				playerAnimatorComponent.animator.Play(state.ToString());
 
 				//SET TO PLAYER	
-				player.AttackIndex = 0;		
+				player.AttackIndex = 0;	
 				player.State = state;
 				data.Player[i] = player;
 
@@ -46,11 +47,11 @@ namespace Javatale.Prototype
 				//SET LIST ANIMATION
 				// int animIndex = parent.AnimIndex;
 				// EntryAnimation entryAnim = listAnim[animIndex];
-				// entryAnim.StartAnimationToggle = 2;
+				// entryAnim.StartAnimationToggle = 1;
 				// listAnim[animIndex] = entryAnim;
 				
 				//SET LIST PLAYER ANIMATION STATE
-				// PlayerAnimationState state = PlayerAnimationState.MOVE_RUN;
+				// PlayerAnimationState state = PlayerAnimationState.IDLE_STAND;
 				// int playerAnimStateIndex = player.AnimStateIndex;
 				// listPlayerAnimState[playerAnimStateIndex] = state;
 #endregion

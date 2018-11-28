@@ -24,9 +24,8 @@ namespace Javatale.Prototype
 		protected override void OnUpdate () 
 		{
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
-			List<EntryAnimation> listAnim = GameManager.entitiesAnimation;
-            // List<EntryPlayerAnim> listAnim = GameManager.entitiesPlayerAnim;
-			List<PlayerAnimationState> listPlayerAnimState = GameManager.entitiesPlayerAnimState;
+			// List<EntryAnimation> listAnim = GameManager.entitiesAnimation;
+			// List<PlayerAnimationState> listPlayerAnimState = GameManager.entitiesPlayerAnimState;
 
 			for (int i=0; i<parentData.Length; i++) {
 				Entity animEntity = parentData.AnimationIdleEntities[i];
@@ -38,19 +37,17 @@ namespace Javatale.Prototype
                 
 				//SET LIST ANIMATION
 				int animIndex = parent.AnimIndex;
-				EntryAnimation entryAnim = listAnim[animIndex];
-				entryAnim.StartAnimationToggle = 41;
+				// EntryAnimation entryAnim = listAnim[animIndex];
+				// entryAnim.StartAnimationToggle = 41;
 
-				listAnim[animIndex] = entryAnim;
+				// listAnim[animIndex] = entryAnim;
 				
 				//SET LIST PLAYER ANIMATION STATE
 				PlayerAnimationState state = PlayerAnimationState.HIT_HURT;
 
 				int playerAnimStateIndex = player.AnimStateIndex;
-				// EntryPlayerAnimState entryPlayerAnimState = listPlayerAnimState[playerAnimStateIndex];
-				// entryPlayerAnimState.State = state;
 
-				listPlayerAnimState[playerAnimStateIndex] = state;
+				// listPlayerAnimState[playerAnimStateIndex] = state;
 
 				//SET TO PLAYER (PARENT)	
                 player.AnimationToggleValue = 0; // INTERUPT ATTACK

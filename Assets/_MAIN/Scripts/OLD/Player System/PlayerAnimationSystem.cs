@@ -29,8 +29,7 @@ namespace Javatale.Prototype
 		protected override void OnUpdate () 
 		{
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
-			List<EntryAnimation> listAnim = GameManager.entitiesAnimation;
-            // List<EntryPlayerAnim> listAnim = GameManager.entitiesPlayerAnim;
+			// List<EntryAnimation> listAnim = GameManager.entitiesAnimation;
 
 			for (int i=0; i<data.Length; i++)
 			{
@@ -41,7 +40,7 @@ namespace Javatale.Prototype
 				Parent parent = data.Parent[i];
 
 				int animIndex = parent.AnimIndex;
-				EntryAnimation entryAnim = listAnim[animIndex];
+				// EntryAnimation entryAnim = listAnim[animIndex];
 				
 				int playerStartAnimToggle = player.StartAnimationToggle;
 
@@ -92,14 +91,10 @@ namespace Javatale.Prototype
 					float3 faceDirValue = faceDir.Value;
 					
 					//SET LIST
-					// int endAnimToggle = listAnim[animIndex].EndAnimationToggle;
-					entryAnim.DirIndex = dirIndex;
-					entryAnim.FaceDirValue = faceDirValue;
-					// entryPlayerAnim.State = state;
-					// entryPlayerAnim.StartAnimationToggle = 0;
-
-					// listAnim[animIndex] = new EntryPlayerAnim(dirIndex, faceDirValue, state, 0, endAnimToggle);
-					listAnim[animIndex] = entryAnim;	
+					// entryAnim.DirIndex = dirIndex;
+					// entryAnim.FaceDirValue = faceDirValue;
+					
+					// listAnim[animIndex] = entryAnim;	
 
 					//SET TO PLAYER (PARENT)						
 					player.StartAnimationToggle = 0;

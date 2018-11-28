@@ -25,7 +25,7 @@ namespace Javatale.Prototype
 		protected override void OnUpdate () 
 		{
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
-			List<Entity> entitiesInGame = GameManager.entitiesInGame;
+			// List<Entity> entitiesInGame = GameManager.entitiesInGame;
 
 			for (int i=0; i<data.Length; i++)
 			{
@@ -41,7 +41,7 @@ namespace Javatale.Prototype
 				GameObject.Destroy(endAttackAnimationEventComponent);
                 UpdateInjectedComponentGroups();
 
-				commandBuffer.AddComponent(entitiesInGame[entityIndex], new EndAttackAnimationData{ Value = endAnimValue });
+				// commandBuffer.AddComponent(entitiesInGame[entityIndex], new EndAttackAnimationData{ Value = endAnimValue });
 
                 playerAnimatorComponent.isCheckOnEndAttackAnimation = false;
             }

@@ -24,8 +24,8 @@ namespace Javatale.Prototype
 		protected override void OnUpdate () 
 		{
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
-			List<EntryAnimation> listAnim = GameManager.entitiesAnimation;
-			List<BeeAnimationState> listBeeAnimState = GameManager.entitiesBeeAnimState;
+			// List<EntryAnimation> listAnim = GameManager.entitiesAnimation;
+			// List<BeeAnimationState> listBeeAnimState = GameManager.entitiesBeeAnimState;
 
 			for (int i=0; i<parentData.Length; i++) {
 				Entity animEntity = parentData.AnimationIdleEntities[i];
@@ -37,22 +37,19 @@ namespace Javatale.Prototype
                 
 				//SET LIST ANIMATION
 				int animIndex = parent.AnimIndex;
-				EntryAnimation entryAnim = listAnim[animIndex];
-				entryAnim.StartAnimationToggle = 2;
+				// EntryAnimation entryAnim = listAnim[animIndex];
+				// entryAnim.StartAnimationToggle = 2;
 
-				listAnim[animIndex] = entryAnim;
+				// listAnim[animIndex] = entryAnim;
 				
 				//SET LIST BEE ANIMATION STATE
 				BeeAnimationState state = BeeAnimationState.MOVE_FLY;
 
 				int beeAnimStateIndex = bee.AnimStateIndex;
-				// EntryBeeAnimState entryBeeAnimState = listBeeAnimState[beeAnimStateIndex];
-				// entryBeeAnimState.State = state;
 
-				listBeeAnimState[beeAnimStateIndex] = state;
+				// listBeeAnimState[beeAnimStateIndex] = state;
 
 				//SET TO BEE (PARENT)	
-				// bee.AttackIndex = 0;	
 				bee.State = state;
 				parentData.Bee[i] = bee;
 			}

@@ -7,12 +7,12 @@ using System.Collections.Generic;
 
 namespace Javatale.Prototype 
 {
-	//DIRECTION
-	public struct PlayerInputDirection : IComponentData
-	{
-		public Vector3 Value;
-	}
-	public class PlayerInputDirectionComponent : ComponentDataWrapper<PlayerInputDirection> {}
+	// //DIRECTION
+	// public struct PlayerInputDirection : IComponentData
+	// {
+	// 	public Vector3 Value;
+	// }
+	// public class PlayerInputDirectionComponent : ComponentDataWrapper<PlayerInputDirection> {}
     
 	//ATTACK
 	public struct PlayerInputAttack : IComponentData

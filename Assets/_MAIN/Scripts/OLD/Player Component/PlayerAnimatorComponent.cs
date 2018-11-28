@@ -1,13 +1,12 @@
-﻿// using System.Collections.Generic;
-using Unity.Entities;
+﻿using Unity.Entities;
 using UnityEngine;
-// using Unity.Transforms;
 using Unity.Mathematics;
 
 namespace Javatale.Prototype
 {
 	public class PlayerAnimatorComponent : MonoBehaviour 
 	{
+		[HeaderAttribute("References")]
 		public GameObjectEntity entityGO;
 		public Animator animator;
 		public AnimationEvent animationEvent;
@@ -18,8 +17,8 @@ namespace Javatale.Prototype
 		public float3 currentFaceDirValue;
 		
 		[SpaceAttribute(10f)]
-		public bool isFinishAnyAnimation = true;
-		public bool isFinishAttackAnimation = true;
+		// public bool isFinishAnyAnimation = true;
+		// public bool isFinishAttackAnimation = true;
 		public bool isCheckOnStartAnimation = false;
 		public bool isCheckOnSpawnSomethingOnAnimation = false;
 		public bool isCheckOnEndAttackAnimation = false;

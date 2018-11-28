@@ -5,37 +5,7 @@ using Unity.Mathematics;
 
 namespace Javatale.Prototype 
 {
-#region ==========TAG==========
-
-	public struct Player : IComponentData
-	{
-		public int AnimStateIndex;
-
-		[HeaderAttribute("Current")]
-		public PlayerAnimationState State;
-
-		/// <summary>
-		/// <para>Values: <br /></para>
-		/// <para>0 OFF<br /></para>
-		/// <para>1 Idle Stand<br /></para>
-		/// <para>2 Idle Run<br /></para>
-		/// <para>21 Attack 1<br /></para>
-		/// <para>22 Attack 2<br /></para>
-		/// <para>41 Normal Hit<br /></para>
-		/// </summary>
-		public int StartAnimationToggle;
-		// public int EndAnimationToggle;
-		public int AnimationToggleValue;
-		
-		/// <summary>
-		/// <para>Values: <br /></para>
-		/// <para>0 Attack 1<br /></para>
-		/// <para>1 Attack 2<br /></para>
-		/// <para>2 Attack 3<br /></para>
-		/// </summary>
-		public int AttackIndex;
-	}
-	public class PlayerComponent : ComponentDataWrapper<Player> {}
+#region ========== TAG ==========
 
 	public struct Projectile : IComponentData
 	{
@@ -61,7 +31,7 @@ namespace Javatale.Prototype
 
 #endregion
 
-#region ==========LIST==========
+#region ========== LIST ==========
 
 	public struct EntryAnimation 
     {
@@ -100,7 +70,7 @@ namespace Javatale.Prototype
 
 #endregion
 
-#region ==========ANIMATION EVENT DATA==========
+#region ========== ANIMATION EVENT DATA ==========
 
 	public struct StartAnimationData : IComponentData
 	{
@@ -124,7 +94,7 @@ namespace Javatale.Prototype
 
 #endregion
 	
-#region ==========DATA==========
+#region ========== DATA ==========
 
 	public struct PlayerAttackSpawnData : IComponentData
 	{
@@ -150,4 +120,9 @@ namespace Javatale.Prototype
 
 #endregion
 
+	#region ========== ANIMATOR ==========
+
+	public struct AnimatorPlayerDirection : IComponentData {}
+	
+	#endregion
 }
