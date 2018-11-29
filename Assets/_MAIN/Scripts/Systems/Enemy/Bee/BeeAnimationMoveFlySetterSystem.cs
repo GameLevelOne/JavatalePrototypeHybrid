@@ -36,7 +36,7 @@ namespace Javatale.Prototype
 				commandBuffer.RemoveComponent<AnimationBeeMoveFly>(animEntity);
                 
 				//SET LIST ANIMATION
-				int animIndex = parent.AnimIndex;
+				// int animIndex = parent.AnimIndex;
 				// EntryAnimation entryAnim = listAnim[animIndex];
 				// entryAnim.StartAnimationToggle = 2;
 
@@ -45,7 +45,7 @@ namespace Javatale.Prototype
 				//SET LIST BEE ANIMATION STATE
 				BeeAnimationState state = BeeAnimationState.MOVE_FLY;
 
-				int beeAnimStateIndex = bee.AnimStateIndex;
+				// int beeAnimStateIndex = bee.AnimStateIndex;
 
 				// listBeeAnimState[beeAnimStateIndex] = state;
 

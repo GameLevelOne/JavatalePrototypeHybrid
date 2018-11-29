@@ -29,7 +29,7 @@ namespace Javatale.Prototype
 			animationEvent.OnStartAnimation += OnStartAnimation;
 			animationEvent.OnSpawnSomethingOnAnimation += OnSpawnSomethingOnAnimation;
 			animationEvent.OnEndAttackAnimation += OnEndAttackAnimation;
-			animationEvent.OnEndAnimation += OnEndAnimation;
+			animationEvent.OnEndAnimation += OnEndAllAnimation;
 		}
 
 		void OnDisable ()
@@ -37,7 +37,7 @@ namespace Javatale.Prototype
 			animationEvent.OnStartAnimation -= OnStartAnimation;
 			animationEvent.OnSpawnSomethingOnAnimation -= OnSpawnSomethingOnAnimation;
 			animationEvent.OnEndAttackAnimation -= OnEndAttackAnimation;
-			animationEvent.OnEndAnimation -= OnEndAnimation;
+			animationEvent.OnEndAnimation -= OnEndAllAnimation;
 		}
 
 		void OnStartAnimation ()
@@ -76,7 +76,7 @@ namespace Javatale.Prototype
 			}
 		}
 
-		void OnEndAnimation ()
+		void OnEndAllAnimation ()
 		{
 			if (!isCheckOnEndAllAnimation) 
 			{

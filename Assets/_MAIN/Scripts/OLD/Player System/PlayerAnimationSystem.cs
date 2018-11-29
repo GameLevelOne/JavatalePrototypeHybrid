@@ -39,7 +39,7 @@ namespace Javatale.Prototype
 				FaceDirection faceDir = data.FaceDirection[i];
 				Parent parent = data.Parent[i];
 
-				int animIndex = parent.AnimIndex;
+				// int animIndex = parent.AnimIndex;
 				// EntryAnimation entryAnim = listAnim[animIndex];
 				
 				int playerStartAnimToggle = player.StartAnimationToggle;

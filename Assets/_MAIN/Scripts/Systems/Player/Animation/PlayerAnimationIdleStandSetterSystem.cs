@@ -14,8 +14,7 @@ namespace Javatale.Prototype
 		{
 			public readonly int Length;
 			[ReadOnlyAttribute] public EntityArray Entity;
-			public ComponentDataArray<Player> Player;
-			[ReadOnlyAttribute] public ComponentDataArray<AnimationPlayerIdleStand> AnimationPlayerIdle;
+			[ReadOnlyAttribute] public ComponentDataArray<AnimationPlayerIdleStand> AnimationPlayerIdleStand;
 			public ComponentArray<PlayerAnimatorComponent> PlayerAnimatorComponent;
 		}
 		[InjectAttribute] private Data data;
@@ -26,7 +25,7 @@ namespace Javatale.Prototype
 
 			for (int i=0; i<data.Length; i++) {
 				Entity entity = data.Entity[i];
-				Player player = data.Player[i];
+				// Player player = data.Player[i];
 				PlayerAnimatorComponent playerAnimatorComponent = data.PlayerAnimatorComponent[i];
 
 				commandBuffer.RemoveComponent<AnimationPlayerIdleStand>(entity);
@@ -36,10 +35,10 @@ namespace Javatale.Prototype
 				playerAnimatorComponent.currentState = state;
 				playerAnimatorComponent.animator.Play(state.ToString());
 
-				//SET TO PLAYER	
-				player.AttackIndex = 0;	
-				player.State = state;
-				data.Player[i] = player;
+				// //SET TO PLAYER	
+				// player.AttackIndex = 0;	
+				// player.State = state;
+				// data.Player[i] = player;
 
 #region LIST (OLD)
 				//SET LIST ANIMATION

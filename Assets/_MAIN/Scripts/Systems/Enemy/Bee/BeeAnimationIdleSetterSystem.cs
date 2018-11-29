@@ -36,7 +36,7 @@ namespace Javatale.Prototype
 				commandBuffer.RemoveComponent<AnimationBeeIdleFly>(animEntity);
                 
 				//SET LIST ANIMATION
-				int animIndex = parent.AnimIndex;
+				// int animIndex = parent.AnimIndex;
 				// EntryAnimation entryAnim = listAnim[animIndex];
 				// entryAnim.StartAnimationToggle = 1;
 

@@ -1,10 +1,11 @@
-﻿using Unity.Collections;
+﻿// using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
 // using Unity.Rendering;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 namespace Javatale.Prototype 
 {
@@ -15,6 +16,11 @@ namespace Javatale.Prototype
 		public static EntityArchetype playerAttackArchetype;
 
 		public static JavataleSettings settings;
+
+		#region Universal Lists
+		public static List<Entity> parentEntitiesInGame;
+		public static List<Entity> childEntitiesInGame;
+		#endregion
 
 		[RuntimeInitializeOnLoadMethodAttribute(RuntimeInitializeLoadType.BeforeSceneLoad)]
 		public static void Initialize () 
@@ -28,7 +34,6 @@ namespace Javatale.Prototype
 				typeof(MoveDirection),
 				typeof(FaceDirection),
 				typeof(MoveSpeed),
-				typeof(Parent),
 				typeof(PlayerInputDirection),
 				typeof(PlayerInputAttack)
 			);
@@ -39,18 +44,22 @@ namespace Javatale.Prototype
 				typeof(Rotation),
 				typeof(MoveDirection),
 				typeof(FaceDirection),
-				typeof(MoveSpeed),
-				typeof(Parent)
+				typeof(MoveSpeed)
 			);
 
 			playerAttackArchetype = manager.CreateArchetype(
 				typeof(PlayerAttackSpawnData)
 			);
+
+			
+			parentEntitiesInGame = new List<Entity>();
+			childEntitiesInGame = new List<Entity>();
 		}
 
 		public static void NewGame () 
 		{
 			GameDebug.Log("NEW GAME");
+			AddPlayer();
 		}
 
 		[RuntimeInitializeOnLoadMethodAttribute(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -89,6 +98,32 @@ namespace Javatale.Prototype
 		static void OnSceneLoaded (Scene scene, LoadSceneMode loadSceneMode)
 		{
 			InitializeWithScene();
+		}
+
+		static void AddPlayer ()
+		{
+			EntityManager manager = World.Active.GetOrCreateManager<EntityManager>();
+
+			GameObject playerPrefab = settings.playerPrefab;
+			float3 float3Zero = float3.zero;
+
+			// PARENT
+			GameObject playerGO = GameObjectEntity.Instantiate(playerPrefab);
+			Entity playerEntity = playerGO.GetComponent<GameObjectEntity>().Entity;
+
+			parentEntitiesInGame.Add(playerEntity);
+			int currentParentEntityIndex = parentEntitiesInGame.Count-1;
+
+			manager.SetComponentData(playerEntity, new Parent { EntityIndex = currentParentEntityIndex });
+
+			// CHILD
+			ChildComponent childComponent = playerGO.GetComponentInChildren<ChildComponent>();
+			Entity playerChildEntity = childComponent.GetComponent<GameObjectEntity>().Entity;
+
+			childEntitiesInGame.Add(playerChildEntity);
+			int currentChildEntityIndex = childEntitiesInGame.Count-1;
+
+			childComponent.EntityIndex = currentChildEntityIndex;
 		}
 	}
 }

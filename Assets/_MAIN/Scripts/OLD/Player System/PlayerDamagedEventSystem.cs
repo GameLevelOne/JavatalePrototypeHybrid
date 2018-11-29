@@ -15,7 +15,7 @@ namespace Javatale.Prototype
 		{
 			public readonly int Length;
 			[ReadOnlyAttribute] public EntityArray Entities;
-			[ReadOnlyAttribute] public ComponentArray<ChildComponent> Child;
+			// [ReadOnlyAttribute] public ComponentArray<ChildComponent> Child;
             [ReadOnlyAttribute] public ComponentArray<PlayerColliderComponent> PlayerColliderComponent;
             public ComponentArray<DamagedEventComponent> DamagedEventComponent;
 		}
@@ -29,11 +29,11 @@ namespace Javatale.Prototype
 			for (int i=0; i<data.Length; i++) 
 			{
 				Entity entity = data.Entities[i];
-				ChildComponent child = data.Child[i];
+				// ChildComponent child = data.Child[i];
 				PlayerColliderComponent playerColliderComponent = data.PlayerColliderComponent[i];
 				DamagedEventComponent damagedEventComponent = data.DamagedEventComponent[i];
                 
-				int childEntityIndex = child.EntityIndex;
+				// int childEntityIndex = child.EntityIndex;
 				EntryDamage entryDamage = damagedEventComponent.entryDamage;
 				float damageValue = entryDamage.Value;
 				int damageType = entryDamage.Type;

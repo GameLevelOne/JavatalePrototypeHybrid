@@ -8,8 +8,6 @@ namespace Javatale.Prototype
 	public struct Parent : IComponentData 
 	{
 		public int EntityIndex;
-		public int PosIndex;
-		public int AnimIndex;
 	}
 
 	public class ParentComponent : ComponentDataWrapper<Parent> {}

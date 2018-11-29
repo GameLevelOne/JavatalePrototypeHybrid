@@ -3,8 +3,9 @@ using Unity.Entities;
 using Unity.Jobs;
 using Unity.Mathematics;
 // using Unity.Transforms;
-using UnityEngine;
+// using UnityEngine;
 // using Unity.Burst;
+using System.Collections.Generic;
 
 namespace Javatale.Prototype 
 {
@@ -13,9 +14,11 @@ namespace Javatale.Prototype
         [InjectAttribute] private PlayerAnimationSetBarrier playerAnimationSetBarrier;
 
 		// [BurstCompileAttribute]
-		struct PlayerInputDirectionJob : IJobProcessComponentDataWithEntity <PlayerInputDirection, MoveDirection, FaceDirection, Player>
+		struct PlayerInputDirectionJob : IJobProcessComponentData <PlayerInputDirection, MoveDirection, FaceDirection, Parent>
 		{
             [ReadOnlyAttribute] public EntityCommandBuffer commandBuffer;
+
+			// public List<Entity> childEntitiesInGame;
 
 			public bool isUpDirectionHeld;
 			public bool isDownDirectionHeld;
@@ -33,12 +36,10 @@ namespace Javatale.Prototype
 			public float dirZ;
 
 			public void Execute (
-				[ReadOnlyAttribute] Entity entity,
-				[ReadOnlyAttribute] int index,
 				ref PlayerInputDirection playerInputDir,
 				ref MoveDirection moveDir,
 				ref FaceDirection faceDir,
-				[ReadOnlyAttribute] ref Player player)
+				[ReadOnlyAttribute] ref Parent parent)
 			{
 				float3 currentDir = playerInputDir.Value;
 				float currentDirX = currentDir.x;
@@ -101,17 +102,21 @@ namespace Javatale.Prototype
 						faceDir.Value = float3Right;
 					}
 
+					int parentEntityIndex = parent.EntityIndex;
+
+                    List<Entity> childEntitiesInGame = GameManager.childEntitiesInGame;
+
 					if (dirX != 0f || dirZ != 0f) 
 					{
 						// faceDir.Value = direction;
 						// player.StartAnimationToggle = 2;
-                   	 	commandBuffer.AddComponent(entity, new AnimationPlayerMoveRun());
-                   	 	commandBuffer.AddComponent(entity, new AnimatorPlayerDirection());
+                   	 	commandBuffer.AddComponent(childEntitiesInGame[parentEntityIndex], new AnimationPlayerMoveRun());
+                   	 	commandBuffer.AddComponent(childEntitiesInGame[parentEntityIndex], new AnimatorPlayerDirection { dirIndex = faceDir.dirIndex, dirValue = faceDir.Value });
 					} 
 					else 
 					{
 						// player.StartAnimationToggle = 1;
-                   	 	commandBuffer.AddComponent(entity, new AnimationPlayerIdleStand());
+                   	 	commandBuffer.AddComponent(childEntitiesInGame[parentEntityIndex], new AnimationPlayerIdleStand());
 					}
 
 					float3 direction = new float3 (dirX, 0f, dirZ);
@@ -127,6 +132,7 @@ namespace Javatale.Prototype
 			PlayerInputDirectionJob playerInputDirectionJob = new PlayerInputDirectionJob
 			{
                 commandBuffer = playerAnimationSetBarrier.CreateCommandBuffer(),
+				// childEntitiesInGame = GameManager.childEntitiesInGame,
 
 				isUpDirectionHeld = GameInput.IsUpDirectionHeld,
 				isDownDirectionHeld = GameInput.IsDownDirectionHeld,

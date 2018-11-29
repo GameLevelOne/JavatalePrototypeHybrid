@@ -36,7 +36,7 @@ namespace Javatale.Prototype
 				commandBuffer.RemoveComponent<AnimationPlayerHitHurt>(animEntity);
                 
 				//SET LIST ANIMATION
-				int animIndex = parent.AnimIndex;
+				// int animIndex = parent.AnimIndex;
 				// EntryAnimation entryAnim = listAnim[animIndex];
 				// entryAnim.StartAnimationToggle = 41;
 

@@ -2,9 +2,10 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Transforms;
-using UnityEngine;
-// using Unity.Burst;
 using Unity.Mathematics;
+// using UnityEngine;
+// using Unity.Burst;
+using System.Collections.Generic;
 
 namespace Javatale.Prototype
 {
@@ -13,10 +14,12 @@ namespace Javatale.Prototype
         [InjectAttribute] private PlayerAttackSlashBarrier playerAttackSlashBarrier;
 
         // [BurstCompileAttribute]
-        struct PlayerInputAttackJob : IJobProcessComponentDataWithEntity <PlayerInputAttack, Position, FaceDirection, Player>
+        struct PlayerInputAttackJob : IJobProcessComponentData <PlayerInputAttack, Position, FaceDirection, Parent>
         {
             [ReadOnlyAttribute] public EntityCommandBuffer commandBuffer;
-            public EntityArchetype playerAttackArchetype;
+            // public EntityArchetype playerAttackArchetype;
+
+			// public List<Entity> childEntitiesInGame;
 
             public bool isAttackPressed;
             // public Vector3 worldToCameraRotation;
@@ -26,12 +29,10 @@ namespace Javatale.Prototype
             PlayerAttackSpawnData playerAttackSpawnData; 
 
             public void Execute (
-				[ReadOnlyAttribute] Entity entity,
-				[ReadOnlyAttribute] int index,
-                [ReadOnlyAttribute] ref PlayerInputAttack playerInputAttack,
+                ref PlayerInputAttack playerInputAttack,
 				[ReadOnlyAttribute] ref Position pos,
 				[ReadOnlyAttribute] ref FaceDirection faceDir,
-                [ReadOnlyAttribute] ref Player player)
+                [ReadOnlyAttribute] ref Parent parent)
             {
                 // SLASH ATTACK
                 if (isAttackPressed) {
@@ -51,7 +52,7 @@ namespace Javatale.Prototype
                     { 
                         Value = 0f
                     };
-                    playerAttackSpawnData.attackIndex = player.AttackIndex;
+                    // playerAttackSpawnData.attackIndex = player.AttackIndex;
 
                     // commandBuffer.CreateEntity(playerAttackArchetype);
                     // commandBuffer.SetComponent(playerAttackSpawnData);
@@ -59,23 +60,28 @@ namespace Javatale.Prototype
                     // player.AttackIndex++;
 					// player.StartAnimationToggle = 21 + player.AttackIndex;
 
+                    int parentEntityIndex = parent.EntityIndex;
                     int attackIndex = playerInputAttack.Value;
+
+                    List<Entity> childEntitiesInGame = GameManager.childEntitiesInGame;
 
                     switch (attackIndex)
                     {
                         case 0:
-                            commandBuffer.AddComponent(entity, new AnimationPlayerAttack1());
+                            commandBuffer.AddComponent(childEntitiesInGame[parentEntityIndex], new AnimationPlayerAttack1());
+                            attackIndex = 1;
                             break;
                         case 1:
-                            commandBuffer.AddComponent(entity, new AnimationPlayerAttack2());
+                            commandBuffer.AddComponent(childEntitiesInGame[parentEntityIndex], new AnimationPlayerAttack2());
+                            attackIndex = 2;
                             break;
                         case 2:
-                            commandBuffer.AddComponent(entity, new AnimationPlayerAttack3());
-                            playerInputAttack.Value = -1;
+                            commandBuffer.AddComponent(childEntitiesInGame[parentEntityIndex], new AnimationPlayerAttack3());
+                            attackIndex = 0;
                             break;
                     }
                     
-                    playerInputAttack.Value++;
+                    playerInputAttack.Value = attackIndex;
                 }
             }
         }
@@ -86,7 +92,8 @@ namespace Javatale.Prototype
             {
                 isAttackPressed = GameInput.IsAttackPressed,
                 commandBuffer = playerAttackSlashBarrier.CreateCommandBuffer(),
-                playerAttackArchetype = GameManager.playerAttackArchetype, 
+				// childEntitiesInGame = GameManager.childEntitiesInGame,
+                // playerAttackArchetype = GameManager.playerAttackArchetype, 
                 float3Zero = float3.zero
             };
 
