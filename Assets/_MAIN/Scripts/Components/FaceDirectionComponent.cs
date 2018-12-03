@@ -8,7 +8,7 @@ namespace Javatale.Prototype
 	public struct FaceDirection : IComponentData 
 	{
 		public float3 Value;
-		public int dirIndex;
+		public int DirIndex;
 	}
 
 	public class FaceDirectionComponent : ComponentDataWrapper<FaceDirection> {}

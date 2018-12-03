@@ -64,4 +64,10 @@ namespace Javatale.Prototype
         STUN,
         KNOCKDOWN
     }
+
+	public enum SpawnAttackType
+    {
+        SLASH,
+        BOW
+    }
 }

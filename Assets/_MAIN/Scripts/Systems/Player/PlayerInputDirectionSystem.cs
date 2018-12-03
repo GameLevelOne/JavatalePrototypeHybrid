@@ -60,63 +60,64 @@ namespace Javatale.Prototype
 						{//PREVIOUS MOVEMENT IS VERTICAL
 							if (dirZ == -1f) 
 							{
-								faceDir.dirIndex = 0;//FACE DOWN
+								faceDir.DirIndex = 0;//FACE DOWN
 								faceDir.Value = float3Back;
 							}
 							else 
 							{
-								faceDir.dirIndex = 2;//FACE UP
+								faceDir.DirIndex = 2;//FACE UP
 								faceDir.Value = float3Front;
 							}
 						} else {//PREVIOUS MOVEMENT IS HORIZONTAL
 							if (dirX == -1f) 
 							{
-								faceDir.dirIndex = 1;//FACE LEFT
+								faceDir.DirIndex = 1;//FACE LEFT
 								faceDir.Value = float3Left;
 							}
 							else 
 							{
-								faceDir.dirIndex = 3;//FACE RIGHT
+								faceDir.DirIndex = 3;//FACE RIGHT
 								faceDir.Value = float3Right;
 							}
 						}
 					} 
 					else if (dirZ == -1f) 
 					{//FACE DOWN
-						faceDir.dirIndex = 0;
+						faceDir.DirIndex = 0;
 						faceDir.Value = float3Back;
 					} 
 					else if (dirZ == 1f) 
 					{//FACE UP
-						faceDir.dirIndex = 2;
+						faceDir.DirIndex = 2;
 						faceDir.Value = float3Front;
 					} 
 					else if (dirX == -1f) 
 					{//FACE LEFT
-						faceDir.dirIndex = 1;
+						faceDir.DirIndex = 1;
 						faceDir.Value = float3Left;
 					} 
 					else if (dirX == 1f) 
 					{//FACE RIGHT
-						faceDir.dirIndex = 3;
+						faceDir.DirIndex = 3;
 						faceDir.Value = float3Right;
 					}
 
 					int parentEntityIndex = parent.EntityIndex;
 
-                    List<Entity> childEntitiesInGame = GameManager.childEntitiesInGame;
+                    List<GameObjectEntity> childEntitiesInGame = GameManager.childEntitiesInGame;
+					Entity childEntity = childEntitiesInGame[parentEntityIndex].Entity;
 
 					if (dirX != 0f || dirZ != 0f) 
 					{
 						// faceDir.Value = direction;
 						// player.StartAnimationToggle = 2;
-                   	 	commandBuffer.AddComponent(childEntitiesInGame[parentEntityIndex], new AnimationPlayerMoveRun());
-                   	 	commandBuffer.AddComponent(childEntitiesInGame[parentEntityIndex], new AnimatorPlayerDirection { dirIndex = faceDir.dirIndex, dirValue = faceDir.Value });
+                   	 	commandBuffer.AddComponent(childEntity, new AnimationPlayerMoveRun());
+                   	 	commandBuffer.AddComponent(childEntity, new AnimatorPlayerDirection { dirIndex = faceDir.DirIndex, dirValue = faceDir.Value });
 					} 
 					else 
 					{
 						// player.StartAnimationToggle = 1;
-                   	 	commandBuffer.AddComponent(childEntitiesInGame[parentEntityIndex], new AnimationPlayerIdleStand());
+                   	 	commandBuffer.AddComponent(childEntity, new AnimationPlayerIdleStand());
 					}
 
 					float3 direction = new float3 (dirX, 0f, dirZ);

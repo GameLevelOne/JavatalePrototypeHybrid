@@ -55,7 +55,7 @@ namespace Javatale.Prototype
 							break;
 					}
                 
-					int dirIndex = faceDir.dirIndex;
+					int dirIndex = faceDir.DirIndex;
 					float3 faceDirValue = faceDir.Value;
 					
 					// entryAnim.DirIndex = dirIndex;

@@ -11,15 +11,15 @@ namespace Javatale.Prototype
 {
 	public sealed class GameManager 
 	{
-		public static EntityArchetype playerArchetype;
-		public static EntityArchetype beeEnemyArchetype;
+		// public static EntityArchetype playerArchetype;
+		// public static EntityArchetype beeEnemyArchetype;
 		public static EntityArchetype playerAttackArchetype;
 
 		public static JavataleSettings settings;
 
 		#region Universal Lists
 		public static List<Entity> parentEntitiesInGame;
-		public static List<Entity> childEntitiesInGame;
+		public static List<GameObjectEntity> childEntitiesInGame;
 		#endregion
 
 		[RuntimeInitializeOnLoadMethodAttribute(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -27,25 +27,25 @@ namespace Javatale.Prototype
 		{
 			EntityManager manager = World.Active.GetOrCreateManager<EntityManager>();
 
-			playerArchetype = manager.CreateArchetype(
-				typeof(Player),
-				typeof(Position),
-				typeof(Rotation),
-				typeof(MoveDirection),
-				typeof(FaceDirection),
-				typeof(MoveSpeed),
-				typeof(PlayerInputDirection),
-				typeof(PlayerInputAttack)
-			);
+			// playerArchetype = manager.CreateArchetype(
+			// 	typeof(Player),
+			// 	typeof(Position),
+			// 	typeof(Rotation),
+			// 	typeof(MoveDirection),
+			// 	typeof(FaceDirection),
+			// 	typeof(MoveSpeed),
+			// 	typeof(PlayerInputDirection),
+			// 	typeof(PlayerInputAttack)
+			// );
 
-			beeEnemyArchetype = manager.CreateArchetype(
-				typeof(Bee),
-				typeof(Position),
-				typeof(Rotation),
-				typeof(MoveDirection),
-				typeof(FaceDirection),
-				typeof(MoveSpeed)
-			);
+			// beeEnemyArchetype = manager.CreateArchetype(
+			// 	typeof(Bee),
+			// 	typeof(Position),
+			// 	typeof(Rotation),
+			// 	typeof(MoveDirection),
+			// 	typeof(FaceDirection),
+			// 	typeof(MoveSpeed)
+			// );
 
 			playerAttackArchetype = manager.CreateArchetype(
 				typeof(PlayerAttackSpawnData)
@@ -53,7 +53,7 @@ namespace Javatale.Prototype
 
 			
 			parentEntitiesInGame = new List<Entity>();
-			childEntitiesInGame = new List<Entity>();
+			childEntitiesInGame = new List<GameObjectEntity>();
 		}
 
 		public static void NewGame () 
@@ -118,9 +118,9 @@ namespace Javatale.Prototype
 
 			// CHILD
 			ChildComponent childComponent = playerGO.GetComponentInChildren<ChildComponent>();
-			Entity playerChildEntity = childComponent.GetComponent<GameObjectEntity>().Entity;
+			GameObjectEntity playerChildGOEntity = childComponent.GetComponent<GameObjectEntity>();
 
-			childEntitiesInGame.Add(playerChildEntity);
+			childEntitiesInGame.Add(playerChildGOEntity);
 			int currentChildEntityIndex = childEntitiesInGame.Count-1;
 
 			childComponent.EntityIndex = currentChildEntityIndex;

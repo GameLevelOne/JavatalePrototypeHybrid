@@ -60,23 +60,23 @@ namespace Javatale.Prototype
                         if (randomX!=0f && randomZ!=0f) {//DIAGONAL FACING
                             if (currentDir.x==0f) {//PREVIOUS MOVEMENT IS VERTICAL
                                 if (randomZ == -1f)
-                                    faceDir.dirIndex = 1;//FACE DOWN
+                                    faceDir.DirIndex = 1;//FACE DOWN
                                 else 
-                                    faceDir.dirIndex = 3;//FACE UP
+                                    faceDir.DirIndex = 3;//FACE UP
                             } else {//PREVIOUS MOVEMENT IS HORIZONTAL
                                 if (randomX == -1f)
-                                    faceDir.dirIndex = 2;//FACE LEFT
+                                    faceDir.DirIndex = 2;//FACE LEFT
                                 else 
-                                    faceDir.dirIndex = 4;//FACE RIGHT
+                                    faceDir.DirIndex = 4;//FACE RIGHT
                             }
                         } else if (randomZ == -1f) {//FACE DOWN
-                            faceDir.dirIndex = 1;
+                            faceDir.DirIndex = 1;
                         } else if (randomZ == 1f) {//FACE UP
-                            faceDir.dirIndex = 3;
+                            faceDir.DirIndex = 3;
                         } else if (randomX == -1f) {//FACE LEFT
-                            faceDir.dirIndex = 2;
+                            faceDir.DirIndex = 2;
                         } else if (randomX == 1f) {//FACE RIGHT
-                            faceDir.dirIndex = 4;
+                            faceDir.DirIndex = 4;
                         }
 
                         if (direction != vector3Zero) faceDir.Value = direction;

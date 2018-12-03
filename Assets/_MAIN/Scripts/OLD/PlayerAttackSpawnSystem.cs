@@ -38,7 +38,7 @@ namespace Javatale.Prototype
                 commandBuffer.DestroyEntity(entity);
 
                 float3 attackPosValue = attackInitPos.Value;
-                int attackFaceDirIndex = attackInitFaceDir.dirIndex;
+                int attackFaceDirIndex = attackInitFaceDir.DirIndex;
                 float attackMoveSpeed = attackInitMoveSpeed.Value;
 
 				//========== SPAWN ATTACK GAMEOBJECT ==========

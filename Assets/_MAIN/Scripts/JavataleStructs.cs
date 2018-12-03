@@ -120,11 +120,19 @@ namespace Javatale.Prototype
 
 	#region ========== ANIMATOR ==========
 
-	public struct AnimatorPlayerDirection : IComponentData {
+	public struct AnimatorPlayerDirection : IComponentData 
+	{
 		public int dirIndex;
 		public float3 dirValue;
 	}
-	public struct AnimatorPlayerAttack : IComponentData {}
+
+	public struct AnimatorPlayerSlashAttack : IComponentData 
+	{
+		public Position pos;
+		public MoveDirection moveDir;
+		public FaceDirection faceDir;
+        public MoveSpeed moveSpeed;
+	}
 	
 	#endregion
 }
