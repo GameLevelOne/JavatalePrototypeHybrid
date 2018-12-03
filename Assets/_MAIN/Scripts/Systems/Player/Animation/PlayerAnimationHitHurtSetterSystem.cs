@@ -51,7 +51,7 @@ namespace Javatale.Prototype
 
 				//SET TO PLAYER (PARENT)	
                 player.AnimationToggleValue = 0; // INTERUPT ATTACK
-				player.AttackIndex = 0;	
+				// player.AttackIndex = 0;	
 				player.State = state;
 				parentData.Player[i] = player;
 			}

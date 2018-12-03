@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eac0bb59a4773a44aa9c81f2ac50b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityGO: {fileID: 114138574697468672}
+  entityGO: {fileID: 114837476675598556}
   animator: {fileID: 95793272787153738}
   animationEvent: {fileID: 114550834106768722}
   currentDirIndex: 0
@@ -284,7 +284,7 @@ MonoBehaviour:
       x: 0
       y: 0
       z: 0
-    dirIndex: 0
+    DirIndex: 0
 --- !u!114 &114550834106768722
 MonoBehaviour:
   m_ObjectHideFlags: 1

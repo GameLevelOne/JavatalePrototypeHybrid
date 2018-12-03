@@ -30,18 +30,22 @@ namespace Javatale.Prototype
 				Player player = data.Player[i];
 				EndAttackAnimationData endAttackAnimationData = data.EndAttackAnimationData[i];
 
-                int endAttackAnimationValue = endAttackAnimationData.Value;
-
                 commandBuffer.RemoveComponent<EndAttackAnimationData>(entity);
+
+                int endAttackAnimationValue = endAttackAnimationData.Value;
                 
                 switch (endAttackAnimationValue)
                 {
                     default : // CASE 0		
-                        // commandBuffer.AddComponent(entity, new PlayerInputDirection{});
-                        // commandBuffer.AddComponent(entity, new PlayerInputAttack{});
+                        commandBuffer.AddComponent(entity, new PlayerInputDirection{});
+                        commandBuffer.AddComponent(entity, new PlayerInputAttack{});
 
-                        int attackIndex = player.AttackIndex >= maxPlayerAttackIndex ? 0 : player.AttackIndex++;
-                        player.AttackIndex = attackIndex;
+                        int attackIndex = player.AttackIndex;
+
+						if (attackIndex >= maxPlayerAttackIndex) attackIndex = 0; 
+						else attackIndex++;
+
+						player.AttackIndex = attackIndex;
                         player.AnimationToggleValue = 0;
                         data.Player[i] = player;
                         

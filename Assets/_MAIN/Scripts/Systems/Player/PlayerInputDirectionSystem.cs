@@ -5,7 +5,6 @@ using Unity.Mathematics;
 // using Unity.Transforms;
 // using UnityEngine;
 // using Unity.Burst;
-using System.Collections.Generic;
 
 namespace Javatale.Prototype 
 {
@@ -14,7 +13,7 @@ namespace Javatale.Prototype
         [InjectAttribute] private PlayerAnimationSetBarrier playerAnimationSetBarrier;
 
 		// [BurstCompileAttribute]
-		struct PlayerInputDirectionJob : IJobProcessComponentData <PlayerInputDirection, MoveDirection, FaceDirection, Parent>
+		struct PlayerInputDirectionJob : IJobProcessComponentDataWithEntity <PlayerInputDirection, MoveDirection, FaceDirection, Parent>
 		{
             [ReadOnlyAttribute] public EntityCommandBuffer commandBuffer;
 
@@ -36,6 +35,8 @@ namespace Javatale.Prototype
 			public float dirZ;
 
 			public void Execute (
+                [ReadOnlyAttribute] Entity entity, //IJobProcessComponentDataWithEntity
+                [ReadOnlyAttribute] int index, //IJobProcessComponentDataWithEntity
 				ref PlayerInputDirection playerInputDir,
 				ref MoveDirection moveDir,
 				ref FaceDirection faceDir,
@@ -54,7 +55,7 @@ namespace Javatale.Prototype
 
 				if (currentDirX != dirX || currentDirZ != dirZ) 
 				{
-					if (dirX!=0f && dirZ!=0f) 
+					if (dirX != 0f && dirZ != 0f) 
 					{//DIAGONAL FACING
 						if (currentDir.x==0f) 
 						{//PREVIOUS MOVEMENT IS VERTICAL
@@ -81,44 +82,61 @@ namespace Javatale.Prototype
 							}
 						}
 					} 
-					else if (dirZ == -1f) 
-					{//FACE DOWN
-						faceDir.DirIndex = 0;
-						faceDir.Value = float3Back;
-					} 
-					else if (dirZ == 1f) 
-					{//FACE UP
-						faceDir.DirIndex = 2;
-						faceDir.Value = float3Front;
-					} 
-					else if (dirX == -1f) 
-					{//FACE LEFT
-						faceDir.DirIndex = 1;
-						faceDir.Value = float3Left;
-					} 
-					else if (dirX == 1f) 
-					{//FACE RIGHT
-						faceDir.DirIndex = 3;
-						faceDir.Value = float3Right;
-					}
-
-					int parentEntityIndex = parent.EntityIndex;
-
-                    List<GameObjectEntity> childEntitiesInGame = GameManager.childEntitiesInGame;
-					Entity childEntity = childEntitiesInGame[parentEntityIndex].Entity;
-
-					if (dirX != 0f || dirZ != 0f) 
+					else if (dirX != 0f) 
 					{
-						// faceDir.Value = direction;
-						// player.StartAnimationToggle = 2;
-                   	 	commandBuffer.AddComponent(childEntity, new AnimationPlayerMoveRun());
-                   	 	commandBuffer.AddComponent(childEntity, new AnimatorPlayerDirection { dirIndex = faceDir.DirIndex, dirValue = faceDir.Value });
-					} 
+						if (dirX == -1f) 
+						{//FACE LEFT
+							faceDir.DirIndex = 1;
+							faceDir.Value = float3Left;
+						} 
+						else if (dirX == 1f) 
+						{//FACE RIGHT
+							faceDir.DirIndex = 3;
+							faceDir.Value = float3Right;
+						}
+
+						commandBuffer.AddComponent(entity, new AnimatorNotZeroMovement { 
+							dirIndex = faceDir.DirIndex,
+							dirValue = faceDir.Value	 
+						});
+					}
+					else if (dirZ != 0f)
+					{
+						if (dirZ == -1f) 
+						{//FACE DOWN
+							faceDir.DirIndex = 0;
+							faceDir.Value = float3Back;
+						} 
+						else if (dirZ == 1f) 
+						{//FACE UP
+							faceDir.DirIndex = 2;
+							faceDir.Value = float3Front;
+						}
+
+						commandBuffer.AddComponent(entity, new AnimatorNotZeroMovement { 
+							dirIndex = faceDir.DirIndex,
+							dirValue = faceDir.Value	 
+						});
+					}
 					else 
-					{
-						// player.StartAnimationToggle = 1;
-                   	 	commandBuffer.AddComponent(childEntity, new AnimationPlayerIdleStand());
+					{ // IDLE
+						commandBuffer.AddComponent(entity, new AnimatorZeroMovement {});
 					}
+
+					// int parentEntityIndex = parent.EntityIndex;
+
+                    // List<GameObjectEntity> childEntitiesInGame = GameManager.childEntitiesInGame;
+					// Entity childEntity = childEntitiesInGame[parentEntityIndex].Entity;
+
+					// if (dirX != 0f || dirZ != 0f) 
+					// {
+                   	//  	commandBuffer.AddComponent(childEntity, new AnimationPlayerMoveRun());
+                   	//  	commandBuffer.AddComponent(childEntity, new AnimatorPlayerDirection { dirIndex = faceDir.DirIndex, dirValue = faceDir.Value });
+					// } 
+					// else 
+					// {
+                   	//  	commandBuffer.AddComponent(childEntity, new AnimationPlayerIdleStand());
+					// }
 
 					float3 direction = new float3 (dirX, 0f, dirZ);
 					
@@ -133,7 +151,6 @@ namespace Javatale.Prototype
 			PlayerInputDirectionJob playerInputDirectionJob = new PlayerInputDirectionJob
 			{
                 commandBuffer = playerAnimationSetBarrier.CreateCommandBuffer(),
-				// childEntitiesInGame = GameManager.childEntitiesInGame,
 
 				isUpDirectionHeld = GameInput.IsUpDirectionHeld,
 				isDownDirectionHeld = GameInput.IsDownDirectionHeld,

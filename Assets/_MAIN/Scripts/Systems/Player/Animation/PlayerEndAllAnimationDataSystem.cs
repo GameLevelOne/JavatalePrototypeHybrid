@@ -1,7 +1,8 @@
 using Unity.Collections;
 using Unity.Entities;
-// using UnityEngine;
+using UnityEngine;
 using Unity.Burst;
+using System.Collections.Generic;
 
 namespace Javatale.Prototype 
 {
@@ -13,6 +14,7 @@ namespace Javatale.Prototype
 			public readonly int Length;
 			[ReadOnlyAttribute] public EntityArray Entity;
 			[ReadOnlyAttribute] public ComponentDataArray<Player> Player;
+			[ReadOnlyAttribute] public ComponentDataArray<Parent> Parent;
 			[ReadOnlyAttribute] public ComponentDataArray<EndAllAnimationData> EndAllAnimationData;
 		}
 		[InjectAttribute] private Data data;
@@ -21,27 +23,37 @@ namespace Javatale.Prototype
 		{
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
 
+            List<GameObjectEntity> childEntitiesInGame = GameManager.childEntitiesInGame;
+
 			for (int i=0; i<data.Length; i++)
 			{
 				Entity entity = data.Entity[i];
 				Player player = data.Player[i];
+                Parent parent = data.Parent[i];
 				EndAllAnimationData endAllAnimationData = data.EndAllAnimationData[i];
 
-                int endAllAnimationValue = endAllAnimationData.Value;
-				int playerAnimToggleValue = player.AnimationToggleValue;
-
                 commandBuffer.RemoveComponent<EndAllAnimationData>(entity);
+
+				int playerAnimToggleValue = player.AnimationToggleValue;
                 
-                switch (endAllAnimationValue)
-                {
-                    default : // CASE 0			
-                        // if (playerAnimToggleValue == 0)
-						// {
-                            commandBuffer.AddComponent(entity, new AnimationPlayerIdleStand{});
-						// }
-                        
-                        break;
-                }
+				if (playerAnimToggleValue == 0)
+				{
+					int endAllAnimationValue = endAllAnimationData.Value;
+					
+					int parentEntityIndex = parent.EntityIndex;
+					GameObjectEntity entityGO = childEntitiesInGame[parentEntityIndex];
+					GameObject childGO = entityGO.gameObject;
+
+					switch (endAllAnimationValue)
+					{
+						default : // CASE 0		
+							childGO.AddComponent<PlayerAnimationStateComponent>().Value = PlayerAnimationState.IDLE_STAND;
+							entityGO.enabled = false;
+							entityGO.enabled = true;
+							
+							break;
+					}
+				}
             }
 		}	
 	}

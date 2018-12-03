@@ -12,7 +12,7 @@ namespace Javatale.Prototype
 		public struct Data
 		{
 			public readonly int Length;
-			[ReadOnlyAttribute] public ComponentDataArray<PlayerInputDirection> PlayerInputDirection; //KEY
+			// [ReadOnlyAttribute] public ComponentDataArray<PlayerInputDirection> PlayerInputDirection;
 			[ReadOnlyAttribute] public ComponentDataArray<MoveDirection> MoveDirection;
 			[ReadOnlyAttribute] public ComponentDataArray<MoveSpeed> MoveSpeed;
 			public ComponentArray<Rigidbody> Rigidbody;

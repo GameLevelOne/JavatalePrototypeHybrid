@@ -13,7 +13,7 @@ namespace Javatale.Prototype
 		{
 			public readonly int Length;
 			[ReadOnlyAttribute] public EntityArray Entity;
-			[ReadOnlyAttribute] public ComponentDataArray<AnimatorPlayerDirection> AnimatorPlayerDirection;
+			[ReadOnlyAttribute] public ComponentArray<AnimatorDirectionComponent> AnimatorDirectionComponent;
 			public ComponentArray<PlayerAnimatorComponent> PlayerAnimatorComponent;
 		}
 		[InjectAttribute] private Data data;
@@ -28,12 +28,14 @@ namespace Javatale.Prototype
 			for (int i=0; i<data.Length; i++) {
 				Entity entity = data.Entity[i];
 				PlayerAnimatorComponent playerAnimatorComponent = data.PlayerAnimatorComponent[i];
-				AnimatorPlayerDirection animatorPlayerDirection = data.AnimatorPlayerDirection[i];
+				AnimatorDirectionComponent animatorDirectionComponent = data.AnimatorDirectionComponent[i];
 
-				commandBuffer.RemoveComponent<AnimatorPlayerDirection>(entity);
+				commandBuffer.RemoveComponent<AnimatorDirectionComponent>(entity);
+				GameObjectEntity.Destroy(animatorDirectionComponent);
+				UpdateInjectedComponentGroups();
                 
-				float3 faceDirValue = animatorPlayerDirection.dirValue;
-				int dirIndex = animatorPlayerDirection.dirIndex;
+				int dirIndex = animatorDirectionComponent.dirIndex;
+				float3 faceDirValue = animatorDirectionComponent.dirValue;
 				
 				playerAnimatorComponent.animator.SetFloat(faceX, faceDirValue.x);
 				playerAnimatorComponent.animator.SetFloat(faceY, faceDirValue.z);

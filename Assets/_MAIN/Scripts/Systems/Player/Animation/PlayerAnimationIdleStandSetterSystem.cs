@@ -3,7 +3,6 @@ using Unity.Entities;
 // using UnityEngine;
 using Unity.Burst;
 // using Unity.Mathematics;
-// using System.Collections.Generic;
 
 namespace Javatale.Prototype 
 {
@@ -25,7 +24,6 @@ namespace Javatale.Prototype
 
 			for (int i=0; i<data.Length; i++) {
 				Entity entity = data.Entity[i];
-				// Player player = data.Player[i];
 				PlayerAnimatorComponent playerAnimatorComponent = data.PlayerAnimatorComponent[i];
 
 				commandBuffer.RemoveComponent<AnimationPlayerIdleStand>(entity);

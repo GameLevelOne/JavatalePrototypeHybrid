@@ -14,7 +14,7 @@ namespace Javatale.Prototype
         [InjectAttribute] private PlayerAttackSlashBarrier playerAttackSlashBarrier;
 
         // [BurstCompileAttribute]
-        struct PlayerInputAttackJob : IJobProcessComponentDataWithEntity <PlayerInputAttack, Position, FaceDirection, Parent>
+        struct PlayerInputAttackJob : IJobProcessComponentDataWithEntity <PlayerInputAttack, Position, FaceDirection, MoveDirection>
         {
             [ReadOnlyAttribute] public EntityCommandBuffer commandBuffer;
             // public EntityArchetype playerAttackArchetype;
@@ -34,10 +34,12 @@ namespace Javatale.Prototype
                 ref PlayerInputAttack playerInputAttack,
 				[ReadOnlyAttribute] ref Position pos,
 				[ReadOnlyAttribute] ref FaceDirection faceDir,
-                [ReadOnlyAttribute] ref Parent parent)
+                ref MoveDirection moveDir)
             {
                 // SLASH ATTACK
                 if (isAttackPressed) {
+                    moveDir.Value = float3Zero;
+                    
                     float3 faceDirValue = faceDir.Value;
 
                     Position initAttackPos = new Position{ Value = pos.Value + faceDirValue };
@@ -51,31 +53,6 @@ namespace Javatale.Prototype
                         faceDir = initFaceDir,
                         moveSpeed = initMoveSpeed
                     });
-
-                    // 
-
-                    // int parentEntityIndex = parent.EntityIndex;
-                    // int attackIndex = playerInputAttack.Value;
-
-                    // List<Entity> childEntitiesInGame = GameManager.childEntitiesInGame;
-
-                    // switch (attackIndex)
-                    // {
-                    //     case 0:
-                    //         commandBuffer.AddComponent(childEntitiesInGame[parentEntityIndex], new AnimationPlayerAttack1());
-                    //         attackIndex = 1;
-                    //         break;
-                    //     case 1:
-                    //         commandBuffer.AddComponent(childEntitiesInGame[parentEntityIndex], new AnimationPlayerAttack2());
-                    //         attackIndex = 2;
-                    //         break;
-                    //     case 2:
-                    //         commandBuffer.AddComponent(childEntitiesInGame[parentEntityIndex], new AnimationPlayerAttack3());
-                    //         attackIndex = 0;
-                    //         break;
-                    // }
-                    
-                    // playerInputAttack.Value = attackIndex;
                 }
             }
         }
@@ -86,8 +63,6 @@ namespace Javatale.Prototype
             {
                 isAttackPressed = GameInput.IsAttackPressed,
                 commandBuffer = playerAttackSlashBarrier.CreateCommandBuffer(),
-				// childEntitiesInGame = GameManager.childEntitiesInGame,
-                // playerAttackArchetype = GameManager.playerAttackArchetype, 
                 float3Zero = float3.zero
             };
 

@@ -2,7 +2,7 @@ using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 using Unity.Burst;
-using Unity.Mathematics;
+// using Unity.Mathematics;
 using System.Collections.Generic;
 
 namespace Javatale.Prototype 
@@ -52,23 +52,31 @@ namespace Javatale.Prototype
                 switch (attackIndex)
                 {
                     case 0:
-                        attackIndex++;
-                        player.AttackIndex = attackIndex;
+                        player.AnimationToggleValue = 1;
                         data.Player[i] = player;
 
                         childGO.AddComponent<PlayerAnimationStateComponent>().Value = PlayerAnimationState.ATTACK_1;
                         entityGO.enabled = false;
                         entityGO.enabled = true;
+                        
                         break;
                     case 1:
-                        // commandBuffer.AddComponent(childEntitiesInGame[parentEntityIndex], new AnimationPlayerAttack2());
-                        
-                        // entityGO.AddComponent<PlayerAnimationAttack2Component>();
+                        player.AnimationToggleValue = 1;
+                        data.Player[i] = player;
+
+                        childGO.AddComponent<PlayerAnimationStateComponent>().Value = PlayerAnimationState.ATTACK_2;
+                        entityGO.enabled = false;
+                        entityGO.enabled = true;
+
                         break;
                     case 2:
-                        // commandBuffer.AddComponent(childEntitiesInGame[parentEntityIndex], new AnimationPlayerAttack3());
-                        // entityGO.AddComponent<PlayerAnimationAttack3Component>();
-                        attackIndex = -1;
+                        player.AnimationToggleValue = 1;
+                        data.Player[i] = player;
+                        
+                        childGO.AddComponent<PlayerAnimationStateComponent>().Value = PlayerAnimationState.ATTACK_3;
+                        entityGO.enabled = false;
+                        entityGO.enabled = true;
+
                         break;
                 }
 			}

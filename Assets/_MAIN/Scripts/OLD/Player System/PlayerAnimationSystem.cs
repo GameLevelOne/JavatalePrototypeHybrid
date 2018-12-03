@@ -1,107 +1,107 @@
-﻿using Unity.Collections;
-using Unity.Entities;
-// using UnityEngine;
-using Unity.Mathematics;
-// using Unity.Burst;
-using System.Collections.Generic;
+﻿// using Unity.Collections;
+// using Unity.Entities;
+// // using UnityEngine;
+// using Unity.Mathematics;
+// // using Unity.Burst;
+// using System.Collections.Generic;
 
-namespace Javatale.Prototype 
-{
-	// public class AnimationBarrier : BarrierSystem {}
+// namespace Javatale.Prototype 
+// {
+// 	// public class AnimationBarrier : BarrierSystem {}
 
-	public class PlayerAnimationSystem : ComponentSystem 
-	{
-		// [BurstCompileAttribute]
-		public struct Data
-		{
-			public readonly int Length;
-			[ReadOnlyAttribute] public EntityArray AnimationEntities;
-			public ComponentDataArray<Player> Player;
-			public ComponentDataArray<MoveDirection> MoveDirection;
-			[ReadOnlyAttribute] public ComponentDataArray<FaceDirection> FaceDirection;
-			[ReadOnlyAttribute] public ComponentDataArray<Parent> Parent;
-		}
-		[InjectAttribute] private Data data;
+// 	public class PlayerAnimationSystem : ComponentSystem 
+// 	{
+// 		// [BurstCompileAttribute]
+// 		public struct Data
+// 		{
+// 			public readonly int Length;
+// 			[ReadOnlyAttribute] public EntityArray AnimationEntities;
+// 			public ComponentDataArray<Player> Player;
+// 			public ComponentDataArray<MoveDirection> MoveDirection;
+// 			[ReadOnlyAttribute] public ComponentDataArray<FaceDirection> FaceDirection;
+// 			[ReadOnlyAttribute] public ComponentDataArray<Parent> Parent;
+// 		}
+// 		[InjectAttribute] private Data data;
 
-		// Vector3 vector3Zero = Vector3.zero;
-		float3 float3Zero = float3.zero;
+// 		// Vector3 vector3Zero = Vector3.zero;
+// 		float3 float3Zero = float3.zero;
 
-		protected override void OnUpdate () 
-		{
-			EntityCommandBuffer commandBuffer = PostUpdateCommands;
-			// List<EntryAnimation> listAnim = GameManager.entitiesAnimation;
+// 		protected override void OnUpdate () 
+// 		{
+// 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
+// 			// List<EntryAnimation> listAnim = GameManager.entitiesAnimation;
 
-			for (int i=0; i<data.Length; i++)
-			{
-				Entity animEntity = data.AnimationEntities[i];
-				Player player = data.Player[i];
-				MoveDirection moveDir = data.MoveDirection[i];
-				FaceDirection faceDir = data.FaceDirection[i];
-				Parent parent = data.Parent[i];
+// 			for (int i=0; i<data.Length; i++)
+// 			{
+// 				Entity animEntity = data.AnimationEntities[i];
+// 				Player player = data.Player[i];
+// 				MoveDirection moveDir = data.MoveDirection[i];
+// 				FaceDirection faceDir = data.FaceDirection[i];
+// 				Parent parent = data.Parent[i];
 
-				// int animIndex = parent.AnimIndex;
-				// EntryAnimation entryAnim = listAnim[animIndex];
+// 				// int animIndex = parent.AnimIndex;
+// 				// EntryAnimation entryAnim = listAnim[animIndex];
 				
-				int playerStartAnimToggle = player.StartAnimationToggle;
+// 				int playerStartAnimToggle = player.StartAnimationToggle;
 
-#region START ANIMATION
-				if (playerStartAnimToggle != 0) 
-				{
-					switch (playerStartAnimToggle) 
-					{
-						case 1:
-							commandBuffer.AddComponent(animEntity, new AnimationPlayerIdleStand{});
+// #region START ANIMATION
+// 				if (playerStartAnimToggle != 0) 
+// 				{
+// 					switch (playerStartAnimToggle) 
+// 					{
+// 						case 1:
+// 							commandBuffer.AddComponent(animEntity, new AnimationPlayerIdleStand{});
 							
-							break;
-						case 2:
-							commandBuffer.AddComponent(animEntity, new AnimationPlayerMoveRun{});
+// 							break;
+// 						case 2:
+// 							commandBuffer.AddComponent(animEntity, new AnimationPlayerMoveRun{});
 						
-							break;
-						case 21:
-							commandBuffer.AddComponent(animEntity, new AnimationPlayerAttack1{});
+// 							break;
+// 						case 21:
+// 							commandBuffer.AddComponent(animEntity, new AnimationPlayerAttack1{});
 
-							moveDir.Value = float3Zero;
-							data.MoveDirection[i] = moveDir;
+// 							moveDir.Value = float3Zero;
+// 							data.MoveDirection[i] = moveDir;
 
-							break;
-						case 22:
-							commandBuffer.AddComponent(animEntity, new AnimationPlayerAttack2{});
+// 							break;
+// 						case 22:
+// 							commandBuffer.AddComponent(animEntity, new AnimationPlayerAttack2{});
 
-							moveDir.Value = float3Zero;
-							data.MoveDirection[i] = moveDir;
+// 							moveDir.Value = float3Zero;
+// 							data.MoveDirection[i] = moveDir;
 
-							break;
-						case 23:
-							commandBuffer.AddComponent(animEntity, new AnimationPlayerAttack3{});
+// 							break;
+// 						case 23:
+// 							commandBuffer.AddComponent(animEntity, new AnimationPlayerAttack3{});
 
-							moveDir.Value = float3Zero;
-							data.MoveDirection[i] = moveDir;
+// 							moveDir.Value = float3Zero;
+// 							data.MoveDirection[i] = moveDir;
 
-							break;
-						case 41:
-							commandBuffer.AddComponent(animEntity, new AnimationPlayerHitHurt{});
+// 							break;
+// 						case 41:
+// 							commandBuffer.AddComponent(animEntity, new AnimationPlayerHitHurt{});
 
-							moveDir.Value = float3Zero; //SET KNOCKBACK
-							data.MoveDirection[i] = moveDir;
+// 							moveDir.Value = float3Zero; //SET KNOCKBACK
+// 							data.MoveDirection[i] = moveDir;
 						
-							break;
-					}
+// 							break;
+// 					}
                 
-					int dirIndex = faceDir.DirIndex;
-					float3 faceDirValue = faceDir.Value;
+// 					int dirIndex = faceDir.DirIndex;
+// 					float3 faceDirValue = faceDir.Value;
 					
-					//SET LIST
-					// entryAnim.DirIndex = dirIndex;
-					// entryAnim.FaceDirValue = faceDirValue;
+// 					//SET LIST
+// 					// entryAnim.DirIndex = dirIndex;
+// 					// entryAnim.FaceDirValue = faceDirValue;
 					
-					// listAnim[animIndex] = entryAnim;	
+// 					// listAnim[animIndex] = entryAnim;	
 
-					//SET TO PLAYER (PARENT)						
-					player.StartAnimationToggle = 0;
-					data.Player[i] = player;
-				}
-#endregion 
-			}
-		}	
-	}
-}
+// 					//SET TO PLAYER (PARENT)						
+// 					player.StartAnimationToggle = 0;
+// 					data.Player[i] = player;
+// 				}
+// #endregion 
+// 			}
+// 		}	
+// 	}
+// }
