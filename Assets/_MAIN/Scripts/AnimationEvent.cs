@@ -6,6 +6,7 @@ namespace Javatale.Prototype
 	{
 		public delegate void AnimationControl();
 		public event AnimationControl OnStartAnimation;
+		public event AnimationControl OnSpawnAttackAnimation;
 		public event AnimationControl OnSpawnSomethingOnAnimation;
 		public event AnimationControl OnEndAttackAnimation;
 		public event AnimationControl OnEndAnimation;
@@ -27,6 +28,14 @@ namespace Javatale.Prototype
 			if (OnSpawnSomethingOnAnimation != null)
 			{
 				OnSpawnSomethingOnAnimation();
+			}
+		}
+
+		void SpawnAttackAnimation ()
+		{
+			if (OnSpawnAttackAnimation != null)
+			{
+				OnSpawnAttackAnimation();
 			}
 		}
 

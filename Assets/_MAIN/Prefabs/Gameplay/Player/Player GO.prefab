@@ -32,6 +32,7 @@ GameObject:
   - component: {fileID: 114380124372523564}
   - component: {fileID: 114460045837801156}
   - component: {fileID: 114450704835584084}
+  - component: {fileID: 114002023066356356}
   m_Layer: 0
   m_Name: Player GO
   m_TagString: Untagged
@@ -147,6 +148,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114002023066356356
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1583545113155044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c1bf84db020db145acf95c6d489817c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedData:
+    moveDir:
+      Value:
+        x: 0
+        y: 0
+        z: 0
+    faceDir:
+      Value:
+        x: 0
+        y: 0
+        z: 0
+      DirIndex: 0
+    moveSpeed:
+      Value: 0
+    attackIndex: 0
 --- !u!114 &114138574697468672
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -192,6 +219,7 @@ MonoBehaviour:
     z: 0
   isCheckOnStartAnimation: 0
   isCheckOnSpawnSomethingOnAnimation: 0
+  isCheckOnSpawnAttackAnimation: 0
   isCheckOnEndAttackAnimation: 0
   isCheckOnEndAllAnimation: 0
 --- !u!114 &114364126615064760

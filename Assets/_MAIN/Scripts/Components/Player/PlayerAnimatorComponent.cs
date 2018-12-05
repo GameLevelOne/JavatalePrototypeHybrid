@@ -21,6 +21,7 @@ namespace Javatale.Prototype
 		// public bool isFinishAttackAnimation = true;
 		public bool isCheckOnStartAnimation = false;
 		public bool isCheckOnSpawnSomethingOnAnimation = false;
+		public bool isCheckOnSpawnAttackAnimation = false;
 		public bool isCheckOnEndAttackAnimation = false;
 		public bool isCheckOnEndAllAnimation = false;
 
@@ -28,6 +29,7 @@ namespace Javatale.Prototype
 		{
 			animationEvent.OnStartAnimation += OnStartAnimation;
 			animationEvent.OnSpawnSomethingOnAnimation += OnSpawnSomethingOnAnimation;
+			animationEvent.OnSpawnAttackAnimation += OnSpawnAttackAnimation;
 			animationEvent.OnEndAttackAnimation += OnEndAttackAnimation;
 			animationEvent.OnEndAnimation += OnEndAllAnimation;
 		}
@@ -36,6 +38,7 @@ namespace Javatale.Prototype
 		{
 			animationEvent.OnStartAnimation -= OnStartAnimation;
 			animationEvent.OnSpawnSomethingOnAnimation -= OnSpawnSomethingOnAnimation;
+			animationEvent.OnSpawnAttackAnimation -= OnSpawnAttackAnimation;
 			animationEvent.OnEndAttackAnimation -= OnEndAttackAnimation;
 			animationEvent.OnEndAnimation -= OnEndAllAnimation;
 		}
@@ -59,6 +62,18 @@ namespace Javatale.Prototype
 				isCheckOnSpawnSomethingOnAnimation = true;
 
 				gameObject.AddComponent<SpawnSomethingOnAnimationEventComponent>().Value = 0;
+				entityGO.enabled = false;
+				entityGO.enabled = true;
+			}
+		}
+
+		void OnSpawnAttackAnimation ()
+		{
+			if (!isCheckOnSpawnAttackAnimation)
+			{
+				isCheckOnSpawnAttackAnimation = true;
+
+				gameObject.AddComponent<SpawnAttackAnimationEventComponent>().Value = 0;
 				entityGO.enabled = false;
 				entityGO.enabled = true;
 			}

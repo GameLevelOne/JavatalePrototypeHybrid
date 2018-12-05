@@ -18,6 +18,7 @@ namespace Javatale.Prototype
 			public ComponentDataArray<MoveDirection> MoveDirection;
 			[ReadOnlyAttribute] public ComponentDataArray<Parent> Parent;
 			[ReadOnlyAttribute] public ComponentDataArray<AnimatorPlayerSlashAttack> AnimatorPlayerSlashAttack;
+			[ReadOnlyAttribute] public ComponentDataArray<PlayerSpawnAttackData> PlayerSpawnAttackData;
 			[ReadOnlyAttribute] public ComponentDataArray<PlayerInputDirection> PlayerInputDirection;
 			[ReadOnlyAttribute] public ComponentDataArray<PlayerInputAttack> PlayerInputAttack;
 		}
@@ -37,7 +38,8 @@ namespace Javatale.Prototype
                 Player player = data.Player[i];
                 MoveDirection moveDir = data.MoveDirection[i];
                 Parent parent = data.Parent[i];
-                AnimatorPlayerSlashAttack animatorPlayerSlashAttack = data.AnimatorPlayerSlashAttack[i];
+                // AnimatorPlayerSlashAttack animatorPlayerSlashAttack = data.AnimatorPlayerSlashAttack[i];
+				PlayerSpawnAttackData playerSpawnAttackData = data.PlayerSpawnAttackData[i];
 
 				commandBuffer.RemoveComponent<AnimatorPlayerSlashAttack>(entity);
 				commandBuffer.RemoveComponent<PlayerInputDirection>(entity);
@@ -49,11 +51,7 @@ namespace Javatale.Prototype
                 player.AnimationToggleValue = 1;
                 data.Player[i] = player; 
                 
-                // float3 posValue = animatorPlayerSlashAttack.pos.Value;
-				// float3 moveDirValue = animatorPlayerSlashAttack.moveDir.Value;
-				// float3 faceDirValue = animatorPlayerSlashAttack.faceDir.Value;
-				// float moveSpeed = animatorPlayerSlashAttack.moveSpeed.Value;
-                int attackIndex = animatorPlayerSlashAttack.attackIndex;
+                int attackIndex = playerSpawnAttackData.attackIndex;
                 
                 int parentEntityIndex = parent.EntityIndex;
                 GameObjectEntity entityGO = childEntitiesInGame[parentEntityIndex];

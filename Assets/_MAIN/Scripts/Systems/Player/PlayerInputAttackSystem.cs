@@ -44,7 +44,9 @@ namespace Javatale.Prototype
                     FaceDirection initFaceDir = new FaceDirection{ Value = faceDir.Value, DirIndex = faceDir.DirIndex };
                     MoveSpeed initMoveSpeed = new MoveSpeed{ Value = 0f };
 
-                    commandBuffer.AddComponent(entity, new AnimatorPlayerSlashAttack{
+                    commandBuffer.AddComponent(entity, new AnimatorPlayerSlashAttack{});
+
+                    commandBuffer.SetComponent(entity, new PlayerSpawnAttackData{
                         // pos = initAttackPos,
                         moveDir = initMoveDir,
                         faceDir = initFaceDir,

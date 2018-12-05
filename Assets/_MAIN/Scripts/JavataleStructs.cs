@@ -7,12 +7,6 @@ namespace Javatale.Prototype
 {
 #region ========== TAG ==========
 
-	public struct Projectile : IComponentData
-	{
-		//
-	}
-	// public class ProjectileComponent : ComponentDataWrapper<Projectile> {}
-	
 	// BEE
 	public struct Bee : IComponentData
 	{
@@ -82,6 +76,11 @@ namespace Javatale.Prototype
 		public int Value;
 	}
 
+	public struct SpawnAttackAnimationData : IComponentData
+	{
+		public int Value;
+	}
+
 	public struct EndAttackAnimationData : IComponentData
 	{
 		public int Value;
@@ -96,14 +95,14 @@ namespace Javatale.Prototype
 	
 #region ========== DATA ==========
 
-	public struct PlayerAttackSpawnData : IComponentData
-	{
-		public Position pos;
-		public MoveDirection moveDir;
-		public FaceDirection faceDir;
-        public MoveSpeed moveSpeed;
-        public int attackIndex;
-	}
+	// public struct PlayerAttackSpawnData : IComponentData
+	// {
+	// 	public Position pos;
+	// 	public MoveDirection moveDir;
+	// 	public FaceDirection faceDir;
+    //     public MoveSpeed moveSpeed;
+    //     public int attackIndex;
+	// }
 
 	public struct DamagedData : IComponentData 
 	{
@@ -124,21 +123,17 @@ namespace Javatale.Prototype
 	{
 		public int dirIndex;
 		public float3 dirValue;
-		// public int moveIndex;
+		//
 	}
 
 	public struct AnimatorPlayerIdle : IComponentData 
 	{
-		// public int idleIndex;
+		//
 	}
 
 	public struct AnimatorPlayerSlashAttack : IComponentData 
 	{
-		// public Position pos;
-		public MoveDirection moveDir;
-		public FaceDirection faceDir;
-        public MoveSpeed moveSpeed;
-		public int attackIndex;
+		//
 	}
 	
 	#endregion

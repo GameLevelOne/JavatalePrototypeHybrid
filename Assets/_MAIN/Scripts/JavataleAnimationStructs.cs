@@ -50,4 +50,33 @@ namespace Javatale.Prototype
 	// public class BeeAnimationMoveFlyComponent : ComponentDataWrapper<AnimationBeeMoveFly> {}
 
 	#endregion
+	
+	#region ========== ANIMATION EVENT ==========
+	
+	public class StartAnimationEventComponent : MonoBehaviour
+	{
+		public int Value;
+	}
+	
+	public class SpawnSomethingOnAnimationEventComponent : MonoBehaviour
+	{
+		public int Value;
+	}
+	
+	public class SpawnAttackAnimationEventComponent : MonoBehaviour
+	{
+		public int Value;
+	}
+
+	public class EndAttackAnimationEventComponent : MonoBehaviour 
+	{
+		public int Value;
+	}
+
+	public class EndAllAnimationEventComponent : MonoBehaviour
+	{
+		public int Value;
+	}
+
+	#endregion
 }

@@ -13,13 +13,15 @@ namespace Javatale.Prototype
 	{
 		// public static EntityArchetype playerArchetype;
 		// public static EntityArchetype beeEnemyArchetype;
-		public static EntityArchetype playerAttackArchetype;
+		// public static EntityArchetype playerAttackArchetype;
 
 		public static JavataleSettings settings;
 
 		#region Universal Lists
+		
 		public static List<Entity> parentEntitiesInGame;
 		public static List<GameObjectEntity> childEntitiesInGame;
+		
 		#endregion
 
 		[RuntimeInitializeOnLoadMethodAttribute(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -47,9 +49,9 @@ namespace Javatale.Prototype
 			// 	typeof(MoveSpeed)
 			// );
 
-			playerAttackArchetype = manager.CreateArchetype(
-				typeof(PlayerAttackSpawnData)
-			);
+			// playerAttackArchetype = manager.CreateArchetype(
+			// 	typeof(PlayerAttackSpawnData)
+			// );
 
 			
 			parentEntitiesInGame = new List<Entity>();

@@ -2,6 +2,7 @@
 // using Unity.Rendering;
 using Unity.Entities;
 using Unity.Mathematics;
+using System.Collections.Generic;
 
 namespace Javatale.Prototype
 {
@@ -40,6 +41,15 @@ namespace Javatale.Prototype
         public GameObject[] playerAttack1Childs;
         public GameObject[] playerAttack2Childs;
         public GameObject[] playerAttack3Childs;
+
+        public List<GameObject[]> playerSlashAttackChilds = new List<GameObject[]>();
+
+        void Start ()
+        {
+            playerSlashAttackChilds.Add(playerAttack1Childs);
+            playerSlashAttackChilds.Add(playerAttack2Childs);
+            playerSlashAttackChilds.Add(playerAttack3Childs);
+        }
     }
 
 	public enum PlayerAnimationState
