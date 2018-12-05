@@ -13,7 +13,7 @@ namespace Javatale.Prototype
 		{
 			public readonly int Length;
 			[ReadOnlyAttribute] public EntityArray Entity;
-			[ReadOnlyAttribute] public ComponentDataArray<AnimationPlayerIdleStand> AnimationPlayerIdleStand;
+			[ReadOnlyAttribute] public ComponentArray<PlayerAnimationIdleStandComponent> PlayerAnimationIdleStandComponent;
 			public ComponentArray<PlayerAnimatorComponent> PlayerAnimatorComponent;
 		}
 		[InjectAttribute] private Data data;
@@ -25,10 +25,13 @@ namespace Javatale.Prototype
 			for (int i=0; i<data.Length; i++) {
 				Entity entity = data.Entity[i];
 				PlayerAnimatorComponent playerAnimatorComponent = data.PlayerAnimatorComponent[i];
-
-				commandBuffer.RemoveComponent<AnimationPlayerIdleStand>(entity);
+				PlayerAnimationIdleStandComponent playerAnimationIdleStandComponent = data.PlayerAnimationIdleStandComponent[i];
                 
 				PlayerAnimationState state = PlayerAnimationState.IDLE_STAND;
+
+				commandBuffer.RemoveComponent<PlayerAnimationIdleStandComponent>(entity);
+				GameObjectEntity.Destroy(playerAnimationIdleStandComponent);
+                UpdateInjectedComponentGroups();
 
 				playerAnimatorComponent.currentState = state;
 				playerAnimatorComponent.animator.Play(state.ToString());

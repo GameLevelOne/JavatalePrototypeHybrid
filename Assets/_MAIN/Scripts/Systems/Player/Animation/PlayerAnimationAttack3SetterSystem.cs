@@ -13,8 +13,7 @@ namespace Javatale.Prototype
 		{
 			public readonly int Length;
 			[ReadOnlyAttribute] public EntityArray Entity;
-			public ComponentDataArray<Player> Player;
-			[ReadOnlyAttribute] public ComponentDataArray<AnimationPlayerAttack3> AnimationPlayerAttack3;
+			[ReadOnlyAttribute] public ComponentArray<PlayerAnimationAttack3Component> PlayerAnimationAttack3Component;
 			public ComponentArray<PlayerAnimatorComponent> PlayerAnimatorComponent;
 		}
 		[InjectAttribute] private Data data;
@@ -24,23 +23,18 @@ namespace Javatale.Prototype
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
 
 			for (int i=0; i<data.Length; i++) {
-				Entity Entity = data.Entity[i];
-				Player player = data.Player[i];
+				Entity entity = data.Entity[i];
 				PlayerAnimatorComponent playerAnimatorComponent = data.PlayerAnimatorComponent[i];
-
-				commandBuffer.RemoveComponent<AnimationPlayerAttack3>(Entity);
-				commandBuffer.RemoveComponent<PlayerInputDirection>(Entity);
-				commandBuffer.RemoveComponent<PlayerInputAttack>(Entity);
+				PlayerAnimationAttack3Component playerAnimationAttack3Component = data.PlayerAnimationAttack3Component[i];
                 
 				PlayerAnimationState state = PlayerAnimationState.ATTACK_3;
 
+				commandBuffer.RemoveComponent<PlayerAnimationAttack3Component>(entity);
+				GameObjectEntity.Destroy(playerAnimationAttack3Component);
+                UpdateInjectedComponentGroups();
+
 				playerAnimatorComponent.currentState = state;
 				playerAnimatorComponent.animator.Play(state.ToString());
-
-				//SET TO PLAYER (PARENT)
-				player.AnimationToggleValue = 1;		
-				player.State = state;
-				data.Player[i] = player;
 
 #region List (OLD)
 				//SET LIST ANIMATION

@@ -13,8 +13,7 @@ namespace Javatale.Prototype
 		{
 			public readonly int Length;
 			[ReadOnlyAttribute] public EntityArray Entity;
-			public ComponentDataArray<Player> Player;
-			[ReadOnlyAttribute] public ComponentDataArray<AnimationPlayerAttack2> AnimationPlayerAttack2;
+			[ReadOnlyAttribute] public ComponentArray<PlayerAnimationAttack2Component> PlayerAnimationAttack2Component;
 			public ComponentArray<PlayerAnimatorComponent> PlayerAnimatorComponent;
 		}
 		[InjectAttribute] private Data data;
@@ -25,22 +24,17 @@ namespace Javatale.Prototype
 
 			for (int i=0; i<data.Length; i++) {
 				Entity entity = data.Entity[i];
-				Player player = data.Player[i];
 				PlayerAnimatorComponent playerAnimatorComponent = data.PlayerAnimatorComponent[i];
-
-				commandBuffer.RemoveComponent<AnimationPlayerAttack2>(entity);
-				commandBuffer.RemoveComponent<PlayerInputDirection>(entity);
-				commandBuffer.RemoveComponent<PlayerInputAttack>(entity);
+				PlayerAnimationAttack2Component playerAnimationAttack2Component = data.PlayerAnimationAttack2Component[i];
                 
 				PlayerAnimationState state = PlayerAnimationState.ATTACK_2;
 
+				commandBuffer.RemoveComponent<PlayerAnimationAttack2Component>(entity);
+				GameObjectEntity.Destroy(playerAnimationAttack2Component);
+                UpdateInjectedComponentGroups();
+
 				playerAnimatorComponent.currentState = state;
 				playerAnimatorComponent.animator.Play(state.ToString());
-
-				//SET TO PLAYER (PARENT)
-				player.AnimationToggleValue = 1;
-				player.State = state;
-				data.Player[i] = player;
 
 #region List (OLD)
 				//SET LIST ANIMATION

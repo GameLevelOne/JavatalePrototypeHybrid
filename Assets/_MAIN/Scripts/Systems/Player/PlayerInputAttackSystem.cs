@@ -1,7 +1,7 @@
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Jobs;
-using Unity.Transforms;
+// using Unity.Transforms;
 using Unity.Mathematics;
 // using UnityEngine;
 // using Unity.Burst;
@@ -14,7 +14,7 @@ namespace Javatale.Prototype
         [InjectAttribute] private PlayerAttackSlashBarrier playerAttackSlashBarrier;
 
         // [BurstCompileAttribute]
-        struct PlayerInputAttackJob : IJobProcessComponentDataWithEntity <PlayerInputAttack, Position, FaceDirection, MoveDirection>
+        struct PlayerInputAttackJob : IJobProcessComponentDataWithEntity <PlayerInputAttack, Player, FaceDirection>
         {
             [ReadOnlyAttribute] public EntityCommandBuffer commandBuffer;
             // public EntityArchetype playerAttackArchetype;
@@ -32,26 +32,24 @@ namespace Javatale.Prototype
                 [ReadOnlyAttribute] Entity entity, //IJobProcessComponentDataWithEntity
                 [ReadOnlyAttribute] int index, //IJobProcessComponentDataWithEntity
                 ref PlayerInputAttack playerInputAttack,
-				[ReadOnlyAttribute] ref Position pos,
-				[ReadOnlyAttribute] ref FaceDirection faceDir,
-                ref MoveDirection moveDir)
+				[ReadOnlyAttribute] ref Player player,
+				[ReadOnlyAttribute] ref FaceDirection faceDir)
             {
                 // SLASH ATTACK
-                if (isAttackPressed) {
-                    moveDir.Value = float3Zero;
-                    
-                    float3 faceDirValue = faceDir.Value;
+                if (isAttackPressed) {                    
+                    // float3 faceDirValue = faceDir.Value;
 
-                    Position initAttackPos = new Position{ Value = pos.Value + faceDirValue };
+                    // Position initAttackPos = new Position{ Value = pos.Value + faceDirValue };
                     MoveDirection initMoveDir = new MoveDirection{ Value = float3Zero };
-                    FaceDirection initFaceDir = new FaceDirection{ Value = faceDirValue, DirIndex = faceDir.DirIndex };
+                    FaceDirection initFaceDir = new FaceDirection{ Value = faceDir.Value, DirIndex = faceDir.DirIndex };
                     MoveSpeed initMoveSpeed = new MoveSpeed{ Value = 0f };
 
                     commandBuffer.AddComponent(entity, new AnimatorPlayerSlashAttack{
-                        pos = initAttackPos,
+                        // pos = initAttackPos,
                         moveDir = initMoveDir,
                         faceDir = initFaceDir,
-                        moveSpeed = initMoveSpeed
+                        moveSpeed = initMoveSpeed,
+                        attackIndex = player.AttackIndex
                     });
                 }
             }

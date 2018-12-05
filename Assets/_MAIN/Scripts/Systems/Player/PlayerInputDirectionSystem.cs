@@ -95,7 +95,7 @@ namespace Javatale.Prototype
 							faceDir.Value = float3Right;
 						}
 
-						commandBuffer.AddComponent(entity, new AnimatorNotZeroMovement { 
+						commandBuffer.AddComponent(entity, new AnimatorPlayerMove { 
 							dirIndex = faceDir.DirIndex,
 							dirValue = faceDir.Value	 
 						});
@@ -113,30 +113,15 @@ namespace Javatale.Prototype
 							faceDir.Value = float3Front;
 						}
 
-						commandBuffer.AddComponent(entity, new AnimatorNotZeroMovement { 
+						commandBuffer.AddComponent(entity, new AnimatorPlayerMove { 
 							dirIndex = faceDir.DirIndex,
 							dirValue = faceDir.Value	 
 						});
 					}
 					else 
 					{ // IDLE
-						commandBuffer.AddComponent(entity, new AnimatorZeroMovement {});
+						commandBuffer.AddComponent(entity, new AnimatorPlayerIdle {});
 					}
-
-					// int parentEntityIndex = parent.EntityIndex;
-
-                    // List<GameObjectEntity> childEntitiesInGame = GameManager.childEntitiesInGame;
-					// Entity childEntity = childEntitiesInGame[parentEntityIndex].Entity;
-
-					// if (dirX != 0f || dirZ != 0f) 
-					// {
-                   	//  	commandBuffer.AddComponent(childEntity, new AnimationPlayerMoveRun());
-                   	//  	commandBuffer.AddComponent(childEntity, new AnimatorPlayerDirection { dirIndex = faceDir.DirIndex, dirValue = faceDir.Value });
-					// } 
-					// else 
-					// {
-                   	//  	commandBuffer.AddComponent(childEntity, new AnimationPlayerIdleStand());
-					// }
 
 					float3 direction = new float3 (dirX, 0f, dirZ);
 					
