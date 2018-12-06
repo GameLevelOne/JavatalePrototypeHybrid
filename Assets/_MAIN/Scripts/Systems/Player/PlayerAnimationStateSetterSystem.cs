@@ -30,7 +30,7 @@
 
 // 				commandBuffer.RemoveComponent<PlayerAnimationStateComponent>(entity);
 // 				GameObjectEntity.Destroy(playerAnimationStateComponent);
-//                 UpdateInjectedComponentGroups();
+//                 // UpdateInjectedComponentGroups();
 
 // 				playerAnimatorComponent.currentState = state;
 // 				playerAnimatorComponent.animator.Play(state.ToString());

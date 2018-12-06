@@ -13,7 +13,7 @@ namespace Javatale.Prototype
 		{
 			public readonly int Length;
 			[ReadOnlyAttribute] public EntityArray Entity;
-			[ReadOnlyAttribute] public ComponentDataArray<Player> Player;
+			public ComponentDataArray<Player> Player;
 			[ReadOnlyAttribute] public ComponentDataArray<Parent> Parent;
 			[ReadOnlyAttribute] public ComponentDataArray<AnimatorPlayerIdle> AnimatorPlayerIdle;
 		}
@@ -38,6 +38,9 @@ namespace Javatale.Prototype
                 
 				if (playerAnimToggleValue == 0)
 				{
+					player.AttackIndex = 0;
+					data.Player[i] = player;
+					
 					int parentEntityIndex = parent.EntityIndex;
 					GameObjectEntity entityGO = childEntitiesInGame[parentEntityIndex];
 					GameObject childGO = entityGO.gameObject;

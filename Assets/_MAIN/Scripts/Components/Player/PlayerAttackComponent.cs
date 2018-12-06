@@ -8,6 +8,8 @@ namespace Javatale.Prototype
 		public AnimationEvent animationEvent;
 		public GameObjectEntity entityGO;
 		
+		bool isCheckOnEndAnimation = false;
+
 		void OnEnable ()
 		{
 			animationEvent.OnEndAnimation += OnEndAnimation;
@@ -20,9 +22,14 @@ namespace Javatale.Prototype
 
 		void OnEndAnimation ()
 		{
-			gameObject.AddComponent<DestroyComponent>();
-			entityGO.enabled = false;
-			entityGO.enabled = true;
+			if (!isCheckOnEndAnimation)
+			{	
+				isCheckOnEndAnimation = true;
+
+				gameObject.AddComponent<DestroyedEventComponent>();
+				entityGO.enabled = false;
+				entityGO.enabled = true;
+			}
 		}
 	}
 }

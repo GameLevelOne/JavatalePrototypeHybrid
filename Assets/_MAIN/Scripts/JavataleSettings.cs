@@ -38,6 +38,7 @@ namespace Javatale.Prototype
         public GameObject beeEnemyPrefab;
 
         [HeaderAttribute("Index = 0 : Down, 1 : Left, 2 : Up, 3 : Right")]
+        public float3[] playerAttackRanges;
         public GameObject[] playerAttack1Childs;
         public GameObject[] playerAttack2Childs;
         public GameObject[] playerAttack3Childs;

@@ -509,6 +509,19 @@ MonoBehaviour:
   playerPrefab: {fileID: 1583545113155044, guid: bd602f5db32643e49a71a283e6cba134,
     type: 2}
   beeEnemyPrefab: {fileID: 0}
+  playerAttackRanges:
+  - x: 0
+    y: 0
+    z: -2
+  - x: -1.4
+    y: 0
+    z: 0
+  - x: 0
+    y: 0
+    z: 3.8
+  - x: 1.4
+    y: 0
+    z: 0
   playerAttack1Childs:
   - {fileID: 1004815682617724, guid: 24ec0e6d9f3cd9842badfc2f9a6f1d62, type: 2}
   - {fileID: 1448885816363944, guid: 61146bbf49523e64aa02fddb97010566, type: 2}

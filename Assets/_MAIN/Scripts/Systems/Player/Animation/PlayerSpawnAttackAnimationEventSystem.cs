@@ -34,7 +34,7 @@ namespace Javatale.Prototype
 
                 commandBuffer.RemoveComponent<SpawnAttackAnimationEventComponent>(entity);
 				GameObjectEntity.Destroy(spawnAttackAnimationEventComponent);
-                UpdateInjectedComponentGroups();
+                // UpdateInjectedComponentGroups();
 
 				int entityIndex = childComponent.EntityIndex;
 				int spawnAttackAnimationValue = spawnAttackAnimationEventComponent.Value;

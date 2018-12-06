@@ -32,7 +32,7 @@ namespace Javatale.Prototype
 
 				commandBuffer.RemoveComponent<AnimatorDirectionComponent>(entity);
 				GameObjectEntity.Destroy(animatorDirectionComponent);
-				UpdateInjectedComponentGroups();
+				// UpdateInjectedComponentGroups();
                 
 				int dirIndex = animatorDirectionComponent.dirIndex;
 				float3 faceDirValue = animatorDirectionComponent.dirValue;

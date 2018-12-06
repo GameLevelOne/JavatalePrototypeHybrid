@@ -27,7 +27,7 @@ namespace Javatale.Prototype
 		[RuntimeInitializeOnLoadMethodAttribute(RuntimeInitializeLoadType.BeforeSceneLoad)]
 		public static void Initialize () 
 		{
-			EntityManager manager = World.Active.GetOrCreateManager<EntityManager>();
+			// EntityManager manager = World.Active.GetOrCreateManager<EntityManager>();
 
 			// playerArchetype = manager.CreateArchetype(
 			// 	typeof(Player),
@@ -107,7 +107,7 @@ namespace Javatale.Prototype
 			EntityManager manager = World.Active.GetOrCreateManager<EntityManager>();
 
 			GameObject playerPrefab = settings.playerPrefab;
-			float3 float3Zero = float3.zero;
+			// float3 float3Zero = float3.zero;
 
 			// PARENT
 			GameObject playerGO = GameObjectEntity.Instantiate(playerPrefab);

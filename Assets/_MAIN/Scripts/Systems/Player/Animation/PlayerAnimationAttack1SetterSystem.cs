@@ -31,7 +31,7 @@ namespace Javatale.Prototype
 
 				commandBuffer.RemoveComponent<PlayerAnimationAttack1Component>(entity);
 				GameObjectEntity.Destroy(playerAnimationAttack1Component);
-                UpdateInjectedComponentGroups();
+                // UpdateInjectedComponentGroups();
 
 				playerAnimatorComponent.currentState = state;
 				playerAnimatorComponent.animator.Play(state.ToString());

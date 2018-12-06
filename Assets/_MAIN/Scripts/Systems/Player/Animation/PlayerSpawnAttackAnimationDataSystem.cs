@@ -2,6 +2,7 @@ using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 using Unity.Mathematics;
+using Unity.Transforms;
 using Unity.Burst;
 using System.Collections.Generic;
 
@@ -14,6 +15,7 @@ namespace Javatale.Prototype
 		{
 			public readonly int Length;
 			[ReadOnlyAttribute] public EntityArray Entity;
+			[ReadOnlyAttribute] public ComponentDataArray<Position> Position;
 			[ReadOnlyAttribute] public ComponentDataArray<SpawnAttackAnimationData> SpawnAttackAnimationData;
 			[ReadOnlyAttribute] public ComponentDataArray<PlayerSpawnAttackData> PlayerSpawnAttackData;
 		}
@@ -23,13 +25,17 @@ namespace Javatale.Prototype
 		{
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
 
-			List<GameObject[]> playerSlashAttackChilds = GameManager.settings.playerSlashAttackChilds;
+			JavataleSettings settings = GameManager.settings;
+			float3[] playerAttackRanges = settings.playerAttackRanges;
+			List<GameObject[]> playerSlashAttackChilds = settings.playerSlashAttackChilds;
+
 			List<Entity> parentEntitiesInGame = GameManager.parentEntitiesInGame;
 			List<GameObjectEntity> childEntitiesInGame = GameManager.childEntitiesInGame;
 
 			for (int i=0; i<data.Length; i++)
 			{
 				Entity entity = data.Entity[i];
+				Position position = data.Position[i];
 				SpawnAttackAnimationData spawnAttackAnimationData = data.SpawnAttackAnimationData[i];
 				PlayerSpawnAttackData playerSpawnAttackData = data.PlayerSpawnAttackData[i];
 
@@ -48,8 +54,8 @@ namespace Javatale.Prototype
 
 #region SPAWN ATTACK GAMEOBJECT
 
-						float3 attackPosValue = float3.zero;
 						int attackFaceDirIndex = attackInitFaceDir.DirIndex;
+						float3 attackPosValue = position.Value + playerAttackRanges[attackFaceDirIndex];
 						
 						GameObject attackGO = null;
 						

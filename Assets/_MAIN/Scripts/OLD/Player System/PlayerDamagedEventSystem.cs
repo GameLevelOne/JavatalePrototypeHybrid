@@ -40,7 +40,7 @@ namespace Javatale.Prototype
 
 				commandBuffer.RemoveComponent<DamagedEventComponent>(entity);
 				GameObject.Destroy(damagedEventComponent);
-                UpdateInjectedComponentGroups();
+                // UpdateInjectedComponentGroups();
 
 				// commandBuffer.AddComponent(entitiesInGame[childEntityIndex], new DamagedData { Value = damageValue, Type = damageType });
 

@@ -33,7 +33,7 @@ namespace Javatale.Prototype
 
 				commandBuffer.RemoveComponent<EndAllAnimationEventComponent>(entity);
 				GameObjectEntity.Destroy(endAllAnimationEventComponent);
-                UpdateInjectedComponentGroups();
+                // UpdateInjectedComponentGroups();
 
 				int entityIndex = childComponent.EntityIndex;
                 int endAllAnimationValue = endAllAnimationEventComponent.Value;
