@@ -83,6 +83,11 @@ namespace Javatale.Prototype
 		public int Value;
 	}
 
+	public struct EndHurtAnimationData : IComponentData
+	{
+		public int Value;
+	}
+
 #endregion
 
 #region ========== LIST ==========
@@ -127,12 +132,17 @@ namespace Javatale.Prototype
 
 	public struct AnimatorPlayerIdle : IComponentData 
 	{
-		//
+		// public int Value; 
+	}
+
+	public struct AnimatorPlayerHurt : IComponentData 
+	{
+		public int Value;
 	}
 
 	public struct AnimatorPlayerSlashAttack : IComponentData 
 	{
-		//
+		// public int Value;
 	}
 	
 #endregion

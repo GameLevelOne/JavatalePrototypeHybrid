@@ -9,7 +9,8 @@ namespace Javatale.Prototype
 		public event AnimationControl OnSpawnAttackAnimation;
 		public event AnimationControl OnSpawnSomethingOnAnimation;
 		public event AnimationControl OnEndAttackAnimation;
-		public event AnimationControl OnEndAnimation;
+		public event AnimationControl OnEndAllAnimation;
+		public event AnimationControl OnEndHurtAnimation;
 
 		// public Animator animator;
 
@@ -47,11 +48,19 @@ namespace Javatale.Prototype
 			}
 		}
 
-		void EndAnimation ()
+		void EndAllAnimation ()
 		{
-			if (OnEndAnimation != null)
+			if (OnEndAllAnimation != null)
 			{
-				OnEndAnimation();
+				OnEndAllAnimation();
+			}
+		}
+
+		void EndHurtAnimation ()
+		{
+			if (OnEndHurtAnimation != null)
+			{
+				OnEndHurtAnimation();
 			}
 		}
 	}

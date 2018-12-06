@@ -51,36 +51,30 @@ namespace Javatale.Prototype
                 player.AnimationToggleValue = 1;
                 data.Player[i] = player; 
                 
-                int attackIndex = playerSpawnAttackData.attackIndex;
-                
                 int parentEntityIndex = parent.EntityIndex;
                 GameObjectEntity entityGO = childEntitiesInGame[parentEntityIndex];
                 GameObject childGO = entityGO.gameObject;
+                
+                int attackIndex = playerSpawnAttackData.attackIndex;
 
                 switch (attackIndex)
                 {
-                    case 0:
-                        // childGO.AddComponent<PlayerAnimationStateComponent>().Value = PlayerAnimationState.ATTACK_1;
-                        childGO.AddComponent<PlayerAnimationAttack1Component>();
-                        entityGO.enabled = false;
-                        entityGO.enabled = true;
-                        
-                        break;
                     case 1:
-                        // childGO.AddComponent<PlayerAnimationStateComponent>().Value = PlayerAnimationState.ATTACK_2;
                         childGO.AddComponent<PlayerAnimationAttack2Component>();
-                        entityGO.enabled = false;
-                        entityGO.enabled = true;
 
                         break;
                     case 2:
-                        // childGO.AddComponent<PlayerAnimationStateComponent>().Value = PlayerAnimationState.ATTACK_3;
                         childGO.AddComponent<PlayerAnimationAttack3Component>();
-                        entityGO.enabled = false;
-                        entityGO.enabled = true;
 
                         break;
+                    default: // Case 0
+                        childGO.AddComponent<PlayerAnimationAttack1Component>();
+                        
+                        break;
                 }
+
+                entityGO.enabled = false;
+                entityGO.enabled = true;
 			}
 		}
 	}

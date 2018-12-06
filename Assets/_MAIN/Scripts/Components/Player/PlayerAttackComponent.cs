@@ -12,15 +12,15 @@ namespace Javatale.Prototype
 
 		void OnEnable ()
 		{
-			animationEvent.OnEndAnimation += OnEndAnimation;
+			animationEvent.OnEndAllAnimation += OnEndAllAnimation;
 		}
 
 		void OnDisable ()
 		{
-			animationEvent.OnEndAnimation -= OnEndAnimation;
+			animationEvent.OnEndAllAnimation -= OnEndAllAnimation;
 		}
 
-		void OnEndAnimation ()
+		void OnEndAllAnimation ()
 		{
 			if (!isCheckOnEndAnimation)
 			{	

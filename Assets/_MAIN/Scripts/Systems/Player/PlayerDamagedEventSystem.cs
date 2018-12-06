@@ -15,7 +15,7 @@ namespace Javatale.Prototype
 		{
 			public readonly int Length;
 			[ReadOnlyAttribute] public EntityArray Entities;
-			// [ReadOnlyAttribute] public ComponentArray<ChildComponent> Child;
+			[ReadOnlyAttribute] public ComponentArray<ChildComponent> Child;
             [ReadOnlyAttribute] public ComponentArray<PlayerColliderComponent> PlayerColliderComponent;
             public ComponentArray<DamagedEventComponent> DamagedEventComponent;
 		}
@@ -24,27 +24,27 @@ namespace Javatale.Prototype
 		protected override void OnUpdate () 
 		{
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
-			// List<Entity> entitiesInGame = GameManager.entitiesInGame;
+			List<Entity> parentEntitiesInGame = GameManager.parentEntitiesInGame;
 
 			for (int i=0; i<data.Length; i++) 
 			{
 				Entity entity = data.Entities[i];
-				// ChildComponent child = data.Child[i];
+				ChildComponent child = data.Child[i];
 				PlayerColliderComponent playerColliderComponent = data.PlayerColliderComponent[i];
 				DamagedEventComponent damagedEventComponent = data.DamagedEventComponent[i];
                 
-				// int childEntityIndex = child.EntityIndex;
+				int entityIndex = child.EntityIndex;
 				EntryDamage entryDamage = damagedEventComponent.entryDamage;
 				float damageValue = entryDamage.Value;
 				int damageType = entryDamage.Type;
 
 				commandBuffer.RemoveComponent<DamagedEventComponent>(entity);
-				GameObject.Destroy(damagedEventComponent);
+				GameObjectEntity.Destroy(damagedEventComponent);
                 // UpdateInjectedComponentGroups();
 
-				// commandBuffer.AddComponent(entitiesInGame[childEntityIndex], new DamagedData { Value = damageValue, Type = damageType });
+				commandBuffer.AddComponent(parentEntitiesInGame[entityIndex], new DamagedData { Value = damageValue, Type = damageType });
 
-				playerColliderComponent.isCheckOnDamaged = false;
+				// playerColliderComponent.isCheckOnDamaged = false;
 			}
 		}
 	}

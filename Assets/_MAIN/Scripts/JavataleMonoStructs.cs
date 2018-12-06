@@ -7,7 +7,7 @@ namespace Javatale.Prototype
 
 	public class PlayerAnimationIdleStandComponent : MonoBehaviour {}
 	public class PlayerAnimationMoveRunComponent : MonoBehaviour {}
-	public class PlayerAnimationNormalHitHurtComponent : MonoBehaviour {}
+	public class PlayerAnimationHitHurtComponent : MonoBehaviour {}
 	
 	public class PlayerAnimationAttack1Component : MonoBehaviour {}
 	public class PlayerAnimationAttack2Component : MonoBehaviour {}
@@ -45,6 +45,11 @@ namespace Javatale.Prototype
 	}
 
 	public class EndAllAnimationEventComponent : MonoBehaviour
+	{
+		public int Value;
+	}
+
+	public class EndHurtAnimationEventComponent : MonoBehaviour
 	{
 		public int Value;
 	}

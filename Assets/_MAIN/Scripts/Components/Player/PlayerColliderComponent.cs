@@ -5,20 +5,22 @@ namespace Javatale.Prototype
 {
 	public class PlayerColliderComponent : MonoBehaviour 
 	{
-		public ColliderEvent colliderEvent;
+		[HeaderAttribute("References")]
 		public GameObjectEntity entityGO;
+		// public ColliderEvent colliderEvent;
+		public DamagerEvent damagerEvent;
 
 		[HeaderAttribute("Current")]
 		public bool isCheckOnDamaged = false;
 
 		void OnEnable ()
 		{
-			colliderEvent.OnDamageEvent += OnDamageEvent;
+			damagerEvent.OnDamageEvent += OnDamageEvent;
 		}
 
 		void OnDisable ()
 		{
-			colliderEvent.OnDamageEvent -= OnDamageEvent;
+			damagerEvent.OnDamageEvent -= OnDamageEvent;
 		}
 
 		void OnDamageEvent (float damageValue, int damageType)
@@ -26,7 +28,6 @@ namespace Javatale.Prototype
 			if (!isCheckOnDamaged) 
 			{
 				isCheckOnDamaged = true;
-				
 				gameObject.AddComponent<DamagedEventComponent>().entryDamage = new EntryDamage {Value = damageValue, Type = damageType};
 				entityGO.enabled = false;
 				entityGO.enabled = true;

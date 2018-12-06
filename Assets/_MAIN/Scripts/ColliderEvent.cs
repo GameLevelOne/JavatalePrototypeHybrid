@@ -11,9 +11,6 @@ namespace Javatale.Prototype
 		public event ColliderControl OnTriggerEnterEvent;
 		public event ColliderControl OnTriggerStayEvent;
 		public event ColliderControl OnTriggerExitEvent;
-		
-		public delegate void DamagerControl(float damageValue, int damageType);
-		public event DamagerControl OnDamageEvent;
 
 		void OnCollisionEnter (Collision other) {
 			if (OnCollisionEnterEvent != null) OnCollisionEnterEvent(other.gameObject);
@@ -29,14 +26,6 @@ namespace Javatale.Prototype
 
 		void OnTriggerEnter (Collider other) {
 			if (OnTriggerEnterEvent != null) OnTriggerEnterEvent(other.gameObject);
-
-			if (other.GetComponent<DamageComponent>() != null) 
-			{
-				DamageComponent damageComponent = other.GetComponent<DamageComponent>();
-				float damageValue = damageComponent.Value;
-				int damageType = (int) damageComponent.Type;
-				if (OnDamageEvent != null) OnDamageEvent(damageValue, damageType);
-			}
 		}
 
 		void OnTriggerStay (Collider other) {

@@ -3,57 +3,56 @@ using Unity.Entities;
 // using UnityEngine;
 using Unity.Burst;
 // using Unity.Mathematics;
-using System.Collections.Generic;
 
 namespace Javatale.Prototype 
 {
 	public class PlayerAnimationHitHurtSetterSystem : ComponentSystem 
 	{
         [BurstCompileAttribute]
-		public struct ParentData
+		public struct Data
 		{
 			public readonly int Length;
-			[ReadOnlyAttribute] public EntityArray AnimationIdleEntities;
-			[ReadOnlyAttribute] public ComponentDataArray<Parent> Parent;
-			public ComponentDataArray<Player> Player;
-			[ReadOnlyAttribute] public ComponentDataArray<FaceDirection> FaceDirection;
-			[ReadOnlyAttribute] public ComponentDataArray<AnimationPlayerHitHurt> AnimationPlayerNormalHit;
+			[ReadOnlyAttribute] public EntityArray Entity;
+			[ReadOnlyAttribute] public ComponentArray<PlayerAnimationHitHurtComponent> PlayerAnimationHitHurtComponent;
+			public ComponentArray<PlayerAnimatorComponent> PlayerAnimatorComponent;
 		}
-		[InjectAttribute] private ParentData parentData;
+		[InjectAttribute] private Data data;
 
 		protected override void OnUpdate () 
 		{
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
-			// List<EntryAnimation> listAnim = GameManager.entitiesAnimation;
-			// List<PlayerAnimationState> listPlayerAnimState = GameManager.entitiesPlayerAnimState;
 
-			for (int i=0; i<parentData.Length; i++) {
-				Entity animEntity = parentData.AnimationIdleEntities[i];
-				Parent parent = parentData.Parent[i];
-				Player player = parentData.Player[i];
-				FaceDirection faceDir = parentData.FaceDirection[i];
-
-				commandBuffer.RemoveComponent<AnimationPlayerHitHurt>(animEntity);
+			for (int i=0; i<data.Length; i++) {
+				Entity entity = data.Entity[i];
+				PlayerAnimatorComponent playerAnimatorComponent = data.PlayerAnimatorComponent[i];
+				PlayerAnimationHitHurtComponent playerAnimationHitHurtComponent = data.PlayerAnimationHitHurtComponent[i];
                 
+				PlayerAnimationState state = PlayerAnimationState.HIT_HURT;
+
+				commandBuffer.RemoveComponent<PlayerAnimationHitHurtComponent>(entity);
+				GameObjectEntity.Destroy(playerAnimationHitHurtComponent);
+                // UpdateInjectedComponentGroups();
+
+				playerAnimatorComponent.currentState = state;
+				playerAnimatorComponent.animator.Play(state.ToString());
+
+				// //SET TO PLAYER	
+				// player.AttackIndex = 0;	
+				// player.State = state;
+				// data.Player[i] = player;
+
+#region LIST (OLD)
 				//SET LIST ANIMATION
 				// int animIndex = parent.AnimIndex;
 				// EntryAnimation entryAnim = listAnim[animIndex];
-				// entryAnim.StartAnimationToggle = 41;
-
+				// entryAnim.StartAnimationToggle = 1;
 				// listAnim[animIndex] = entryAnim;
 				
 				//SET LIST PLAYER ANIMATION STATE
-				PlayerAnimationState state = PlayerAnimationState.HIT_HURT;
-
-				int playerAnimStateIndex = player.AnimStateIndex;
-
+				// PlayerAnimationState state = PlayerAnimationState.IDLE_STAND;
+				// int playerAnimStateIndex = player.AnimStateIndex;
 				// listPlayerAnimState[playerAnimStateIndex] = state;
-
-				//SET TO PLAYER (PARENT)	
-                player.AnimationToggleValue = 0; // INTERUPT ATTACK
-				// player.AttackIndex = 0;	
-				player.State = state;
-				parentData.Player[i] = player;
+#endregion
 			}
 		}
 	}

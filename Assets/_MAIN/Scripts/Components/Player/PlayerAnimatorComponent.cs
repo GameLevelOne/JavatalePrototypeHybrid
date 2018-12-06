@@ -24,6 +24,7 @@ namespace Javatale.Prototype
 		public bool isCheckOnSpawnAttackAnimation = false;
 		public bool isCheckOnEndAttackAnimation = false;
 		public bool isCheckOnEndAllAnimation = false;
+		public bool isCheckOnEndHurtAnimation = false;
 
 		void OnEnable ()
 		{
@@ -31,7 +32,8 @@ namespace Javatale.Prototype
 			animationEvent.OnSpawnSomethingOnAnimation += OnSpawnSomethingOnAnimation;
 			animationEvent.OnSpawnAttackAnimation += OnSpawnAttackAnimation;
 			animationEvent.OnEndAttackAnimation += OnEndAttackAnimation;
-			animationEvent.OnEndAnimation += OnEndAllAnimation;
+			animationEvent.OnEndAllAnimation += OnEndAllAnimation;
+			animationEvent.OnEndHurtAnimation += OnEndHurtAnimation;
 		}
 
 		void OnDisable ()
@@ -40,7 +42,8 @@ namespace Javatale.Prototype
 			animationEvent.OnSpawnSomethingOnAnimation -= OnSpawnSomethingOnAnimation;
 			animationEvent.OnSpawnAttackAnimation -= OnSpawnAttackAnimation;
 			animationEvent.OnEndAttackAnimation -= OnEndAttackAnimation;
-			animationEvent.OnEndAnimation -= OnEndAllAnimation;
+			animationEvent.OnEndAllAnimation -= OnEndAllAnimation;
+			animationEvent.OnEndHurtAnimation -= OnEndHurtAnimation;
 		}
 
 		void OnStartAnimation ()
@@ -98,6 +101,18 @@ namespace Javatale.Prototype
 				isCheckOnEndAllAnimation = true;
 
 				gameObject.AddComponent<EndAllAnimationEventComponent>().Value = 0;
+				entityGO.enabled = false;
+				entityGO.enabled = true;
+			}
+		}
+
+		void OnEndHurtAnimation ()
+		{
+			if (!isCheckOnEndHurtAnimation)
+			{
+				isCheckOnEndHurtAnimation = true;
+
+				gameObject.AddComponent<EndHurtAnimationEventComponent>().Value = 0;
 				entityGO.enabled = false;
 				entityGO.enabled = true;
 			}

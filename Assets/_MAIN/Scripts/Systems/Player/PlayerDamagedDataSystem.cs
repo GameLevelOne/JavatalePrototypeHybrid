@@ -2,21 +2,21 @@ using Unity.Collections;
 using Unity.Entities;
 // using UnityEngine;
 // using Unity.Mathematics;
-// using Unity.Burst;
+using Unity.Burst;
 // using System.Collections.Generic;
 
 namespace Javatale.Prototype 
 {
 	public class PlayerDamagedDataSystem : ComponentSystem 
 	{
-		// [BurstCompileAttribute]
+		[BurstCompileAttribute]
 		public struct Data
 		{
 			public readonly int Length;
 			[ReadOnlyAttribute] public EntityArray Entities;
-			[ReadOnlyAttribute] public ComponentDataArray<Parent> Parent;
-			public ComponentDataArray<Player> Player;
-			public ComponentDataArray<DamagedData> DamagedData;
+			[ReadOnlyAttribute] public ComponentDataArray<Player> Player;
+			public ComponentDataArray<Health> Health;
+			[ReadOnlyAttribute] public ComponentDataArray<DamagedData> DamagedData;
 		}
 		[InjectAttribute] private Data data;
 
@@ -29,19 +29,25 @@ namespace Javatale.Prototype
 			for (int i=0; i<data.Length; i++)
 			{
 				Entity entity = data.Entities[i];
-				DamagedData damagedData = data.DamagedData[i];
                 Player player = data.Player[i];
+                Health health = data.Health[i];
+				DamagedData damagedData = data.DamagedData[i];
 
                 float damagedValue = damagedData.Value; // FOR HEALTH
                 int damagedType = (int) damagedData.Type;
+
+				float remainHP = health.Value;
+				remainHP-=damagedValue;
+				health.Value = remainHP;
+				data.Health[i] = health;
 
                 commandBuffer.RemoveComponent<DamagedData>(entity);
                 
                 switch (damagedType)
                 {
                     default : // CASE 0	NORMAL		
-                        player.StartAnimationToggle = 41;
-                        data.Player[i] = player;
+						commandBuffer.AddComponent(entity, new AnimatorPlayerHurt {});
+						GameDebug.Log("AnimatorPlayerHurt");
                         
                         break;
                 }
