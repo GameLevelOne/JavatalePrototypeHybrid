@@ -17,16 +17,9 @@ namespace Javatale.Prototype
         struct PlayerInputAttackJob : IJobProcessComponentDataWithEntity <PlayerInputAttack, Player, FaceDirection>
         {
             [ReadOnlyAttribute] public EntityCommandBuffer commandBuffer;
-            // public EntityArchetype playerAttackArchetype;
-
-			// public List<Entity> childEntitiesInGame;
 
             public bool isAttackPressed;
-            // public Vector3 worldToCameraRotation;
-            // public float projectileSpeed;
             public float3 float3Zero;
-
-            // PlayerAttackSpawnData playerAttackSpawnData; 
 
             public void Execute (
                 [ReadOnlyAttribute] Entity entity, //IJobProcessComponentDataWithEntity

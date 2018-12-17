@@ -23,7 +23,7 @@ namespace Javatale.Prototype
 		protected override void OnUpdate () 
 		{
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
-
+			List<int> entitiesAnimationToggle = GameManager.entitiesAnimationToggle;
             List<GameObjectEntity> childEntitiesInGame = GameManager.childEntitiesInGame;
 
 			for (int i=0; i<data.Length; i++)
@@ -35,6 +35,7 @@ namespace Javatale.Prototype
 
                 commandBuffer.RemoveComponent<EndHurtAnimationData>(entity);
 
+				int entityIndex = parent.EntityIndex; 
                 int endHurtAnimationValue = endHurtAnimationData.Value;
                 
                 switch (endHurtAnimationValue)
@@ -43,14 +44,15 @@ namespace Javatale.Prototype
                         commandBuffer.AddComponent(entity, new PlayerInputDirection{});
                         commandBuffer.AddComponent(entity, new PlayerInputAttack{});
 
+						entitiesAnimationToggle[entityIndex] = 0;
+
                         player.AnimationToggleValue = 0;
                         data.Player[i] = player;
                         
                         break;
                 }
 
-                int parentEntityIndex = parent.EntityIndex;
-                GameObjectEntity entityGO = childEntitiesInGame[parentEntityIndex];
+                GameObjectEntity entityGO = childEntitiesInGame[entityIndex];
                 GameObject childGO = entityGO.gameObject;
                         
                 childGO.AddComponent<PlayerAnimationIdleStandComponent>();

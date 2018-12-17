@@ -29,7 +29,7 @@ namespace Javatale.Prototype
 		protected override void OnUpdate () 
 		{
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
-
+			List<int> entitiesAnimationToggle = GameManager.entitiesAnimationToggle;
             List<GameObjectEntity> childEntitiesInGame = GameManager.childEntitiesInGame;
 
 			for (int i=0; i<data.Length; i++) 
@@ -42,14 +42,24 @@ namespace Javatale.Prototype
 				PlayerSpawnAttackData playerSpawnAttackData = data.PlayerSpawnAttackData[i];
 
 				commandBuffer.RemoveComponent<AnimatorPlayerSlashAttack>(entity);
-				commandBuffer.RemoveComponent<PlayerInputDirection>(entity);
-				commandBuffer.RemoveComponent<PlayerInputAttack>(entity);
+                
+				int entityIndex = parent.EntityIndex;
+				int playerAnimToggleValue = player.AnimationToggleValue;
+
+				if (playerAnimToggleValue == 0)
+				{
+                    commandBuffer.RemoveComponent<PlayerInputDirection>(entity);
+                    commandBuffer.RemoveComponent<PlayerInputAttack>(entity);
+                }
 
                 moveDir.Value = float3Zero;
                 data.MoveDirection[i] = moveDir;
-                
+
+                entitiesAnimationToggle[entityIndex] = 1;
+
                 player.AnimationToggleValue = 1;
                 data.Player[i] = player; 
+                // GameDebug.Log("PASlashAttackSS "+player.AnimationToggleValue);
                 
                 int parentEntityIndex = parent.EntityIndex;
                 GameObjectEntity entityGO = childEntitiesInGame[parentEntityIndex];
@@ -60,21 +70,31 @@ namespace Javatale.Prototype
                 switch (attackIndex)
                 {
                     case 1:
+                        // childGO.AddComponent<PlayerAnimationStateComponent>().Value = PlayerAnimationState.ATTACK_2;
                         childGO.AddComponent<PlayerAnimationAttack2Component>();
+                        entityGO.enabled = false;
+                        entityGO.enabled = true;
+                        // GameDebug.Log("PASlashAttackSS");
 
                         break;
                     case 2:
+                        // childGO.AddComponent<PlayerAnimationStateComponent>().Value = PlayerAnimationState.ATTACK_3;
                         childGO.AddComponent<PlayerAnimationAttack3Component>();
+                        entityGO.enabled = false;
+                        entityGO.enabled = true;
+                        // GameDebug.Log("PASlashAttackSS");
 
                         break;
                     default: // Case 0
+                        // childGO.AddComponent<PlayerAnimationStateComponent>().Value = PlayerAnimationState.ATTACK_1;
                         childGO.AddComponent<PlayerAnimationAttack1Component>();
+                        entityGO.enabled = false;
+                        entityGO.enabled = true;
+                        // GameDebug.Log("PASlashAttackSS");
                         
                         break;
                 }
-
-                entityGO.enabled = false;
-                entityGO.enabled = true;
+                // }
 			}
 		}
 	}

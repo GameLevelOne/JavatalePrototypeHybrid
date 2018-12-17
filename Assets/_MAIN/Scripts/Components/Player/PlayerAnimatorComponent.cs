@@ -17,8 +17,6 @@ namespace Javatale.Prototype
 		public float3 currentFaceDirValue;
 		
 		[SpaceAttribute(10f)]
-		// public bool isFinishAnyAnimation = true;
-		// public bool isFinishAttackAnimation = true;
 		public bool isCheckOnStartAnimation = false;
 		public bool isCheckOnSpawnSomethingOnAnimation = false;
 		public bool isCheckOnSpawnAttackAnimation = false;

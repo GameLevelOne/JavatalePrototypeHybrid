@@ -3,6 +3,7 @@ using Unity.Entities;
 // using UnityEngine;
 using Unity.Burst;
 // using Unity.Mathematics;
+using System.Collections.Generic;
 
 namespace Javatale.Prototype 
 {
@@ -13,6 +14,7 @@ namespace Javatale.Prototype
 		{
 			public readonly int Length;
 			[ReadOnlyAttribute] public EntityArray Entity;
+			[ReadOnlyAttribute] public ComponentArray<ChildComponent> ChildComponent;
 			[ReadOnlyAttribute] public ComponentArray<PlayerAnimationMoveRunComponent> PlayerAnimationMoveRunComponent;
 			public ComponentArray<PlayerAnimatorComponent> PlayerAnimatorComponent;
 		}
@@ -21,20 +23,32 @@ namespace Javatale.Prototype
 		protected override void OnUpdate () 
 		{
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
+            List<int> entitiesIdleLoopAnimationChecker = GameManager.entitiesIdleLoopAnimationChecker;
+			List<int> entitiesAnimationToggle = GameManager.entitiesAnimationToggle;
 
 			for (int i=0; i<data.Length; i++) {
 				Entity entity = data.Entity[i];
+				ChildComponent childComponent = data.ChildComponent[i];
 				PlayerAnimatorComponent playerAnimatorComponent = data.PlayerAnimatorComponent[i];
 				PlayerAnimationMoveRunComponent playerAnimationMoveRunComponent = data.PlayerAnimationMoveRunComponent[i];
-                
-				PlayerAnimationState state = PlayerAnimationState.MOVE_RUN;
 
+				int entityIndex = childComponent.EntityIndex;
+				
 				commandBuffer.RemoveComponent<PlayerAnimationMoveRunComponent>(entity);
 				GameObjectEntity.Destroy(playerAnimationMoveRunComponent);
                 // UpdateInjectedComponentGroups();
+				// GameDebug.Log("PAMoveRunSS "+entitiesIdleLoopAnimation[entityIndex]);
+				entitiesIdleLoopAnimationChecker[entityIndex] = 0;
+				// GameDebug.Log("PAMoveRunSS "+entitiesIdleLoopAnimation[entityIndex]+"\n==========END==========");
 
-				playerAnimatorComponent.currentState = state;
-				playerAnimatorComponent.animator.Play(state.ToString());
+				int animationToggle = entitiesAnimationToggle[entityIndex];
+
+				if (animationToggle == 0)
+				{
+					PlayerAnimationState state = PlayerAnimationState.MOVE_RUN;
+					playerAnimatorComponent.currentState = state;
+					playerAnimatorComponent.animator.Play(state.ToString());
+				}
 
 				//SET TO PLAYER	
 				// player.AttackIndex = 0;		

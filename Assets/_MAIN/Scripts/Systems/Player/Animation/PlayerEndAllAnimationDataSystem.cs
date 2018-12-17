@@ -24,6 +24,7 @@ namespace Javatale.Prototype
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
 
             List<GameObjectEntity> childEntitiesInGame = GameManager.childEntitiesInGame;
+			// List<bool> addedStateComponentsInGame = GameManager.addedStateComponentsInGame;
 
 			for (int i=0; i<data.Length; i++)
 			{
@@ -34,12 +35,14 @@ namespace Javatale.Prototype
 
                 commandBuffer.RemoveComponent<EndAllAnimationData>(entity);
 
+				int entityIndex = parent.EntityIndex;
 				int playerAnimToggleValue = player.AnimationToggleValue;
-                
+				// bool isStateComponentAdded = addedStateComponentsInGame[entityIndex];
+                // GameDebug.Log("PEndAllADS "+player.AnimationToggleValue);
+
 				if (playerAnimToggleValue == 0)
 				{
-					int parentEntityIndex = parent.EntityIndex;
-					GameObjectEntity entityGO = childEntitiesInGame[parentEntityIndex];
+					GameObjectEntity entityGO = childEntitiesInGame[entityIndex];
 					GameObject childGO = entityGO.gameObject;
 					
 					int endAllAnimationValue = endAllAnimationData.Value;
@@ -52,11 +55,13 @@ namespace Javatale.Prototype
 
 							// childGO.AddComponent<PlayerAnimationStateComponent>().Value = PlayerAnimationState.IDLE_STAND;
 							childGO.AddComponent<PlayerAnimationIdleStandComponent>();
-							entityGO.enabled = false;
-							entityGO.enabled = true;
 							
 							break;
 					}
+
+					entityGO.enabled = false;
+					entityGO.enabled = true;
+					// addedStateComponentsInGame[entityIndex] = true;
 				}
             }
 		}	

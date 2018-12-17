@@ -39,33 +39,33 @@ namespace Javatale.Prototype
 				// int animIndex = parent.AnimIndex;
 				// EntryAnimation entryAnim = listAnim[animIndex];
 				
-				int beeStartAnimToggle = bee.StartAnimationToggle;
+				// int beeStartAnimToggle = bee.StartAnimationToggle;
 				// int beeEndAnimToggle = bee.EndAnimationToggle;
 				// int beeAnimToggleValue = bee.AnimationToggleValue;
 
-				if (beeStartAnimToggle != 0) 
-				{
-					switch (beeStartAnimToggle) 
-					{
-						case 1:
-							commandBuffer.AddComponent(animEntity, new AnimationBeeIdleFly{});
-							break;
-						case 2:
-							commandBuffer.AddComponent(animEntity, new AnimationBeeMoveFly{});
-							break;
-					}
+				// if (beeStartAnimToggle != 0) 
+				// {
+				// 	switch (beeStartAnimToggle) 
+				// 	{
+				// 		case 1:
+				// 			commandBuffer.AddComponent(animEntity, new AnimationBeeIdleFly{});
+				// 			break;
+				// 		case 2:
+				// 			commandBuffer.AddComponent(animEntity, new AnimationBeeMoveFly{});
+				// 			break;
+				// 	}
                 
-					int dirIndex = faceDir.DirIndex;
-					float3 faceDirValue = faceDir.Value;
+				// 	int dirIndex = faceDir.DirIndex;
+				// 	float3 faceDirValue = faceDir.Value;
 					
-					// entryAnim.DirIndex = dirIndex;
-					// entryAnim.FaceDirValue = faceDirValue;
+				// 	// entryAnim.DirIndex = dirIndex;
+				// 	// entryAnim.FaceDirValue = faceDirValue;
 					
-					// listAnim[animIndex] = entryAnim;
+				// 	// listAnim[animIndex] = entryAnim;
 
-					bee.StartAnimationToggle = 0;
-					data.Bee[i] = bee;
-				}
+				// 	bee.StartAnimationToggle = 0;
+				// 	data.Bee[i] = bee;
+				// }
 			}
 		}	
 	}

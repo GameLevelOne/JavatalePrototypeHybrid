@@ -13,7 +13,7 @@ namespace Javatale.Prototype
         [InjectAttribute] private PlayerAnimationSetBarrier playerAnimationSetBarrier;
 
 		// [BurstCompileAttribute]
-		struct PlayerInputDirectionJob : IJobProcessComponentDataWithEntity <PlayerInputDirection, MoveDirection, FaceDirection, Parent>
+		struct PlayerInputDirectionJob : IJobProcessComponentDataWithEntity <PlayerInputDirection, MoveDirection, FaceDirection>
 		{
             [ReadOnlyAttribute] public EntityCommandBuffer commandBuffer;
 
@@ -31,16 +31,13 @@ namespace Javatale.Prototype
 			public float3 float3Right;
 			public float3 float3Front;
 			public float3 float3Back;
-			public float dirX;
-			public float dirZ;
 
 			public void Execute (
                 [ReadOnlyAttribute] Entity entity, //IJobProcessComponentDataWithEntity
                 [ReadOnlyAttribute] int index, //IJobProcessComponentDataWithEntity
 				ref PlayerInputDirection playerInputDir,
 				ref MoveDirection moveDir,
-				ref FaceDirection faceDir,
-				[ReadOnlyAttribute] ref Parent parent)
+				ref FaceDirection faceDir)
 			{
 				float3 currentDir = playerInputDir.Value;
 				float currentDirX = currentDir.x;
@@ -55,9 +52,10 @@ namespace Javatale.Prototype
 
 				if (currentDirX != dirX || currentDirZ != dirZ) 
 				{
+
 					if (dirX != 0f && dirZ != 0f) 
 					{//DIAGONAL FACING
-						if (currentDir.x==0f) 
+						if (currentDirX==0f) 
 						{//PREVIOUS MOVEMENT IS VERTICAL
 							if (dirZ == -1f) 
 							{
@@ -81,6 +79,11 @@ namespace Javatale.Prototype
 								faceDir.Value = float3Right;
 							}
 						}
+
+						commandBuffer.AddComponent(entity, new AnimatorPlayerMove { 
+							dirIndex = faceDir.DirIndex,
+							dirValue = faceDir.Value	 
+						});
 					} 
 					else if (dirX != 0f) 
 					{
@@ -89,7 +92,7 @@ namespace Javatale.Prototype
 							faceDir.DirIndex = 1;
 							faceDir.Value = float3Left;
 						} 
-						else if (dirX == 1f) 
+						else
 						{//FACE RIGHT
 							faceDir.DirIndex = 3;
 							faceDir.Value = float3Right;
@@ -107,7 +110,7 @@ namespace Javatale.Prototype
 							faceDir.DirIndex = 0;
 							faceDir.Value = float3Back;
 						} 
-						else if (dirZ == 1f) 
+						else
 						{//FACE UP
 							faceDir.DirIndex = 2;
 							faceDir.Value = float3Front;

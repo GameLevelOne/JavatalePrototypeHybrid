@@ -3,6 +3,7 @@ using Unity.Entities;
 // using UnityEngine;
 // using Unity.Mathematics;
 using Unity.Burst;
+using System.Collections.Generic;
 
 namespace Javatale.Prototype 
 {
@@ -14,6 +15,7 @@ namespace Javatale.Prototype
 			public readonly int Length;
 			[ReadOnlyAttribute] public EntityArray Entity;
 			public ComponentDataArray<Player> Player;
+			[ReadOnlyAttribute] public ComponentDataArray<Parent> Parent;
 			[ReadOnlyAttribute] public ComponentDataArray<EndAttackAnimationData> EndAttackAnimationData;
 		}
 		[InjectAttribute] private Data data;
@@ -21,13 +23,14 @@ namespace Javatale.Prototype
 		protected override void OnUpdate () 
 		{
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
-            
+			List<int> entitiesAnimationToggle = GameManager.entitiesAnimationToggle;
 			int maxPlayerAttackIndex = GameManager.settings.maxPlayerAttackIndex;
 
 			for (int i=0; i<data.Length; i++)
 			{
 				Entity entity = data.Entity[i];
 				Player player = data.Player[i];
+				Parent parent = data.Parent[i];
 				EndAttackAnimationData endAttackAnimationData = data.EndAttackAnimationData[i];
 
                 commandBuffer.RemoveComponent<EndAttackAnimationData>(entity);
@@ -44,6 +47,9 @@ namespace Javatale.Prototype
 
 						if (attackIndex >= maxPlayerAttackIndex) attackIndex = 0; 
 						else attackIndex++;
+
+						int entityIndex = parent.EntityIndex; 
+						entitiesAnimationToggle[entityIndex] = 0;
 
 						player.AttackIndex = attackIndex;
                         player.AnimationToggleValue = 0;

@@ -36,7 +36,7 @@ namespace Javatale.Prototype
                         moveDir.Value = new float3(0f, 0f, 0f);
 
                         bee.IdleTimer = minIdleCooldown;
-                        bee.StartAnimationToggle = 1;
+                        // bee.StartAnimationToggle = 1;
                     }
                     else
                     {
@@ -84,7 +84,7 @@ namespace Javatale.Prototype
                         bee.PatrolTimer = minPatrolCooldown;
 					    moveDir.Value = direction;
 
-                        bee.StartAnimationToggle = 2;
+                        // bee.StartAnimationToggle = 2;
                     }
                     else
                     {

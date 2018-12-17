@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114961194799165118}
   - component: {fileID: 95782671986399986}
   m_Layer: 0
-  m_Name: Bee Sprite
+  m_Name: Bee GO Only
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,8 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 467e7512a58e7ec44a56e7b2c7cbaa11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PosIndex: 0
-  AnimIndex: 0
+  EntityIndex: 0
 --- !u!114 &114961194799165118
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -129,6 +128,10 @@ MonoBehaviour:
   animator: {fileID: 95782671986399986}
   currentDirIndex: 0
   currentState: 0
+  currentFaceDirValue:
+    x: 0
+    y: 0
+    z: 0
 --- !u!212 &212921102264104280
 SpriteRenderer:
   m_ObjectHideFlags: 1

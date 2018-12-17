@@ -3,6 +3,7 @@ using Unity.Entities;
 // using UnityEngine;
 using Unity.Burst;
 // using Unity.Mathematics;
+using System.Collections.Generic;
 
 namespace Javatale.Prototype 
 {
@@ -13,6 +14,7 @@ namespace Javatale.Prototype
 		{
 			public readonly int Length;
 			[ReadOnlyAttribute] public EntityArray Entity;
+			[ReadOnlyAttribute] public ComponentArray<ChildComponent> ChildComponent;
 			[ReadOnlyAttribute] public ComponentArray<PlayerAnimationIdleStandComponent> PlayerAnimationIdleStandComponent;
 			public ComponentArray<PlayerAnimatorComponent> PlayerAnimatorComponent;
 		}
@@ -21,21 +23,32 @@ namespace Javatale.Prototype
 		protected override void OnUpdate () 
 		{
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
+            // List<int> entitiesIdleLoopAnimation = GameManager.entitiesIdleLoopAnimation;
+			List<int> entitiesAnimationToggle = GameManager.entitiesAnimationToggle;
 
 			for (int i=0; i<data.Length; i++) {
 				Entity entity = data.Entity[i];
+				ChildComponent childComponent = data.ChildComponent[i];
 				PlayerAnimatorComponent playerAnimatorComponent = data.PlayerAnimatorComponent[i];
 				PlayerAnimationIdleStandComponent playerAnimationIdleStandComponent = data.PlayerAnimationIdleStandComponent[i];
-                
-				PlayerAnimationState state = PlayerAnimationState.IDLE_STAND;
+
+				int entityIndex = childComponent.EntityIndex;
 
 				commandBuffer.RemoveComponent<PlayerAnimationIdleStandComponent>(entity);
 				GameObjectEntity.Destroy(playerAnimationIdleStandComponent);
                 // UpdateInjectedComponentGroups();
+                // GameDebug.Log("PAIdleStandSS");
+				// entitiesIdleLoopAnimation[entityIndex] = 0;
 
-				playerAnimatorComponent.currentState = state;
-				playerAnimatorComponent.animator.Play(state.ToString());
+				int animationToggle = entitiesAnimationToggle[entityIndex];
 
+				if (animationToggle == 0)
+				{
+					PlayerAnimationState state = PlayerAnimationState.IDLE_STAND;
+					playerAnimatorComponent.currentState = state;
+					playerAnimatorComponent.animator.Play(state.ToString());
+				}
+                
 				// //SET TO PLAYER	
 				// player.AttackIndex = 0;	
 				// player.State = state;

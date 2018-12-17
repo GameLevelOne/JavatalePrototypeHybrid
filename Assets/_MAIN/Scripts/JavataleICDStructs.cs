@@ -7,21 +7,7 @@ namespace Javatale.Prototype
 {
 #region ========== TAG ==========
 
-	// BEE
-	public struct Bee : IComponentData
-	{
-		public int AnimStateIndex;
-
-		[HeaderAttribute("Current")]
-		public BeeAnimationState State;
-		public int StartAnimationToggle;
-		public int EndAnimationToggle;
-		public int AnimationToggleValue;
-		
-		public float IdleTimer;
-		public float PatrolTimer;
-	}
-	public class BeeComponent : ComponentDataWrapper<Bee> {}
+	//
 
 #endregion
 
@@ -51,8 +37,14 @@ namespace Javatale.Prototype
 	public struct AnimationBeeIdleFly : IComponentData {}
 	// public class BeeAnimationIdleComponent : ComponentDataWrapper<AnimationBeeIdleFly> {}
 
-	public struct AnimationBeeMoveFly : IComponentData {}
+	public struct AnimationBeeMovePatrol : IComponentData {}
 	// public class BeeAnimationMoveFlyComponent : ComponentDataWrapper<AnimationBeeMoveFly> {}
+	
+	public struct AnimationBeeAttack : IComponentData {}
+	
+	public struct AnimationBeeHitHurt : IComponentData {}
+	
+	public struct AnimationBeeMoveChase : IComponentData {}
 
 #endregion
 

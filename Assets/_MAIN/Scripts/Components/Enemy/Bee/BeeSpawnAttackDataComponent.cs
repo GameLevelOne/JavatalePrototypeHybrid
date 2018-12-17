@@ -1,18 +1,17 @@
-using System;
+﻿using System;
 using Unity.Entities;
-// using Unity.Mathematics;
+using Unity.Mathematics;
 
 namespace Javatale.Prototype 
 {
     [SerializableAttribute]
-    public struct PlayerSpawnAttackData : IComponentData 
+    public struct BeeSpawnAttackData : IComponentData 
     {
         // public Position pos;
         public MoveDirection moveDir;
         public FaceDirection faceDir;
         public MoveSpeed moveSpeed;
-        public int attackIndex;
+        // public int attackIndex;
     }
-
-    public class PlayerSpawnAttackDataComponent : ComponentDataWrapper<PlayerSpawnAttackData> {}
+	public class BeeSpawnAttackDataComponent : ComponentDataWrapper<BeeSpawnAttackData> {}
 }

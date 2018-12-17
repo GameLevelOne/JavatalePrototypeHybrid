@@ -10,48 +10,40 @@ namespace Javatale.Prototype
 	public class BeeAnimationIdleSetterSystem : ComponentSystem 
 	{
         [BurstCompileAttribute]
-		public struct ParentData
+		public struct Data
 		{
 			public readonly int Length;
-			[ReadOnlyAttribute] public EntityArray AnimationIdleEntities;
-			[ReadOnlyAttribute] public ComponentDataArray<Parent> Parent;
-			public ComponentDataArray<Bee> Bee;
-			[ReadOnlyAttribute] public ComponentDataArray<FaceDirection> FaceDirection;
-			public ComponentDataArray<AnimationBeeIdleFly> AnimationBeeIdle;
+			[ReadOnlyAttribute] public EntityArray Entity;
+			[ReadOnlyAttribute] public ComponentArray<ChildComponent> ChildComponent;
+			[ReadOnlyAttribute] public ComponentArray<BeeAnimationIdleFlyComponent> BeeAnimationIdleFlyComponent;
+			public ComponentArray<BeeAnimatorComponent> BeeAnimatorComponent;
 		}
-		[InjectAttribute] private ParentData parentData;
+		[InjectAttribute] private Data data;
 
 		protected override void OnUpdate () 
 		{
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
-			// List<EntryAnimation> listAnim = GameManager.entitiesAnimation;
-			// List<BeeAnimationState> listBeeAnimState = GameManager.entitiesBeeAnimState;
+			List<int> entitiesAnimationToggle = GameManager.entitiesAnimationToggle;
 
-			for (int i=0; i<parentData.Length; i++) {
-				Entity animEntity = parentData.AnimationIdleEntities[i];
-				Parent parent = parentData.Parent[i];
-				Bee bee = parentData.Bee[i];
-				FaceDirection faceDir = parentData.FaceDirection[i];
+			for (int i=0; i<data.Length; i++) {
+				Entity entity = data.Entity[i];
+				ChildComponent childComponent = data.ChildComponent[i];
+				BeeAnimatorComponent beeAnimatorComponent = data.BeeAnimatorComponent[i];
+				BeeAnimationIdleFlyComponent beeAnimationIdleFlyComponent = data.BeeAnimationIdleFlyComponent[i];
 
-				commandBuffer.RemoveComponent<AnimationBeeIdleFly>(animEntity);
-                
-				//SET LIST ANIMATION
-				// int animIndex = parent.AnimIndex;
-				// EntryAnimation entryAnim = listAnim[animIndex];
-				// entryAnim.StartAnimationToggle = 1;
+				int entityIndex = childComponent.EntityIndex;
 
-				// listAnim[animIndex] = entryAnim;
-				
-				//SET LIST BEE ANIMATION STATE
-				BeeAnimationState state = BeeAnimationState.IDLE_FLY;
+				commandBuffer.RemoveComponent<BeeAnimationIdleFlyComponent>(entity);
+				GameObjectEntity.Destroy(beeAnimationIdleFlyComponent);
 
-				int beeAnimStateIndex = bee.AnimStateIndex;
+				int animationToggle = entitiesAnimationToggle[entityIndex];
 
-				// listBeeAnimState[beeAnimStateIndex] = state;
-
-				//SET TO BEE (PARENT)	
-				bee.State = state;
-				parentData.Bee[i] = bee;
+				if (animationToggle == 0)
+				{
+					BeeAnimationState state = BeeAnimationState.IDLE_FLY;
+					beeAnimatorComponent.currentState = state;
+					beeAnimatorComponent.animator.Play(state.ToString());
+				}
 			}
 		}
 	}

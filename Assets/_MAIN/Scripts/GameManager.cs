@@ -1,7 +1,7 @@
 ﻿// using Unity.Collections;
 using Unity.Entities;
-using Unity.Mathematics;
-using Unity.Transforms;
+// using Unity.Mathematics;
+// using Unity.Transforms;
 using UnityEngine;
 // using Unity.Rendering;
 using UnityEngine.SceneManagement;
@@ -14,20 +14,30 @@ namespace Javatale.Prototype
 		// public static EntityArchetype playerArchetype;
 		// public static EntityArchetype beeEnemyArchetype;
 		// public static EntityArchetype playerAttackArchetype;
-
+		public static EntityManager entityManager;
 		public static JavataleSettings settings;
 
 		#region Universal Lists
 		
 		public static List<Entity> parentEntitiesInGame;
 		public static List<GameObjectEntity> childEntitiesInGame;
+		// public static List<bool> addedStateComponentsInGame;
+		public static List<int> entitiesAnimationToggle;
+		// public static List<int> entitiesActionAnimation;
+
+		/// <summary>
+		/// <para>Values : <br /></para>
+		/// <para>0 OFF / Idle<br /></para>
+		/// <para>1 Move<br /></para>
+		/// </summary>
+		public static List<int> entitiesIdleLoopAnimationChecker;
 		
 		#endregion
 
 		[RuntimeInitializeOnLoadMethodAttribute(RuntimeInitializeLoadType.BeforeSceneLoad)]
 		public static void Initialize () 
 		{
-			// EntityManager manager = World.Active.GetOrCreateManager<EntityManager>();
+			entityManager = World.Active.GetOrCreateManager<EntityManager>();
 
 			// playerArchetype = manager.CreateArchetype(
 			// 	typeof(Player),
@@ -56,12 +66,16 @@ namespace Javatale.Prototype
 			
 			parentEntitiesInGame = new List<Entity>();
 			childEntitiesInGame = new List<GameObjectEntity>();
+			// addedStateComponentsInGame = new List<bool>();
+			entitiesAnimationToggle = new List<int>();
+			entitiesIdleLoopAnimationChecker = new List<int>();
 		}
 
 		public static void NewGame () 
 		{
 			GameDebug.Log("NEW GAME");
 			AddPlayer();
+			AddBee(settings.maxEnemy);
 		}
 
 		[RuntimeInitializeOnLoadMethodAttribute(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -126,6 +140,47 @@ namespace Javatale.Prototype
 			int currentChildEntityIndex = childEntitiesInGame.Count-1;
 
 			childComponent.EntityIndex = currentChildEntityIndex;
+
+			// addedStateComponentsInGame.Add(false); // State Component
+			entitiesAnimationToggle.Add(0);
+			entitiesIdleLoopAnimationChecker.Add(0);
+		}
+
+		static void AddBee (int maxEnemy)
+		{
+			EntityManager manager = World.Active.GetOrCreateManager<EntityManager>();
+
+			GameObject beePrefab = settings.beeEnemyPrefab;
+			// float3 float3Zero = float3.zero;
+			float horBound = settings.horizontalBound;
+			float verBound = settings.verticalBound;
+
+			for (int i=0; i<maxEnemy; i++)
+			{
+				float xVal = Random.Range(-horBound, horBound);
+				float zVal = Random.Range(-verBound, verBound);
+
+				GameObject beeGO = GameObjectEntity.Instantiate(beePrefab, new Vector3(xVal, 0f, zVal), Quaternion.identity);
+				ChildComponent childComponent = beeGO.GetComponentInChildren<ChildComponent>();
+				GameObjectEntity beeChildGOEntity = childComponent.GetComponent<GameObjectEntity>();
+				Entity beeEntity = beeChildGOEntity.Entity;
+
+				// PARENT
+				parentEntitiesInGame.Add(beeEntity);
+				int currentParentEntityIndex = parentEntitiesInGame.Count-1;
+
+				manager.SetComponentData(beeEntity, new Parent { EntityIndex = currentParentEntityIndex });
+
+				// CHILD
+				childEntitiesInGame.Add(beeChildGOEntity);
+				int currentChildEntityIndex = childEntitiesInGame.Count-1;
+
+				childComponent.EntityIndex = currentChildEntityIndex;
+
+				// addedStateComponentsInGame.Add(false); // State Component
+				entitiesAnimationToggle.Add(0);
+				entitiesIdleLoopAnimationChecker.Add(0);
+			}
 		}
 	}
 }

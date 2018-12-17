@@ -9,7 +9,7 @@ namespace Javatale.Prototype
     [SerializableAttribute]
 	public struct Player : IComponentData
 	{
-		public int AnimStateIndex;
+		// public int AnimStateIndex;
 
 		[HeaderAttribute("Current")]
 		public PlayerAnimationState State;

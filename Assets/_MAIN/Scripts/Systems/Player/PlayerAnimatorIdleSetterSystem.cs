@@ -22,8 +22,10 @@ namespace Javatale.Prototype
 		protected override void OnUpdate () 
 		{
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
-
+            // List<int> entitiesIdleLoopAnimation = GameManager.entitiesIdleLoopAnimation;
+			List<int> entitiesAnimationToggle = GameManager.entitiesAnimationToggle;
             List<GameObjectEntity> childEntitiesInGame = GameManager.childEntitiesInGame;
+			// List<bool> addedStateComponentsInGame = GameManager.addedStateComponentsInGame;
 
 			for (int i=0; i<data.Length; i++) 
             {
@@ -34,15 +36,15 @@ namespace Javatale.Prototype
 
 				commandBuffer.RemoveComponent<AnimatorPlayerIdle>(entity);
 
-				int playerAnimToggleValue = player.AnimationToggleValue;
-                
-				if (playerAnimToggleValue == 0)
-				{
+				int entityIndex = parent.EntityIndex;
+				// int entityIdleLoopAnimValue = entitiesIdleLoopAnimation[entityIndex];
+
+				// if (entityIdleLoopAnimValue == 0)
+				// {
 					player.AttackIndex = 0;
 					data.Player[i] = player;
 					
-					int parentEntityIndex = parent.EntityIndex;
-					GameObjectEntity entityGO = childEntitiesInGame[parentEntityIndex];
+					GameObjectEntity entityGO = childEntitiesInGame[entityIndex];
 					GameObject childGO = entityGO.gameObject;
 
 					// IDLE
@@ -50,7 +52,9 @@ namespace Javatale.Prototype
 					childGO.AddComponent<PlayerAnimationIdleStandComponent>();
 					entityGO.enabled = false;
 					entityGO.enabled = true;
-				}
+
+				// 	entitiesIdleLoopAnimation[entityIndex] = 1;
+				// }
 			}
 		}
 	}

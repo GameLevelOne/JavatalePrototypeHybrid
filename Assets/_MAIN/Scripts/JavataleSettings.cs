@@ -66,7 +66,10 @@ namespace Javatale.Prototype
 	public enum BeeAnimationState
     {
         IDLE_FLY,
-        MOVE_FLY
+        MOVE_PATROL,
+        ATTACK,
+        HIT_HURT,
+        MOVE_CHASE
     }
 
 	public enum DamageType

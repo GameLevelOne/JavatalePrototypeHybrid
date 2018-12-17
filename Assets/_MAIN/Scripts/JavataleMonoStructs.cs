@@ -18,7 +18,10 @@ namespace Javatale.Prototype
 #region ========== BEE ANIMATION ==========
 
 	public class BeeAnimationIdleFlyComponent : MonoBehaviour {}
-	public class BeeAnimationMoveFlyComponent : MonoBehaviour {}
+	public class BeeAnimationMovePatrolComponent : MonoBehaviour {}
+	public class BeeAnimationMoveAttackComponent : MonoBehaviour {}
+	public class BeeAnimationHitHurtComponent : MonoBehaviour {}
+	public class BeeAnimationMoveChaseComponent : MonoBehaviour {}
 
 #endregion
 	

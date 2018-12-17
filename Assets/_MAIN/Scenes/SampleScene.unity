@@ -139,7 +139,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 0.6
+  m_Intensity: 0.8
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -311,12 +311,12 @@ GameObject:
   - component: {fileID: 739489483}
   - component: {fileID: 739489487}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Damage Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &739489483
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -808,7 +808,7 @@ MonoBehaviour:
   worldToCameraRotation: {x: 40, y: 0, z: 0}
   maxPlayerAttackIndex: 2
   playerMoveSpeed: 5
-  maxEnemy: 1000
+  maxEnemy: 5
   enemyMoveSpeed: 3
   enemyMinPatrolCooldown: 5
   enemyMaxPatrolCooldown: 10
@@ -816,7 +816,8 @@ MonoBehaviour:
   enemyMaxIdleCooldown: 8
   playerPrefab: {fileID: 1583545113155044, guid: bd602f5db32643e49a71a283e6cba134,
     type: 2}
-  beeEnemyPrefab: {fileID: 0}
+  beeEnemyPrefab: {fileID: 1811138684363448, guid: 6989c3ad1cb6a9e49b5feba1e32c4034,
+    type: 2}
   playerAttackRanges:
   - x: 0
     y: 0
