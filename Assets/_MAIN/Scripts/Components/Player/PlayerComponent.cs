@@ -12,7 +12,7 @@ namespace Javatale.Prototype
 		// public int AnimStateIndex;
 
 		[HeaderAttribute("Current")]
-		public PlayerAnimationState State;
+		// public PlayerAnimationState State;
 
 		/// <summary>
 		/// <para>Values: <br /></para>

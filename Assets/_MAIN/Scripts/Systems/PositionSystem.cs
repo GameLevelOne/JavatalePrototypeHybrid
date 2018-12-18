@@ -7,7 +7,7 @@ using Unity.Burst;
 
 namespace Javatale.Prototype 
 {
-	public class PlayerPositionSystem : ComponentSystem
+	public class PositionSystem : ComponentSystem
 	{
 		[BurstCompileAttribute]
 		public struct Data

@@ -10,11 +10,12 @@ namespace Javatale.Prototype
 	public struct Bee : IComponentData
 	{
 		// public int AnimStateIndex;
+		public float MoveRange;
 		public float MaxIdleCooldown;
 		public float MaxPatrolCooldown;
 
 		[HeaderAttribute("Current")]
-		public BeeAnimationState State;
+		// public BeeAnimationState State;
 
 		/// <summary>
 		/// <para>Values: <br /></para>

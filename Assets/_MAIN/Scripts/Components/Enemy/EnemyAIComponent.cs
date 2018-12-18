@@ -1,22 +1,18 @@
 // using System;
-// using Unity.Entities;
-// // using Unity.Mathematics;
-// using UnityEngine;
+using Unity.Entities;
+using Unity.Mathematics;
+using UnityEngine;
+using UnityEngine.AI;
 
+namespace Javatale.Prototype 
+{
+	public class EnemyAIComponent : MonoBehaviour
+    {
+        [HeaderAttribute("Refferences")]
+		public GameObjectEntity entityGO;
+        public NavMeshAgent navMeshAgent;
 
-// namespace Javatale.Prototype 
-// {
-// 	[SerializableAttribute]
-// 	public struct EnemyAI : IComponentData
-// 	{
-// 		// public Vector3 directionValue;
-// 		public float IdleTimer;
-// 		public float PatrolTimer;
-// 		public int AnimationToggle;
-
-// 		// public bool initIdle;
-// 		// public bool initPatrol;
-// 	}
-
-// 	public class EnemyAIComponent : ComponentDataWrapper<EnemyAI> {}
-// }
+        [HeaderAttribute("Current")]
+        public float3 destination;
+    }
+}

@@ -1,4 +1,4 @@
-﻿// using Unity.Collections;
+﻿using Unity.Collections;
 using Unity.Entities;
 // using Unity.Mathematics;
 // using Unity.Transforms;
@@ -151,7 +151,6 @@ namespace Javatale.Prototype
 			EntityManager manager = World.Active.GetOrCreateManager<EntityManager>();
 
 			GameObject beePrefab = settings.beeEnemyPrefab;
-			// float3 float3Zero = float3.zero;
 			float horBound = settings.horizontalBound;
 			float verBound = settings.verticalBound;
 
@@ -160,26 +159,30 @@ namespace Javatale.Prototype
 				float xVal = Random.Range(-horBound, horBound);
 				float zVal = Random.Range(-verBound, verBound);
 
-				GameObject beeGO = GameObjectEntity.Instantiate(beePrefab, new Vector3(xVal, 0f, zVal), Quaternion.identity);
-				ChildComponent childComponent = beeGO.GetComponentInChildren<ChildComponent>();
-				GameObjectEntity beeChildGOEntity = childComponent.GetComponent<GameObjectEntity>();
-				Entity beeEntity = beeChildGOEntity.Entity;
-
 				// PARENT
+				GameObject beeGO = GameObject.Instantiate(beePrefab, new Vector3(xVal, 0f, zVal), Quaternion.identity);
+				GameObjectEntity beeGOEntity = beeGO.GetComponent<GameObjectEntity>();
+				beeGOEntity.enabled = true;
+				Entity beeEntity = beeGOEntity.Entity;
+
 				parentEntitiesInGame.Add(beeEntity);
 				int currentParentEntityIndex = parentEntitiesInGame.Count-1;
 
 				manager.SetComponentData(beeEntity, new Parent { EntityIndex = currentParentEntityIndex });
 
 				// CHILD
+				ChildComponent childComponent = beeGO.GetComponentInChildren<ChildComponent>();
+				GameObjectEntity beeChildGOEntity = childComponent.GetComponent<GameObjectEntity>();
+
 				childEntitiesInGame.Add(beeChildGOEntity);
 				int currentChildEntityIndex = childEntitiesInGame.Count-1;
 
 				childComponent.EntityIndex = currentChildEntityIndex;
 
-				// addedStateComponentsInGame.Add(false); // State Component
 				entitiesAnimationToggle.Add(0);
 				entitiesIdleLoopAnimationChecker.Add(0);
+
+				beeChildGOEntity.enabled = true;
 			}
 		}
 	}

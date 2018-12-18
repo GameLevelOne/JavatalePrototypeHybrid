@@ -31,9 +31,9 @@ GameObject:
   - component: {fileID: 114869462873902470}
   - component: {fileID: 114450704835584084}
   - component: {fileID: 114569139500814232}
+  - component: {fileID: 114002023066356356}
   - component: {fileID: 114380124372523564}
   - component: {fileID: 114460045837801156}
-  - component: {fileID: 114002023066356356}
   m_Layer: 0
   m_Name: Player GO
   m_TagString: Untagged
