@@ -10,6 +10,8 @@ namespace Javatale.Prototype
 
     public class PlayerAnimationSetBarrier : BarrierSystem {}
 
+    public class EnemyNavMeshSetBarrier : BarrierSystem {}
+
     public class JavataleSettings : MonoBehaviour
     {
         [HeaderAttribute("Reference Components")]
@@ -27,11 +29,13 @@ namespace Javatale.Prototype
 
         [HeaderAttribute("Enemy Attributes")]
 		public int maxEnemy = 3;
+        public float beeMoveRange = 10f;
         public float enemyMoveSpeed = 3.0f;
         public float enemyMinPatrolCooldown = 5.0f;
         public float enemyMaxPatrolCooldown = 10.0f;
         public float enemyMinIdleCooldown = 3.0f;
         public float enemyMaxIdleCooldown = 8.0f;
+        public float enemyMinimumFinishGap = 0.5f;
 
         [SpaceAttribute(10f)]
         public GameObject playerPrefab;

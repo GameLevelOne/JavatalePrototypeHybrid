@@ -385,7 +385,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SerializedData:
-    State: 0
     AnimationToggleValue: 0
     AttackIndex: 0
 --- !u!114 &114655772037767394
@@ -422,7 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SerializedData:
-    Value: 300
+    Value: 320
 --- !u!114 &114869462873902470
 MonoBehaviour:
   m_ObjectHideFlags: 1

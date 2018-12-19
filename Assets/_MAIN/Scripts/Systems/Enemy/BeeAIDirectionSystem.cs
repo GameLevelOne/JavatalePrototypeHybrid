@@ -1,107 +1,79 @@
-﻿using Unity.Collections;
+using Unity.Collections;
 using Unity.Entities;
+using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
-using Unity.Burst;
-using System.Collections.Generic;
-using UnityRandom = UnityEngine.Random; //AMBIGUOUS ISSUE
 
 namespace Javatale.Prototype
 {
-	public class BeeAIDirectionSystem : ComponentSystem 
-	{
-		[BurstCompileAttribute]
-		public struct Data
-		{
-			public readonly int Length;
-			[ReadOnlyAttribute] public EntityArray entity;
-			[ReadOnlyAttribute] public ComponentDataArray<Bee> Bee;
-			public ComponentDataArray<EnemyAIDirection> EnemyAIDirection;
-			[ReadOnlyAttribute] public ComponentDataArray<Position> Position;
-			[ReadOnlyAttribute] public ComponentDataArray<Parent> Parent;
-		}
-		[InjectAttribute] Data data;
+    public class BeeAIDirectionSystem : JobComponentSystem
+    {
+        [InjectAttribute] private EnemyNavMeshSetBarrier enemyNavMeshSetBarrier;
 
-		float3 float3Zero = float3.zero;
-		float deltaTime;
+        struct BeeAIDirectionJob : IJobProcessComponentDataWithEntity <Bee, EnemyAIDirection, FaceDirection, Position>
+        {
+            [ReadOnlyAttribute] public EntityCommandBuffer commandBuffer;
 
-		protected override void OnUpdate ()
-		{
-			EntityCommandBuffer commandBuffer = PostUpdateCommands;
-			List<GameObjectEntity> childEntitiesInGame = GameManager.childEntitiesInGame;
+			public Vector3 vector3Zero;
+			public float3 float3Zero;
+            public float minimumFinishGap;
+            public float deltaTime;
 
-			deltaTime = Time.deltaTime;
+            public void Execute (
+                [ReadOnlyAttribute] Entity entity,
+                [ReadOnlyAttribute] int index,
+                ref Bee bee,
+                ref EnemyAIDirection enemyAIDir,
+				ref FaceDirection faceDir,
+                [ReadOnlyAttribute] ref Position pos)
+            {
+                int enemyAIPowerToggle = bee.EnemyAIPowerToggle;
 
-			for (int i=0; i<data.Length; i++)
-			{
-				Entity entity = data.entity[i];
-				Bee bee = data.Bee[i];
-				EnemyAIDirection enemyAIDirection = data.EnemyAIDirection[i];
-				Position position = data.Position[i];
-				Parent parent = data.Parent[i];
-				
-				commandBuffer.RemoveComponent<EnemyAIDirection>(entity);
+                if (enemyAIPowerToggle == 1)
+                {
+                    Vector3 currentPos = pos.Value;
+                    Vector3 targerPos = enemyAIDir.Destination;
 
-				float3 targetPos = float3Zero;
-				int entityIndex = parent.EntityIndex;
-				GameObjectEntity entityGO = childEntitiesInGame[entityIndex];
-				GameObject childGO = entityGO.gameObject;
+                    float finishGap = (currentPos - targerPos).magnitude;
 
-#region Nav Mesh Direction
+                    // GameDebug.Log("finishGap "+finishGap);
+                    if (finishGap < minimumFinishGap) {
+                        bee.EnemyAIPowerToggle = 0;
+                    }
+                }
+                else
+                {
+                    float beeIdleTimer = bee.IdleTimer;
 
-				float moveRange = bee.MoveRange;
-				float posX = position.Value.x;
-				float posZ = position.Value.z;
-				float randomX = UnityRandom.Range(posX - moveRange, posX + moveRange);
-				float randomZ = UnityRandom.Range(posZ - moveRange, posZ + moveRange);
-				targetPos = new float3(randomX, 0f, randomZ);
-				
-				// enemyNavMeshData.TargetPosition = targetPos;
-				childGO.AddComponent<NavMeshEventComponent>().Destination = targetPos;
-				entityGO.enabled = false;
-				entityGO.enabled = true;
-#endregion
+                    if (beeIdleTimer < 0f)
+                    {
+                        commandBuffer.AddComponent(entity, new NavMeshData{});
+                        commandBuffer.RemoveComponent<EnemyAIDirection>(entity);
+                        // GameDebug.Log("Entity "+index+" is finish");
+                    }
+                    else 
+                    {
+                        bee.IdleTimer -= deltaTime;
+                    }
+                }
+            }
+        } 
 
-#region Conventional Direction
+        protected override JobHandle OnUpdate (JobHandle inputDeps)
+        {
+            BeeAIDirectionJob beeAIDirectionJob = new BeeAIDirectionJob 
+            {
+                commandBuffer = enemyNavMeshSetBarrier.CreateCommandBuffer(),
+                vector3Zero = Vector3.zero,
+				float3Zero = float3.zero,
+                minimumFinishGap = GameManager.settings.enemyMinimumFinishGap,
+                deltaTime = Time.deltaTime,
+            };
 
-				// if (moveDir != vector3Zero)
-				// {
-				// 	float patrolTimer = bee.PatrolTimer;
+            JobHandle beeAIDirectionHandle = beeAIDirectionJob.Schedule(this, inputDeps);
 
-				// 	if (patrolTimer <= 0f)
-				// 	{
-				// 		moveDir = vector3Zero;
-
-				// 		bee.PatrolTimer = bee.MaxPatrolCooldown;
-				// 		GameDebug.Log("Set Idle");
-				// 	}
-				// 	else 
-				// 	{
-				// 		bee.PatrolTimer -= deltaTime;
-				// 	}
-				// }
-				// else
-				// {
-				// 	float idleTimer = bee.IdleTimer;
-
-				// 	if (idleTimer <= 0f)
-				// 	{
-				// 		float randomX = Random.Range(-1,2);
-				// 		float randomZ = Random.Range(-1,2);
-				// 		moveDir = new Vector3(randomX, 0f, randomZ);
-
-				// 		bee.IdleTimer = bee.MaxIdleCooldown;
-				// 		GameDebug.Log("Set Patrol");
-				// 	}
-				// 	else
-				// 	{
-				// 		bee.IdleTimer -= deltaTime;
-				// 	}
-				// }
-
-#endregion
-			}
-		}
-	}
+            return beeAIDirectionHandle;
+        }
+    }
 }

@@ -98,15 +98,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
+    agentRadius: 1
     agentHeight: 2
-    agentSlope: 30
+    agentSlope: 10
     agentClimb: 0.2
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.33333334
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -313,7 +313,7 @@ GameObject:
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &634172575
@@ -324,7 +324,7 @@ Transform:
   m_GameObject: {fileID: 634172574}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 7.01, y: 1, z: 8.9}
-  m_LocalScale: {x: 5.43, y: 2, z: 2}
+  m_LocalScale: {x: 8.42, y: 2, z: 6.12}
   m_Children: []
   m_Father: {fileID: 1753418328}
   m_RootOrder: 1
@@ -572,7 +572,7 @@ GameObject:
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &791673565
@@ -583,7 +583,7 @@ Transform:
   m_GameObject: {fileID: 791673564}
   m_LocalRotation: {x: -0, y: -0.48271942, z: -0, w: 0.8757751}
   m_LocalPosition: {x: -17.1, y: 1, z: 7.1}
-  m_LocalScale: {x: 5.43, y: 2, z: 2}
+  m_LocalScale: {x: 8.42, y: 2, z: 6.12}
   m_Children: []
   m_Father: {fileID: 1753418328}
   m_RootOrder: 3
@@ -715,7 +715,7 @@ GameObject:
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1079991328
@@ -726,7 +726,7 @@ Transform:
   m_GameObject: {fileID: 1079991327}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -7.41, y: 1, z: -0.9248047}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 8.42, y: 2, z: 6.12}
   m_Children: []
   m_Father: {fileID: 1753418328}
   m_RootOrder: 0
@@ -1046,7 +1046,7 @@ GameObject:
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1357208489
@@ -1057,7 +1057,7 @@ Transform:
   m_GameObject: {fileID: 1357208488}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 10, y: 1, z: -8.6}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 8.42, y: 2, z: 6.12}
   m_Children: []
   m_Father: {fileID: 1753418328}
   m_RootOrder: 5
@@ -1131,7 +1131,7 @@ GameObject:
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1571228195
@@ -1142,7 +1142,7 @@ Transform:
   m_GameObject: {fileID: 1571228194}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -19.9, y: 1, z: -12.6}
-  m_LocalScale: {x: 5.43, y: 2, z: 2}
+  m_LocalScale: {x: 8.42, y: 2, z: 6.12}
   m_Children: []
   m_Father: {fileID: 1753418328}
   m_RootOrder: 4
@@ -1233,12 +1233,14 @@ MonoBehaviour:
   worldToCameraRotation: {x: 40, y: 0, z: 0}
   maxPlayerAttackIndex: 2
   playerMoveSpeed: 5
-  maxEnemy: 3
+  maxEnemy: 50
+  beeMoveRange: 10
   enemyMoveSpeed: 3
   enemyMinPatrolCooldown: 5
   enemyMaxPatrolCooldown: 10
-  enemyMinIdleCooldown: 3
-  enemyMaxIdleCooldown: 8
+  enemyMinIdleCooldown: 0
+  enemyMaxIdleCooldown: 3
+  enemyMinimumFinishGap: 0.5
   playerPrefab: {fileID: 1583545113155044, guid: bd602f5db32643e49a71a283e6cba134,
     type: 2}
   beeEnemyPrefab: {fileID: 1811138684363448, guid: 6989c3ad1cb6a9e49b5feba1e32c4034,
@@ -1299,7 +1301,7 @@ GameObject:
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1603181789
@@ -1310,7 +1312,7 @@ Transform:
   m_GameObject: {fileID: 1603181788}
   m_LocalRotation: {x: -0, y: -0.48271942, z: -0, w: 0.8757751}
   m_LocalPosition: {x: 19.7, y: 1, z: 6.475195}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 8.42, y: 2, z: 6.12}
   m_Children: []
   m_Father: {fileID: 1753418328}
   m_RootOrder: 2

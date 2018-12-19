@@ -1,11 +1,12 @@
 ﻿using Unity.Collections;
 using Unity.Entities;
-// using Unity.Mathematics;
+using Unity.Mathematics;
 // using Unity.Transforms;
 using UnityEngine;
 // using Unity.Rendering;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using UnityRandom = UnityEngine.Random; //AMBIGUOUS ISSUE
 
 namespace Javatale.Prototype 
 {
@@ -156,18 +157,18 @@ namespace Javatale.Prototype
 
 			for (int i=0; i<maxEnemy; i++)
 			{
-				float xVal = Random.Range(-horBound, horBound);
-				float zVal = Random.Range(-verBound, verBound);
+				float xVal = UnityRandom.Range(-horBound, horBound);
+				float zVal = UnityRandom.Range(-verBound, verBound);
 
 				// PARENT
 				GameObject beeGO = GameObject.Instantiate(beePrefab, new Vector3(xVal, 0f, zVal), Quaternion.identity);
 				GameObjectEntity beeGOEntity = beeGO.GetComponent<GameObjectEntity>();
-				beeGOEntity.enabled = true;
 				Entity beeEntity = beeGOEntity.Entity;
 
 				parentEntitiesInGame.Add(beeEntity);
 				int currentParentEntityIndex = parentEntitiesInGame.Count-1;
 
+				manager.SetComponentData(beeEntity, new Bee { MoveRange = settings.beeMoveRange, IdleTimer = UnityRandom.Range(settings.enemyMinIdleCooldown, settings.enemyMaxIdleCooldown), EnemyAIPowerToggle = 0 });
 				manager.SetComponentData(beeEntity, new Parent { EntityIndex = currentParentEntityIndex });
 
 				// CHILD
@@ -181,8 +182,6 @@ namespace Javatale.Prototype
 
 				entitiesAnimationToggle.Add(0);
 				entitiesIdleLoopAnimationChecker.Add(0);
-
-				beeChildGOEntity.enabled = true;
 			}
 		}
 	}

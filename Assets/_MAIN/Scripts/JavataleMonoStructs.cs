@@ -66,10 +66,12 @@ namespace Javatale.Prototype
 	{
 		public EntryDamage entryDamage;
 	}
+
 	public class DestroyedEventComponent : MonoBehaviour
 	{
 		public int Value;
 	}
+	
 	public class NavMeshEventComponent : MonoBehaviour
 	{
 		public float3 Destination;

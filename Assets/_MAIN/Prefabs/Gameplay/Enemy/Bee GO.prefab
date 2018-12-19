@@ -50,8 +50,8 @@ GameObject:
   - component: {fileID: 114869635475931538}
   - component: {fileID: 114695081708913150}
   - component: {fileID: 114875272833240906}
-  - component: {fileID: 114231678365189720}
   - component: {fileID: 195667866758611400}
+  - component: {fileID: 114292170199775018}
   m_Layer: 0
   m_Name: Bee GO
   m_TagString: Untagged
@@ -189,7 +189,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1875748659795580}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EntityIndex: 0
---- !u!114 &114231678365189720
+--- !u!114 &114292170199775018
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SerializedData:
-    Value:
+    Destination:
       x: 0
       y: 0
       z: 0
@@ -338,7 +338,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1811138684363448}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bf10cdea1344482e91a4f2b58506b77, type: 3}
   m_Name: 

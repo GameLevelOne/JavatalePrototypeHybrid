@@ -111,6 +111,11 @@ namespace Javatale.Prototype
 		//
 	}
 
+	public struct NavMeshData : IComponentData
+	{
+		//
+	}
+
 #endregion
 
 #region ========== ANIMATOR DATA ==========

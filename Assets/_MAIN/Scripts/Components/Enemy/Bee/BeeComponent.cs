@@ -16,6 +16,12 @@ namespace Javatale.Prototype
 
 		[HeaderAttribute("Current")]
 		// public BeeAnimationState State;
+		/// <summary>
+		/// <para>Values: <br /></para>
+		/// <para>0 OFF<br /></para>
+		/// <para>1 ON<br /></para>
+		/// </summary>
+		public int EnemyAIPowerToggle;
 
 		/// <summary>
 		/// <para>Values: <br /></para>
