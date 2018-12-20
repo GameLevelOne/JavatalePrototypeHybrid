@@ -50,7 +50,7 @@ namespace Javatale.Prototype
 				if (isRightDirectionHeld) dirX += 1f;
 				if (isLeftDirectionHeld) dirX -= 1f;
 
-				if (currentDirX != dirX || currentDirZ != dirZ) 
+				if (currentDirX != dirX || currentDirZ != dirZ)
 				{
 
 					if (dirX != 0f && dirZ != 0f) 

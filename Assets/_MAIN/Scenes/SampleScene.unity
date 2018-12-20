@@ -1228,23 +1228,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbb6b4869315eee46a6297748127ed89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  verticalBound: 10
-  horizontalBound: 10
+  playerPrefab: {fileID: 1583545113155044, guid: bd602f5db32643e49a71a283e6cba134,
+    type: 2}
+  beeEnemyPrefab: {fileID: 1811138684363448, guid: 6989c3ad1cb6a9e49b5feba1e32c4034,
+    type: 2}
+  verticalBound: 20
+  horizontalBound: 20
   worldToCameraRotation: {x: 40, y: 0, z: 0}
   maxPlayerAttackIndex: 2
   playerMoveSpeed: 5
-  maxEnemy: 50
+  maxEnemy: 100
   beeMoveRange: 10
   enemyMoveSpeed: 3
   enemyMinPatrolCooldown: 5
   enemyMaxPatrolCooldown: 10
   enemyMinIdleCooldown: 0
-  enemyMaxIdleCooldown: 3
+  enemyMaxIdleCooldown: 5
   enemyMinimumFinishGap: 0.5
-  playerPrefab: {fileID: 1583545113155044, guid: bd602f5db32643e49a71a283e6cba134,
-    type: 2}
-  beeEnemyPrefab: {fileID: 1811138684363448, guid: 6989c3ad1cb6a9e49b5feba1e32c4034,
-    type: 2}
+  faceX: FaceX
+  faceY: FaceY
   playerAttackRanges:
   - x: 0
     y: 0

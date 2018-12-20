@@ -329,6 +329,7 @@ MonoBehaviour:
     MoveRange: 10
     MaxIdleCooldown: 3
     MaxPatrolCooldown: 5
+    EnemyAIPowerToggle: 0
     AnimationToggleValue: 0
     IdleTimer: 0
     PatrolTimer: 0

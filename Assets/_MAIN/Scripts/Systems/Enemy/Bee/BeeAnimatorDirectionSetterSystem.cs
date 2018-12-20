@@ -6,7 +6,7 @@ using Unity.Mathematics;
 
 namespace Javatale.Prototype 
 {
-	public class PlayerAnimatorDirectionSetterSystem : ComponentSystem 
+	public class BeeAnimatorDirectionSetterSystem : ComponentSystem 
 	{
         [BurstCompileAttribute]
 		public struct Data
@@ -14,7 +14,7 @@ namespace Javatale.Prototype
 			public readonly int Length;
 			[ReadOnlyAttribute] public EntityArray Entity;
 			[ReadOnlyAttribute] public ComponentArray<AnimatorDirectionComponent> AnimatorDirectionComponent;
-			public ComponentArray<PlayerAnimatorComponent> PlayerAnimatorComponent;
+			public ComponentArray<BeeAnimatorComponent> BeeAnimatorComponent;
 		}
 		[InjectAttribute] private Data data;
 
@@ -27,21 +27,20 @@ namespace Javatale.Prototype
 
 			for (int i=0; i<data.Length; i++) {
 				Entity entity = data.Entity[i];
-				PlayerAnimatorComponent playerAnimatorComponent = data.PlayerAnimatorComponent[i];
+				BeeAnimatorComponent beeAnimatorComponent = data.BeeAnimatorComponent[i];
 				AnimatorDirectionComponent animatorDirectionComponent = data.AnimatorDirectionComponent[i];
 
 				commandBuffer.RemoveComponent<AnimatorDirectionComponent>(entity);
 				GameObjectEntity.Destroy(animatorDirectionComponent);
-				// UpdateInjectedComponentGroups();
                 
 				int dirIndex = animatorDirectionComponent.dirIndex;
 				float3 faceDirValue = animatorDirectionComponent.dirValue;
 				
-				playerAnimatorComponent.animator.SetFloat(faceX, faceDirValue.x);
-				playerAnimatorComponent.animator.SetFloat(faceY, faceDirValue.z);
+				beeAnimatorComponent.animator.SetFloat(faceX, faceDirValue.x);
+				beeAnimatorComponent.animator.SetFloat(faceY, faceDirValue.z);
 				
-				playerAnimatorComponent.currentDirIndex = dirIndex;
-				playerAnimatorComponent.currentFaceDirValue = faceDirValue;
+				beeAnimatorComponent.currentDirIndex = dirIndex;
+				beeAnimatorComponent.currentFaceDirValue = faceDirValue;
 			}
 		}
 	}

@@ -32,7 +32,7 @@ namespace Javatale.Prototype
 				ChildComponent childComponent = data.ChildComponent[i];
 				NavMeshEventComponent navMeshEventComponent = data.NavMeshEventComponent[i];
 
-				navMeshEventComponent = childComponent.GetComponent<NavMeshEventComponent>(); //DISINI
+				// navMeshEventComponent = childComponent.GetComponent<NavMeshEventComponent>(); //DISINI
                 float3 destination = navMeshEventComponent.Destination;
 
                 commandBuffer.RemoveComponent<NavMeshEventComponent>(entity);
@@ -44,6 +44,7 @@ namespace Javatale.Prototype
 
 				int entityIndex = childComponent.EntityIndex;
 				// GameDebug.Log("set destination "+destination);
+				// GameDebug.Log("OK Child");
 
                 commandBuffer.AddComponent(parentEntitiesInGame[entityIndex], new EnemyAIDirection 
 				{

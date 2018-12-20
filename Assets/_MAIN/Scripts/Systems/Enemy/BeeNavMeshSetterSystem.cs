@@ -16,7 +16,7 @@ namespace Javatale.Prototype
 		public struct Data
 		{
 			public readonly int Length;
-			[ReadOnlyAttribute] public EntityArray entity;
+			[ReadOnlyAttribute] public EntityArray Entity;
 			public ComponentDataArray<Bee> Bee;
 			[ReadOnlyAttribute] public ComponentDataArray<NavMeshData> NavMeshData;
 			[ReadOnlyAttribute] public ComponentDataArray<Position> Position;
@@ -30,7 +30,7 @@ namespace Javatale.Prototype
 
 		protected override void OnUpdate ()
 		{
-			EntityManager manager = World.Active.GetOrCreateManager<EntityManager>();
+			// EntityManager manager = World.Active.GetOrCreateManager<EntityManager>();
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
 			List<GameObjectEntity> childEntitiesInGame = GameManager.childEntitiesInGame;
 			JavataleSettings settings = GameManager.settings;
@@ -39,7 +39,7 @@ namespace Javatale.Prototype
 
 			for (int i=0; i<data.Length; i++)
 			{
-				Entity entity = data.entity[i];
+				Entity entity = data.Entity[i];
 				Bee bee = data.Bee[i];
 				NavMeshData navMeshData = data.NavMeshData[i];
 				Position position = data.Position[i];
@@ -64,11 +64,25 @@ namespace Javatale.Prototype
 				childGO.AddComponent<NavMeshEventComponent>().Destination = targetPos;
 				// NavMeshEventComponent navMeshComponent = new NavMeshEventComponent();
 				// navMeshComponent.Destination = targetPos;
+
+				/// Add MonoBehaviour Component with null refference on the entity
+				// manager.AddComponent(entityGO.Entity, childGO.GetComponent<NavMeshEventComponent>().GetType()); 
+				// manager.AddComponent(entityGO.Entity, typeof (NavMeshEventComponent));
+
+				/// Add the GameObjectEntity's entity into EntityManager
 				// GameObjectEntity.AddToEntityManager(manager, childGO);
-				manager.AddComponent(entityGO.Entity, childGO.GetComponent<NavMeshEventComponent>().GetType()); //DISINI
-				// entityGO.enabled = false;
-				// entityGO.enabled = true;
-				GameDebug.Log("OK");
+
+				/// Enabling-Disabling jutsu
+				entityGO.enabled = false;
+				entityGO.enabled = true;
+				// GameDebug.Log("OK Child");
+
+				/// New Reset Data from ComponentSystem
+				// data = new Data();
+				// break;
+				// return;
+                UpdateInjectedComponentGroups();
+
 #endregion
 
 #region Conventional Direction

@@ -118,7 +118,7 @@ namespace Javatale.Prototype
 
 #endregion
 
-#region ========== ANIMATOR DATA ==========
+#region ========== PLAYER ANIMATOR DATA ==========
 
 	public struct AnimatorPlayerMove : IComponentData 
 	{
@@ -138,6 +138,32 @@ namespace Javatale.Prototype
 	}
 
 	public struct AnimatorPlayerSlashAttack : IComponentData 
+	{
+		// public int Value;
+	}
+	
+#endregion
+
+#region ========== BEE ANIMATOR DATA ==========
+
+	public struct AnimatorBeeMove : IComponentData 
+	{
+		public int dirIndex;
+		public float3 dirValue;
+		//
+	}
+
+	public struct AnimatorBeeIdle : IComponentData 
+	{
+		// public int Value; 
+	}
+
+	public struct AnimatorBeeHurt : IComponentData 
+	{
+		public int Value;
+	}
+
+	public struct AnimatorBeeAttack : IComponentData 
 	{
 		// public int Value;
 	}

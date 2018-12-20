@@ -169,6 +169,7 @@ namespace Javatale.Prototype
 				int currentParentEntityIndex = parentEntitiesInGame.Count-1;
 
 				manager.SetComponentData(beeEntity, new Bee { MoveRange = settings.beeMoveRange, IdleTimer = UnityRandom.Range(settings.enemyMinIdleCooldown, settings.enemyMaxIdleCooldown), EnemyAIPowerToggle = 0 });
+				// manager.SetComponentData(beeEntity, new Bee { MoveRange = settings.beeMoveRange, IdleTimer = 0f, EnemyAIPowerToggle = 0 });
 				manager.SetComponentData(beeEntity, new Parent { EntityIndex = currentParentEntityIndex });
 
 				// CHILD

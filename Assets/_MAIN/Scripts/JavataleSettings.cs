@@ -15,8 +15,8 @@ namespace Javatale.Prototype
     public class JavataleSettings : MonoBehaviour
     {
         [HeaderAttribute("Reference Components")]
-        // public PositionComponent positionComponent;
-        // public MoveDirectionComponent moveDirectionComponent;
+        public GameObject playerPrefab;
+        public GameObject beeEnemyPrefab;
 
         [HeaderAttribute("Attributes")]
         public float verticalBound = 10.0f;
@@ -38,8 +38,9 @@ namespace Javatale.Prototype
         public float enemyMinimumFinishGap = 0.5f;
 
         [SpaceAttribute(10f)]
-        public GameObject playerPrefab;
-        public GameObject beeEnemyPrefab;
+			
+        public string faceX = Constants.AnimatorParameter.Float.FACE_X;
+        public string faceY = Constants.AnimatorParameter.Float.FACE_Y;
 
         [HeaderAttribute("Index = 0 : Down, 1 : Left, 2 : Up, 3 : Right")]
         public float3[] playerAttackRanges;
