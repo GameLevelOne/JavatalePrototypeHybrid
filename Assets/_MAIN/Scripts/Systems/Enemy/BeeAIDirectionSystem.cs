@@ -61,39 +61,40 @@ namespace Javatale.Prototype
 
                         if (currentDirX != normalizedDirX || currentDirZ != normalizedDirZ)
                         {
-                            if (normalizedDirX != 0f && normalizedDirZ != 0f) 
-                            {//DIAGONAL FACING
-                                if (currentDirX == 0f) 
-                                {//PREVIOUS MOVEMENT IS VERTICAL
-                                    if (normalizedDirZ == -1f) 
-                                    {
-                                        faceDir.DirIndex = 0;//FACE DOWN
-                                        faceDir.Value = float3Back;
-                                    }
-                                    else 
-                                    {
-                                        faceDir.DirIndex = 2;//FACE UP
-                                        faceDir.Value = float3Front;
-                                    }
-                                } else {//PREVIOUS MOVEMENT IS HORIZONTAL
-                                    if (normalizedDirX == -1f) 
-                                    {
-                                        faceDir.DirIndex = 1;//FACE LEFT
-                                        faceDir.Value = float3Left;
-                                    }
-                                    else 
-                                    {
-                                        faceDir.DirIndex = 3;//FACE RIGHT
-                                        faceDir.Value = float3Right;
-                                    }
-                                }
+                            // if (normalizedDirX != 0f && normalizedDirZ != 0f) 
+                            // {//DIAGONAL FACING
+                            //     if (currentDirX == 0f) 
+                            //     {//PREVIOUS MOVEMENT IS VERTICAL
+                            //         if (normalizedDirZ == -1f) 
+                            //         {
+                            //             faceDir.DirIndex = 0;//FACE DOWN
+                            //             faceDir.Value = float3Back;
+                            //         }
+                            //         else 
+                            //         {
+                            //             faceDir.DirIndex = 2;//FACE UP
+                            //             faceDir.Value = float3Front;
+                            //         }
+                            //     } else {//PREVIOUS MOVEMENT IS HORIZONTAL
+                            //         if (normalizedDirX == -1f) 
+                            //         {
+                            //             faceDir.DirIndex = 1;//FACE LEFT
+                            //             faceDir.Value = float3Left;
+                            //         }
+                            //         else 
+                            //         {
+                            //             faceDir.DirIndex = 3;//FACE RIGHT
+                            //             faceDir.Value = float3Right;
+                            //         }
+                            //     }
 
-                                commandBuffer.AddComponent(entity, new AnimatorBeeMove { 
-                                    dirIndex = faceDir.DirIndex,
-                                    dirValue = faceDir.Value	 
-                                });
-                            } 
-                            else if (normalizedDirX != 0f && normalizedDirZ == 0f) 
+                            //     commandBuffer.AddComponent(entity, new AnimatorBeeMove { 
+                            //         dirIndex = faceDir.DirIndex,
+                            //         dirValue = faceDir.Value	 
+                            //     });
+                            // } 
+                            // else 
+                            if (normalizedDirX != 0f) 
                             {
                                 if (normalizedDirX == -1f) 
                                 {//FACE LEFT
@@ -111,7 +112,7 @@ namespace Javatale.Prototype
                                     dirValue = faceDir.Value	 
                                 });
                             }
-                            else if (normalizedDirX == 0f && normalizedDirZ != 0f)
+                            else if ( normalizedDirZ != 0f)
                             {
                                 if (normalizedDirZ == -1f) 
                                 {//FACE DOWN

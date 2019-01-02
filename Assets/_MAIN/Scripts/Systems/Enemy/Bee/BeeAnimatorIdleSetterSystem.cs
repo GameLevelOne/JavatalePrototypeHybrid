@@ -22,7 +22,8 @@ namespace Javatale.Prototype
 		protected override void OnUpdate () 
 		{
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
-			List<int> entitiesAnimationToggle = GameManager.entitiesAnimationToggle;
+			// List<int> entitiesAnimationToggle = GameManager.entitiesAnimationToggle;
+            List<int> entitiesIdleLoopAnimationChecker = GameManager.entitiesIdleLoopAnimationChecker;
             List<GameObjectEntity> childEntitiesInGame = GameManager.childEntitiesInGame;
 
 			for (int i=0; i<data.Length; i++) 
@@ -35,16 +36,25 @@ namespace Javatale.Prototype
 				commandBuffer.RemoveComponent<AnimatorBeeIdle>(entity);
 
 				int entityIndex = parent.EntityIndex;
-					
-                GameObjectEntity entityGO = childEntitiesInGame[entityIndex];
-                GameObject childGO = entityGO.gameObject;
 
-                // IDLE
-                childGO.AddComponent<BeeAnimationIdleFlyComponent>();
-                entityGO.enabled = false;
-                entityGO.enabled = true;
-				// return;
-                UpdateInjectedComponentGroups();
+				if (entitiesIdleLoopAnimationChecker[entityIndex] == 0)
+				{
+					entitiesIdleLoopAnimationChecker[entityIndex] = 1;
+					
+					GameObjectEntity entityGO = childEntitiesInGame[entityIndex];
+					GameObject childGO = entityGO.gameObject;
+
+					// IDLE
+					childGO.AddComponent<BeeAnimationIdleFlyComponent>();
+
+					// ===== BUG Duplicated Component =====
+					// entityGO.enabled = false;
+					// entityGO.enabled = true;
+					// ===== BUG =====
+
+					UpdateInjectedComponentGroups();
+					// return;
+				}
 			}
 		}
 	}

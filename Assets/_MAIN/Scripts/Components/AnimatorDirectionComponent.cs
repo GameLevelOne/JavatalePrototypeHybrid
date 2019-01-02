@@ -7,5 +7,11 @@ namespace Javatale.Prototype
 	{
 		public int dirIndex;
 		public float3 dirValue;
+
+		public void SetValue (int index, float3 value)
+		{
+			dirIndex = index;
+			dirValue = value;
+		}
 	}
 }

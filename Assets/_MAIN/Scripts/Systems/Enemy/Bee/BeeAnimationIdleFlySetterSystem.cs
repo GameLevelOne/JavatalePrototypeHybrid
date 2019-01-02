@@ -23,6 +23,7 @@ namespace Javatale.Prototype
 		protected override void OnUpdate () 
 		{
 			EntityCommandBuffer commandBuffer = PostUpdateCommands;
+            List<int> entitiesIdleLoopAnimationChecker = GameManager.entitiesIdleLoopAnimationChecker;
 			List<int> entitiesAnimationToggle = GameManager.entitiesAnimationToggle;
 
 			for (int i=0; i<data.Length; i++) {
@@ -31,11 +32,10 @@ namespace Javatale.Prototype
 				BeeAnimatorComponent beeAnimatorComponent = data.BeeAnimatorComponent[i];
 				BeeAnimationIdleFlyComponent beeAnimationIdleFlyComponent = data.BeeAnimationIdleFlyComponent[i];
 
-				int entityIndex = childComponent.EntityIndex;
-
 				commandBuffer.RemoveComponent<BeeAnimationIdleFlyComponent>(entity);
 				GameObjectEntity.Destroy(beeAnimationIdleFlyComponent);
 
+				int entityIndex = childComponent.EntityIndex;
 				int animationToggle = entitiesAnimationToggle[entityIndex];
 
 				if (animationToggle == 0)
@@ -44,6 +44,8 @@ namespace Javatale.Prototype
 					beeAnimatorComponent.currentState = state;
 					beeAnimatorComponent.animator.Play(state.ToString());
 				}
+				
+				entitiesIdleLoopAnimationChecker[entityIndex] = 0;
 			}
 		}
 	}
